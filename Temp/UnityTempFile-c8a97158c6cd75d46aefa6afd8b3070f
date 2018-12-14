@@ -1,0 +1,195 @@
+-debug
+-target:library
+-nowarn:0169
+-langversion:4
+-out:Temp/Assembly-CSharp.dll
+-unsafe
+-r:"C:/Program Files/Unity/Editor/Data/Managed/UnityEngine.dll"
+-r:Library/ScriptAssemblies/Assembly-CSharp-firstpass.dll
+-r:"C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll"
+-r:"C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll"
+-r:"C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/TestRunner/UnityEngine.TestRunner.dll"
+-r:"C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/TestRunner/net35/unity-custom/nunit.framework.dll"
+-r:"C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityAnalytics/UnityEngine.Analytics.dll"
+-r:"C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityHoloLens/RuntimeEditor/UnityEngine.HoloLens.dll"
+-r:"C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityVR/RuntimeEditor/UnityEngine.VR.dll"
+-r:"C:/Program Files/Unity/Editor/Data/Managed/UnityEditor.dll"
+-define:UNITY_5_3_OR_NEWER
+-define:UNITY_5_4_OR_NEWER
+-define:UNITY_5_5_OR_NEWER
+-define:UNITY_5_6_OR_NEWER
+-define:UNITY_5_6_6
+-define:UNITY_5_6
+-define:UNITY_5
+-define:UNITY_ANALYTICS
+-define:ENABLE_AUDIO
+-define:ENABLE_CACHING
+-define:ENABLE_CLOTH
+-define:ENABLE_DUCK_TYPING
+-define:ENABLE_GENERICS
+-define:ENABLE_PVR_GI
+-define:ENABLE_MICROPHONE
+-define:ENABLE_MULTIPLE_DISPLAYS
+-define:ENABLE_PHYSICS
+-define:ENABLE_RUNTIME_NAVMESH_BUILDING
+-define:ENABLE_SPRITERENDERER_FLIPPING
+-define:ENABLE_SPRITES
+-define:ENABLE_TERRAIN
+-define:ENABLE_RAKNET
+-define:ENABLE_UNET
+-define:ENABLE_LZMA
+-define:ENABLE_UNITYEVENTS
+-define:ENABLE_WEBCAM
+-define:ENABLE_WWW
+-define:ENABLE_CLOUD_SERVICES_COLLAB
+-define:ENABLE_CLOUD_SERVICES_ADS
+-define:ENABLE_CLOUD_HUB
+-define:ENABLE_CLOUD_PROJECT_ID
+-define:ENABLE_CLOUD_SERVICES_UNET
+-define:ENABLE_CLOUD_SERVICES_BUILD
+-define:ENABLE_CLOUD_LICENSE
+-define:ENABLE_EDITOR_METRICS
+-define:ENABLE_EDITOR_METRICS_CACHING
+-define:ENABLE_NATIVE_ARRAY
+-define:INCLUDE_DYNAMIC_GI
+-define:INCLUDE_GI
+-define:PLATFORM_SUPPORTS_MONO
+-define:RENDER_SOFTWARE_CURSOR
+-define:INCLUDE_PUBNUB
+-define:ENABLE_PLAYMODE_TESTS_RUNNER
+-define:ENABLE_SCRIPTING_NEW_CSHARP_COMPILER
+-define:ENABLE_VIDEO
+-define:UNITY_STANDALONE_WIN
+-define:UNITY_STANDALONE
+-define:ENABLE_SUBSTANCE
+-define:ENABLE_RUNTIME_GI
+-define:ENABLE_MOVIES
+-define:ENABLE_NETWORK
+-define:ENABLE_CRUNCH_TEXTURE_COMPRESSION
+-define:ENABLE_UNITYWEBREQUEST
+-define:ENABLE_CLOUD_SERVICES
+-define:ENABLE_CLOUD_SERVICES_ANALYTICS
+-define:ENABLE_CLOUD_SERVICES_PURCHASING
+-define:ENABLE_CLOUD_SERVICES_CRASH_REPORTING
+-define:ENABLE_EVENT_QUEUE
+-define:ENABLE_CLUSTERINPUT
+-define:ENABLE_VR
+-define:ENABLE_WEBSOCKET_HOST
+-define:ENABLE_MONO
+-define:NET_2_0_SUBSET
+-define:ENABLE_PROFILER
+-define:DEBUG
+-define:TRACE
+-define:UNITY_ASSERTIONS
+-define:UNITY_EDITOR
+-define:UNITY_EDITOR_64
+-define:UNITY_EDITOR_WIN
+-define:ENABLE_NATIVE_ARRAY_CHECKS
+-define:UNITY_TEAM_LICENSE
+-define:ENABLE_VSTU
+-define:CROSS_PLATFORM_INPUT
+Assets/0_script/Camera/CamFollow1.cs
+Assets/0_script/Camera/CameraControl.cs
+Assets/0_script/Collector/Error.cs
+Assets/0_script/Config/1pss/PassInfo.cs
+Assets/0_script/Config/2monster/MonsterData.cs
+Assets/0_script/Config/2monster/MonsterPresetData.cs
+Assets/0_script/Config/4trap/1door/TrapDoor.cs
+Assets/0_script/Config/4trap/2refresh/MonsterRefreshVo.cs
+Assets/0_script/Config/4trap/3atk/AtkOffice.cs
+Assets/0_script/Config/4trap/4cubetrap/CubeTrap.cs
+Assets/0_script/Config/4trap/5transfer/transfer.cs
+Assets/0_script/Config/4trap/6landmine/TrapLandmine.cs
+Assets/0_script/Config/4trap/7/TrapSpring.cs
+Assets/0_script/Config/4trap/TrapCollisoonVo.cs
+Assets/0_script/Config/4trap/TrapVo.cs
+Assets/0_script/Config/5weapon/BoomData.cs
+Assets/0_script/Config/6ai/PatrolData.cs
+Assets/0_script/Config/7cube/MaterialVo.cs
+Assets/0_script/Config/Base/CsvData1.cs
+Assets/0_script/Config/Base/CsvData2.cs
+Assets/0_script/Config/Base/DataAll.cs
+Assets/0_script/Config/Base/XmlData.cs
+Assets/0_script/Config/PathInfo.cs
+Assets/0_script/Config/PlayerData.cs
+Assets/0_script/Helper/ArrayTransfer.cs
+Assets/0_script/Helper/Log.cs
+Assets/0_script/NeverDestroy/Edit/MapManager.cs
+Assets/0_script/NeverDestroy/Edit/MonsterManager.cs
+Assets/0_script/NeverDestroy/Edit/PassMananger.cs
+Assets/0_script/NeverDestroy/Edit/TrapManager.cs
+Assets/0_script/NeverDestroy/InGame/Assets.cs
+Assets/0_script/NeverDestroy/InGame/Csv.cs
+Assets/0_script/NeverDestroy/InGame/MonoSingleton.cs
+Assets/0_script/Notice/MonoNotice.cs
+Assets/0_script/Notice/NEvt.cs
+Assets/0_script/Notice/Notice.cs
+Assets/0_script/Shared/LocalData.cs
+Assets/0_script/Ui/Battle/SkillCDView.cs
+Assets/0_script/Ui/common/Extension/BaseImage.cs
+Assets/0_script/Ui/common/Extension/CircleImage.cs
+Assets/0_script/Ui/common/Extension/SetPropertyUtility.cs
+Assets/0_script/Unit/0common/yuan.cs
+Assets/0_script/Unit/1ai/EnemyAI.cs
+Assets/0_script/Unit/2skill/effect/CanYing.cs
+Assets/0_script/Unit/2skill/effect/FadeInOut.cs
+Assets/0_script/Unit/2skill/effect/GhostItem.cs
+Assets/0_script/Unit/2skill/effect/GhostShadow.cs
+Assets/0_script/Unit/2skill/effect/fanweiCollder.cs
+Assets/0_script/Unit/3trap/SavePoint.cs
+Assets/0_script/Unit/3trap/TrapCollisoon.cs
+Assets/0_script/Unit/4weapon/ShootCollisoon.cs
+Assets/0_script/Unit/4weapon/boom/Boom.cs
+Assets/0_script/Unit/4weapon/boom/BoomCollision.cs
+Assets/0_script/Unit/GameMain.cs
+Assets/0_script/Unit/plyaer.cs
+Assets/0_script/mapcreat/CameraMove.cs
+Assets/0_script/mapcreat/MapCreat.cs
+Assets/0_script/mapcreat/XMLTest.cs
+Assets/0_script/passcreat/MonsterItem.cs
+Assets/0_script/passcreat/MonsterPresetItem.cs
+Assets/0_script/passcreat/PassCreat.cs
+"Assets/Resources/map/Standard Assets/Effects/ImageEffects/Scripts/Antialiasing.cs"
+"Assets/Resources/map/Standard Assets/Effects/ImageEffects/Scripts/Bloom.cs"
+"Assets/Resources/map/Standard Assets/Effects/ImageEffects/Scripts/BloomAndFlares.cs"
+"Assets/Resources/map/Standard Assets/Effects/ImageEffects/Scripts/BloomOptimized.cs"
+"Assets/Resources/map/Standard Assets/Effects/ImageEffects/Scripts/Blur.cs"
+"Assets/Resources/map/Standard Assets/Effects/ImageEffects/Scripts/BlurOptimized.cs"
+"Assets/Resources/map/Standard Assets/Effects/ImageEffects/Scripts/CameraMotionBlur.cs"
+"Assets/Resources/map/Standard Assets/Effects/ImageEffects/Scripts/ColorCorrectionCurves.cs"
+"Assets/Resources/map/Standard Assets/Effects/ImageEffects/Scripts/ColorCorrectionLookup.cs"
+"Assets/Resources/map/Standard Assets/Effects/ImageEffects/Scripts/ColorCorrectionRamp.cs"
+"Assets/Resources/map/Standard Assets/Effects/ImageEffects/Scripts/ContrastEnhance.cs"
+"Assets/Resources/map/Standard Assets/Effects/ImageEffects/Scripts/ContrastStretch.cs"
+"Assets/Resources/map/Standard Assets/Effects/ImageEffects/Scripts/CreaseShading.cs"
+"Assets/Resources/map/Standard Assets/Effects/ImageEffects/Scripts/DepthOfField.cs"
+"Assets/Resources/map/Standard Assets/Effects/ImageEffects/Scripts/DepthOfFieldDeprecated.cs"
+"Assets/Resources/map/Standard Assets/Effects/ImageEffects/Scripts/EdgeDetection.cs"
+"Assets/Resources/map/Standard Assets/Effects/ImageEffects/Scripts/Fisheye.cs"
+"Assets/Resources/map/Standard Assets/Effects/ImageEffects/Scripts/GlobalFog.cs"
+"Assets/Resources/map/Standard Assets/Effects/ImageEffects/Scripts/Grayscale.cs"
+"Assets/Resources/map/Standard Assets/Effects/ImageEffects/Scripts/ImageEffectBase.cs"
+"Assets/Resources/map/Standard Assets/Effects/ImageEffects/Scripts/ImageEffects.cs"
+"Assets/Resources/map/Standard Assets/Effects/ImageEffects/Scripts/MotionBlur.cs"
+"Assets/Resources/map/Standard Assets/Effects/ImageEffects/Scripts/NoiseAndGrain.cs"
+"Assets/Resources/map/Standard Assets/Effects/ImageEffects/Scripts/NoiseAndScratches.cs"
+"Assets/Resources/map/Standard Assets/Effects/ImageEffects/Scripts/PostEffectsBase.cs"
+"Assets/Resources/map/Standard Assets/Effects/ImageEffects/Scripts/PostEffectsHelper.cs"
+"Assets/Resources/map/Standard Assets/Effects/ImageEffects/Scripts/Quads.cs"
+"Assets/Resources/map/Standard Assets/Effects/ImageEffects/Scripts/ScreenOverlay.cs"
+"Assets/Resources/map/Standard Assets/Effects/ImageEffects/Scripts/ScreenSpaceAmbientObscurance.cs"
+"Assets/Resources/map/Standard Assets/Effects/ImageEffects/Scripts/ScreenSpaceAmbientOcclusion.cs"
+"Assets/Resources/map/Standard Assets/Effects/ImageEffects/Scripts/SepiaTone.cs"
+"Assets/Resources/map/Standard Assets/Effects/ImageEffects/Scripts/SunShafts.cs"
+"Assets/Resources/map/Standard Assets/Effects/ImageEffects/Scripts/TiltShift.cs"
+"Assets/Resources/map/Standard Assets/Effects/ImageEffects/Scripts/Tonemapping.cs"
+"Assets/Resources/map/Standard Assets/Effects/ImageEffects/Scripts/Triangles.cs"
+"Assets/Resources/map/Standard Assets/Effects/ImageEffects/Scripts/Twirl.cs"
+"Assets/Resources/map/Standard Assets/Effects/ImageEffects/Scripts/VignetteAndChromaticAberration.cs"
+"Assets/Resources/map/Standard Assets/Effects/ImageEffects/Scripts/Vortex.cs"
+-r:"C:\Program Files\Unity\Editor\Data\Mono\lib\mono\unity\System.Runtime.Serialization.dll"
+-r:"C:\Program Files\Unity\Editor\Data\Mono\lib\mono\unity\System.Xml.Linq.dll"
+-r:"C:\Program Files\Unity\Editor\Data\Mono\lib\mono\unity\UnityScript.dll"
+-r:"C:\Program Files\Unity\Editor\Data\Mono\lib\mono\unity\UnityScript.Lang.dll"
+-r:"C:\Program Files\Unity\Editor\Data\Mono\lib\mono\unity\Boo.Lang.dll"
+-sdk:unity
