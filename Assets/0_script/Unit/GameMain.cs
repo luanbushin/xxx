@@ -38,6 +38,10 @@ public class GameMain : MonoNotice{
     }
 
     private void initBaseLogic() {
+        addListener(Notice.EnemyComplete,() =>
+        {
+            gameObject.GetComponent<MonsterManager>().initMonster(xml.LoadEnemyXml(patrolObject));
+        });
         addListener(Notice.WeaponCollision, (string s) =>
         {
             overPanel.SetActive(true);
@@ -53,17 +57,18 @@ public class GameMain : MonoNotice{
 
     }
 
-
+    public XMLTest xml = new XMLTest();
     private void gamestrat() {
-        XMLTest xml = new XMLTest();
+         
         //gameObject.SetActive(false);
         curPassInfo = xml.loadPassInfo();
 
 
 
         gameObject.GetComponent<MapManager>().initmap(xml.LoadXml());
-        gameObject.GetComponent<MonsterManager>().initMonster(xml.LoadEnemyXml(patrolObject));
+      
         gameObject.GetComponent<MonsterManager>().initMonsterPatrol(patrolObject);
+       ;
         gameObject.GetComponent<PassMananger>().initBox(xml.LoadBoxXml());
         gameObject.GetComponent<PassMananger>().initPassInfo(curPassInfo);
         gameObject.GetComponent<TrapManager>().inittrap(curPassInfo.trapList);

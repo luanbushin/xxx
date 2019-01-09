@@ -32,6 +32,7 @@ public class EnemyAI : Boom {
     }
 
     public void initMonsterValue(MonsterPresetDataValueData v) {
+        
         value = v;
         if (agent)
             agent.speed = v.move;

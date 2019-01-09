@@ -53,12 +53,13 @@ public class MonsterManager : MonoNotice
 
     private IEnumerator loadCompleteInfo()
     {
-        var data = MonsterPresetData.get(1);       
-
+        var data = MonsterPresetData.get(1);
+        Notice.EnemyComplete.broadcast();
         yield return 1;
     }
 
     public void initMonster(Dictionary<Vector3, int> enemlist) {
+  
         foreach (Vector3 list in enemlist.Keys)
         {
             GameObject obj = GameObject.Instantiate(enemyGameObject, list, gameObject.transform.rotation);
