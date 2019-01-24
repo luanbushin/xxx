@@ -48,6 +48,9 @@ public class MapCreat : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        Debug.Log("===================");
+        Debug.Log(Application.streamingAssetsPath);
+
         creatBtn.onClick.AddListener(creatMap);
 
         saveBtn.onClick.AddListener(onSaveMap);
@@ -62,7 +65,10 @@ public class MapCreat : MonoBehaviour
     }
     private void getBoxNames() {
         string boxname = "";
-        string fullPath = "Assets/Resources/Prefabs/box" + "/";
+
+        string fullPath = "Assets/Resources/map/Prefabs" + "/";
+
+
 
 
 
@@ -98,7 +104,7 @@ public class MapCreat : MonoBehaviour
         mapItemList = new GameObject[boxNames.Length];
 
         for (int i = 0; i < boxNames.Length; i++) {
-            mapItemList[i] = (GameObject)Resources.Load("Prefabs/box/" + boxNames[i]);
+            mapItemList[i] = (GameObject)Resources.Load("map/Prefabs/" + boxNames[i]);
         }
         
         boxList.onValueChanged.AddListener(onValueChanged);
@@ -195,6 +201,8 @@ public class MapCreat : MonoBehaviour
     private void onSaveMap()
     {
         XMLTest test = new XMLTest();
+        widthTxt.text = "0";
+        heightTxt.text = "0";
         test.creatMap(int.Parse(widthTxt.text), int.Parse(heightTxt.text), mapObject, mapIndexObject);
     }
     private void onLoadMap()

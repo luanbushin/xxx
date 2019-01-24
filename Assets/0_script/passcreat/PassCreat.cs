@@ -357,7 +357,7 @@ public class PassCreat : MonoNotice
     private void getBoxNames()
     {
         string boxname = "";
-        string fullPath = "Assets/Resources/Prefabs/box" + "/";
+        string fullPath = "Assets/Resources/map/Prefabs" + "/";
 
 
 
@@ -390,7 +390,7 @@ public class PassCreat : MonoNotice
 
         for (int i = 0; i < boxNames.Length; i++)
         {
-            mapItemList[i] = (GameObject)Resources.Load("Prefabs/box/" + boxNames[i]);
+            mapItemList[i] = (GameObject)Resources.Load("map/Prefabs/" + boxNames[i]);
         }
     }
 

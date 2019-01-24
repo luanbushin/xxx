@@ -149,13 +149,13 @@ public class XMLTest
         //获取根节点
         XmlNode root = xml.SelectSingleNode("Map");
         //添加元素
-        XmlElement element = xml.CreateElement("width");
-        element.InnerText = width+"";
-        root.AppendChild(element);
+        //XmlElement element = xml.CreateElement("width");
+        //element.InnerText = width+"";
+        //root.AppendChild(element);
 
-        XmlElement element1 = xml.CreateElement("height");
-        element1.InnerText = height + "";
-        root.AppendChild(element1);
+        //XmlElement element1 = xml.CreateElement("height");
+        //element1.InnerText = height + "";
+        //root.AppendChild(element1);
         string itemStr = "";
 
         foreach (Vector3 list in mapObject.Keys) {

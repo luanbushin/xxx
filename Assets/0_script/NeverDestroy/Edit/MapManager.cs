@@ -25,7 +25,7 @@ public class MapManager : MonoBehaviour {
     private void getBoxNames()
     {
         string boxname = "";
-        string fullPath = "Assets/Resources/Prefabs/box" + "/";
+        string fullPath = "Assets/Resources/map/Prefabs" + "/";
 
         if (Directory.Exists(fullPath))
         {
@@ -53,7 +53,7 @@ public class MapManager : MonoBehaviour {
 
         for (int i = 0; i < boxNames.Length; i++)
         {
-            mapItemList[i] = (GameObject)Resources.Load("Prefabs/box/" + boxNames[i]);
+            mapItemList[i] = (GameObject)Resources.Load("map/Prefabs/" + boxNames[i]);
         }
     }
 
