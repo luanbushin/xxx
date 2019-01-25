@@ -16,6 +16,7 @@ namespace Game.Noticfacation
     public class Notice
     {
         public static readonly NE GAME_INIT_COMPLETE = new NE();
+        public static readonly NE MAZE_CREAT_COMPLETE = new NE();
 
         public static readonly NEF UPDATE_PHYSICS = new NEF();
         public static readonly NEF UPDATE_FRAME = new NEF();
