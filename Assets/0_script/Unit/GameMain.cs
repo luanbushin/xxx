@@ -54,6 +54,11 @@ public class GameMain : MonoNotice{
             Destroy(player);
         });
 
+        addListener(Notice.GAME_PLAYER_ATIVE, () =>
+        {
+
+            player.SetActive(true);
+        });
 
     }
 
@@ -73,7 +78,6 @@ public class GameMain : MonoNotice{
         gameObject.GetComponent<PassMananger>().initPassInfo(curPassInfo);
         gameObject.GetComponent<TrapManager>().inittrap(curPassInfo.trapList);
 
-        player.SetActive(true);
     }
 	
 	// Update is called once per frame

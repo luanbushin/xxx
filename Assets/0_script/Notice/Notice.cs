@@ -1,6 +1,7 @@
 ﻿using NE = Game.Noticfacation.NEvt_0;
 using NEF = Game.Noticfacation.NEvt_1<float>;
 using NEI = Game.Noticfacation.NEvt_1<int>;
+using NELIST = Game.Noticfacation.NEvt_1<int[,]>;
 using NEFF = Game.Noticfacation.NEvt_2<float, float>;
 using NEII = Game.Noticfacation.NEvt_2<int, int>;
 using NES = Game.Noticfacation.NEvt_1<string>;
@@ -11,12 +12,14 @@ using NEGS = Game.Noticfacation.NEvt_2<string, UnityEngine.GameObject>;
 using NEVS = Game.Noticfacation.NEvt_2<string, System.Collections.Generic.List<UnityEngine.Vector3>>;
 
 
+
 namespace Game.Noticfacation
 {
     public class Notice
     {
         public static readonly NE GAME_INIT_COMPLETE = new NE();
-        public static readonly NE MAZE_CREAT_COMPLETE = new NE();
+        public static readonly NE GAME_PLAYER_ATIVE = new NE();
+        public static readonly NELIST MAZE_CREAT_COMPLETE = new NELIST();
 
         public static readonly NEF UPDATE_PHYSICS = new NEF();
         public static readonly NEF UPDATE_FRAME = new NEF();
