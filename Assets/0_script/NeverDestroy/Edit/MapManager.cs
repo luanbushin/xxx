@@ -19,7 +19,7 @@ public class MapManager : MonoNotice
     public bool mazeMode = false;
     // Use this for initialization
 
-
+    public MapConfig mapConfig;
 
 
 
@@ -30,7 +30,9 @@ public class MapManager : MonoNotice
 
 
     void Start() {
-        getBoxNames();
+        mapConfig = new MapConfig();
+        boxNames = mapConfig.boxNames;
+        mapItemList = mapConfig.mapItemList;
 
         addListener(Notice.MAZE_CREAT_COMPLETE, (maplist) =>
         {
@@ -48,40 +50,7 @@ public class MapManager : MonoNotice
             }
         });
     }
-    private void getBoxNames()
-    {
-        string boxname = "";
-        string fullPath = "Assets/Resources/map/Prefabs" + "/";
 
-        if (Directory.Exists(fullPath))
-        {
-            DirectoryInfo direction = new DirectoryInfo(fullPath);
-            FileInfo[] files = direction.GetFiles("*", SearchOption.AllDirectories);
-
-
-            for (int i = 0; i < files.Length; i++)
-            {
-                if (files[i].Name.EndsWith(".meta"))
-                {
-                    continue;
-                }
-
-                string str = files[i].Name.Replace(".prefab", "");
-
-                if (boxname.Length > 0)
-                    boxname += ";";
-                boxname += str;
-            }
-            boxNames = boxname.Split(';');
-        }
-
-        mapItemList = new GameObject[boxNames.Length];
-
-        for (int i = 0; i < boxNames.Length; i++)
-        {
-            mapItemList[i] = (GameObject)Resources.Load("map/Prefabs/" + boxNames[i]);
-        }
-    }
 
 
     public void initmap(Dictionary<Vector3, int> mapIndexObj)
@@ -127,6 +96,10 @@ public class MapManager : MonoNotice
         int[] arr = {8, 12, 13, 14, 15 };
         return mapItemList[arr[UnityEngine.Random.Range(0, arr.Length)]];
     }
+    public GameObject getRandomFlower()
+    {
+        return mapConfig.flowersList[UnityEngine.Random.Range(0, mapConfig.flowersList.Length)];
+    }
 
     public void diaoluo(List<Vector3> list)
     {
@@ -141,6 +114,9 @@ public class MapManager : MonoNotice
         }
     }
 
+    public GameObject getMapPrefabsByName(string name) {
+        return (GameObject)Resources.Load("map/Prefabs/" + name);
+    }
 
 
 

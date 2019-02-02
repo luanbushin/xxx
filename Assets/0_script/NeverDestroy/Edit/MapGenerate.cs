@@ -308,7 +308,7 @@ public class MapGenerate : MonoNotice
             {
                 for (int k = y; k < y + h; k++)
                 {
-                    Carve(new Vector2(k, j));
+                    Carve(new Vector2(j, k));
                 }
             }
         }
@@ -369,7 +369,7 @@ public class MapGenerate : MonoNotice
     }
 
     private void creatRoom(Rect rect) {
-
+        GameObject go = Instantiate(MapManager.Instance.getRandomFlower(), new Vector3(rect.x +rect.width/2, 1.1f, rect.y+rect.height/2), Quaternion.identity) as GameObject;
     }
 
 
