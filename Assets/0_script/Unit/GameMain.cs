@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using Game.Noticfacation;
 using Game;
+using UnityEngine.UI;
+
+using System.IO;
 
 public class GameMain : MonoNotice{
     public static GameMain Instance;
@@ -11,7 +14,7 @@ public class GameMain : MonoNotice{
     public GameObject overPanel;
     private Dictionary<Vector3, Dictionary<Vector3, PatrolData>> patrolObject = new Dictionary<Vector3, Dictionary<Vector3, PatrolData>>();
 
-
+    public Text debugTxt;
 
     private PassInfo curPassInfo;
 
@@ -68,11 +71,17 @@ public class GameMain : MonoNotice{
         //gameObject.SetActive(false);
         curPassInfo = xml.loadPassInfo();
 
+        string fullPath = Application.dataPath + "/Resources/map/Prefabs" + "/";
 
+        debugTxt.text = fullPath + "";
+        DirectoryInfo direction = new DirectoryInfo(fullPath);
+        FileInfo[] files = direction.GetFiles("*", SearchOption.AllDirectories);
+
+        debugTxt.text = files.Length+"";
 
         gameObject.GetComponent<MapManager>().initmap(xml.LoadXml());
-      
-        gameObject.GetComponent<MonsterManager>().initMonsterPatrol(patrolObject);
+        
+       gameObject.GetComponent<MonsterManager>().initMonsterPatrol(patrolObject);
        ;
         gameObject.GetComponent<PassMananger>().initBox(xml.LoadBoxXml());
         gameObject.GetComponent<PassMananger>().initPassInfo(curPassInfo);

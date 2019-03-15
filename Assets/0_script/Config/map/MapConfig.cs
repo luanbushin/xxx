@@ -17,7 +17,7 @@ public class MapConfig
     {
         string boxname = "";
         string flower = "";
-        string fullPath = "Assets/Resources/map/Prefabs" + "/";
+        string fullPath = Application.dataPath+"/Resources/map/Prefabs" + "/";
 
         if (Directory.Exists(fullPath))
         {

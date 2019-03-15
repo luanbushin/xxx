@@ -12,7 +12,7 @@ public class XMLTest
         XmlDocument xml = new XmlDocument();
         XmlReaderSettings set = new XmlReaderSettings();
         set.IgnoreComments = true;//这个设置是忽略xml注释文档的影响。有时候注释会影响到xml的读取
-        xml.Load(XmlReader.Create((Application.dataPath + "/StreamingAssets/passInfo.xml"), set));
+        xml.Load(XmlReader.Create((Application.streamingAssetsPath + "/passInfo.xml"), set));
 
         //得到objects节点下的所有子节点
         XmlNodeList xmlNodeList = xml.SelectSingleNode("Map").ChildNodes;
