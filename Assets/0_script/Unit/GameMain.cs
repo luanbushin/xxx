@@ -73,11 +73,8 @@ public class GameMain : MonoNotice{
 
         string fullPath = Application.dataPath + "/Resources/map/Prefabs" + "/";
 
-        debugTxt.text = fullPath + "";
         DirectoryInfo direction = new DirectoryInfo(fullPath);
         FileInfo[] files = direction.GetFiles("*", SearchOption.AllDirectories);
-
-        debugTxt.text = files.Length+"";
 
         gameObject.GetComponent<MapManager>().initmap(xml.LoadXml());
         
