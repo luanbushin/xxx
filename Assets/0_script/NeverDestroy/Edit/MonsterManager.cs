@@ -6,6 +6,7 @@ using System;
 using Game;
 using Game.Noticfacation;
 
+
 public class MonsterManager : MonoNotice
 {
     public static MonsterManager Instance;
@@ -49,6 +50,17 @@ public class MonsterManager : MonoNotice
             }
         });
 
+    }
+
+    public void creatEnemy(Rect rect) {
+        GameObject enemy = Instantiate(MonsterManager.Instance.getWarriorMonster(), new Vector3(rect.x + rect.width / 2, 1.0f, rect.y + rect.height / 2), Quaternion.identity) as GameObject;
+        enemy.AddComponent<EnemyAutoAi>() ;
+    }
+
+    public GameObject getWarriorMonster()
+    {
+        int random = UnityEngine.Random.Range(1,3);
+        return (GameObject)Resources.Load("enemy/Warrior_0" + random);
     }
 
     private IEnumerator loadCompleteInfo()

@@ -31,6 +31,10 @@ public class EnemyAI : Boom {
             agent.speed = value.move;
     }
 
+    public void autoMode() {
+        Debug.Log("自动~~~~~~~~~~~~~~~~~~");
+    }
+
     public void initMonsterValue(MonsterPresetDataValueData v) {
         
         value = v;

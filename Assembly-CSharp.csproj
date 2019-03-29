@@ -82,6 +82,7 @@
     <Compile Include="Assets\0_script\Config\Base\DataAll.cs" />
     <Compile Include="Assets\0_script\Config\Base\XmlData.cs" />
     <Compile Include="Assets\0_script\Config\map\MapConfig.cs" />
+    <Compile Include="Assets\0_script\Config\MonsterConfig.cs" />
     <Compile Include="Assets\0_script\Config\PathInfo.cs" />
     <Compile Include="Assets\0_script\Config\PlayerData.cs" />
     <Compile Include="Assets\0_script\Helper\ArrayTransfer.cs" />
@@ -110,6 +111,7 @@
     <Compile Include="Assets\0_script\Ui\common\Extension\SetPropertyUtility.cs" />
     <Compile Include="Assets\0_script\Unit\0common\yuan.cs" />
     <Compile Include="Assets\0_script\Unit\1ai\EnemyAI.cs" />
+    <Compile Include="Assets\0_script\Unit\1ai\EnemyAutoAi.cs" />
     <Compile Include="Assets\0_script\Unit\2skill\effect\CanYing.cs" />
     <Compile Include="Assets\0_script\Unit\2skill\effect\FadeInOut.cs" />
     <Compile Include="Assets\0_script\Unit\2skill\effect\fanweiCollder.cs" />

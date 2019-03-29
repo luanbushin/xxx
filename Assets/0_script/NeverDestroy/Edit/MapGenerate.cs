@@ -369,7 +369,10 @@ public class MapGenerate : MonoNotice
     }
 
     private void creatRoom(Rect rect) {
-        GameObject go = Instantiate(MapManager.Instance.getRandomFlower(), new Vector3(rect.x +rect.width/2, 1.1f, rect.y+rect.height/2), Quaternion.identity) as GameObject;
+        MonsterManager.Instance.creatEnemy(rect);
+        //GameObject go = Instantiate(MapManager.Instance.getRandomFlower(), new Vector3(rect.x +rect.width/2, 1.1f, rect.y+rect.height/2), Quaternion.identity) as GameObject;
+        //GameObject enemy = Instantiate(MonsterManager.Instance.getWarriorMonster(), new Vector3(rect.x + rect.width / 2, 1.0f, rect.y + rect.height / 2), Quaternion.identity) as GameObject; 
+        //enemy.transform.position = new Vector3(rect.x + rect.width / 2, 1.1f, rect.y + rect.height / 2);
     }
 
 
