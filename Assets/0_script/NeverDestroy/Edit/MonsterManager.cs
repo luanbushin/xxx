@@ -54,7 +54,7 @@ public class MonsterManager : MonoNotice
 
     public void creatEnemy(Rect rect) {
         GameObject enemy = Instantiate(MonsterManager.Instance.getWarriorMonster(), new Vector3(rect.x + rect.width / 2, 1.0f, rect.y + rect.height / 2), Quaternion.identity) as GameObject;
-        enemy.AddComponent<EnemyAutoAi>() ;
+        enemy.AddComponent<EnemyAutoAi>().roomrect = rect;
     }
 
     public GameObject getWarriorMonster()
