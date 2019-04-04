@@ -16,6 +16,7 @@ public class MonsterManager : MonoNotice
 
     public GameObject enemyparent;
     public GameObject enemyGameObject;
+    public GameObject enemyBox;
     private Dictionary<Vector3, GameObject> enemyObject = new Dictionary<Vector3, GameObject>();
 
     private void Awake()
@@ -53,8 +54,8 @@ public class MonsterManager : MonoNotice
     }
 
     public void creatEnemy(Rect rect) {
-        GameObject enemy = Instantiate(MonsterManager.Instance.getWarriorMonster(), new Vector3(rect.x + rect.width / 2, 1.0f, rect.y + rect.height / 2), Quaternion.identity) as GameObject;
-        enemy.AddComponent<EnemyAutoAi>().roomrect = rect;
+        GameObject box = Instantiate(enemyBox, new Vector3(rect.x + rect.width / 2, 1.0f, rect.y + rect.height / 2), Quaternion.identity) as GameObject;
+        box.AddComponent<EnemyAutoAi>().roomrect = rect;
     }
 
     public GameObject getWarriorMonster()
@@ -65,7 +66,7 @@ public class MonsterManager : MonoNotice
 
     private IEnumerator loadCompleteInfo()
     {
-        var data = MonsterPresetData.get(1);
+        //var data = MonsterPresetData.get(1);
         Notice.EnemyComplete.broadcast();
         yield return 1;
     }

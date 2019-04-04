@@ -71,7 +71,7 @@ public class MapManager : MonoNotice
             }
             //MapGenerate.Instance.creatBaseMap(200, 200);
 
-            MapGenerate.Instance.creatDungeon(199,199,1,10,5);
+            MapGenerate.Instance.creatDungeon(199,199,200,10,5);
 
 
         }

@@ -3,7 +3,7 @@ using System.Collections;
 
 public class EnemyAutoAi : MonoBehaviour
 {
-    private int state = 1;
+    private int state = -1;
     private Animation anim;
 
     public Rect roomrect;
@@ -11,23 +11,36 @@ public class EnemyAutoAi : MonoBehaviour
     private Vector3[] targetList;
     private int curTargetIndex;
 
-    public int TranslateSpeed = 5;
+    private GameObject model;
+
+    private bool arrivetarget;
+
+    public int TranslateSpeed = 3;
 
     // Use this for initialization
     void Start()
     {
-        anim = gameObject.GetComponent<Animation>();
-        anim.CrossFade("Idle", 0.08f);
+        loadModel();
 
+
+
+    }
+
+    private void loadModel() {
+        model = Instantiate(MonsterManager.Instance.getWarriorMonster(),transform.position, Quaternion.identity) as GameObject;
+        model.transform.SetParent(transform);
+        anim = model.GetComponent<Animation>();
+        anim.CrossFade("Idle", 0.08f);
         setTargetList();
+
     }
 
     private void setTargetList() {
         targetList = new Vector3[4];
         targetList[0] = new Vector3(roomrect.x, 1, roomrect.y);
-        targetList[1] = new Vector3(roomrect.x + roomrect.width, 1, roomrect.y);
-        targetList[2] = new Vector3(roomrect.x + roomrect.width, 1, roomrect.y+ roomrect.height);
-        targetList[3] = new Vector3(roomrect.x, 1, roomrect.y + roomrect.height);
+        targetList[1] = new Vector3(roomrect.x + roomrect.width-1, 1, roomrect.y);
+        targetList[2] = new Vector3(roomrect.x + roomrect.width-1, 1, roomrect.y + roomrect.height-1);
+        targetList[3] = new Vector3(roomrect.x, 1, roomrect.y + roomrect.height-1);
         curTargetIndex = 0;
 
         state = 0;
@@ -41,19 +54,34 @@ public class EnemyAutoAi : MonoBehaviour
             curTargetIndex = 0;
     }
 
-    private void walk(){
+    private void walk() {
         float distance = Vector3.Distance(target, transform.position);
-        if (distance < 1) {
+        //Debug.Log(distance);
+        if (arrivetarget) {
+            transform.position = target;
             findtarget();
+            arrivetarget = false;
             return;
         }
+        if (distance < 0.1)
+        {
+            arrivetarget = true;
+            return;
+        }
+        else {
+            arrivetarget = false;
+        }
         Vector3 move3 = target - this.transform.position;
-        transform.Translate(move3.normalized * Time.deltaTime * TranslateSpeed);
+  
 
-        anim.CrossFade("RunRight", 0.08f);
+        moveDirection(move3.normalized);
     }
 
-    //private move
+    private void moveDirection(Vector3 v3){
+        model.transform.LookAt(new Vector3(v3.x+transform.position.x,v3.y + transform.position.y, v3.z+transform.position.z));
+        transform.Translate(v3 * Time.deltaTime * TranslateSpeed);
+        anim.CrossFade("RunRight", 0.08f);
+    }
 
     // Update is called once per frame
     void Update()
