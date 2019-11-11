@@ -8,13 +8,22 @@ using UnityEngine.UI;
 
 public class MapCreat : MonoBehaviour
 {
+    public GameObject mainCanvas;
+
     public Button saveBtn;
     public Button loadBtn;
 
+    public Button grouplistBtn;
     public Button cancelBtn;
     public Button newBtn;
     public Button changeBtn;
     public Button deleteBtn;
+    public InputField findTxt;
+
+    public Camera mainCamera;
+    public Camera camera1;
+    public Camera camera2;
+
 
 
     public GameObject chooseBuild;
@@ -24,6 +33,8 @@ public class MapCreat : MonoBehaviour
     public Button creatBtn;
 
     public GameObject map;
+    public GameObject muenObj;
+
 
     private GameObject[] mapItemList;
     public Dropdown boxList;
@@ -39,11 +50,19 @@ public class MapCreat : MonoBehaviour
     private Dictionary<Vector3, GameObject> mapObject = new Dictionary<Vector3, GameObject>();
     private Dictionary<Vector3, int> mapIndexObject = new Dictionary<Vector3, int>();
 
+    private Dictionary<Vector3, GameObject> groupMapObject;
+    private Dictionary<Vector3, int> groupMapIndexObject;
+
+    private Dictionary<Vector3, GameObject> mapProObject = new Dictionary<Vector3, GameObject>();
+
     public int curIndex = 0;
 
     private string[] boxNames;
 
- 
+
+    private string creatMode = "map";
+
+
 
     // Use this for initialization
     void Start()
@@ -51,26 +70,56 @@ public class MapCreat : MonoBehaviour
         Debug.Log("===================");
         Debug.Log(Application.streamingAssetsPath);
 
+        camera1.gameObject.SetActive(false);
+        camera2.gameObject.SetActive(false);
+
+
         creatBtn.onClick.AddListener(creatMap);
 
         saveBtn.onClick.AddListener(onSaveMap);
         loadBtn.onClick.AddListener(onLoadMap);
 
+        grouplistBtn.onClick.AddListener(onGroupList);
         cancelBtn.onClick.AddListener(onCanelBuild);
         newBtn.onClick.AddListener(onNewBuild);
         changeBtn.onClick.AddListener(onChangeBuild);
         deleteBtn.onClick.AddListener(onDleleteBuild);
-
+        //findTxt.transform.GetComponent<InputField>().onValueChange.AddListener(findObject);
         getBoxNames();
     }
-    private void getBoxNames() {
+
+    private void onGroupList()
+    {
+        /**camera1.gameObject.SetActive(true);
+        mainCamera.gameObject.SetActive(false);
+        creatMode = "group";
+
+        groupMapObject = new Dictionary<Vector3, GameObject>();
+        groupMapIndexObject = new Dictionary<Vector3, int>();
+        creatPanel.SetActive(true);**/
+
+        creatMode = "grouplist";
+
+        camera1.gameObject.SetActive(false);
+        mainCamera.gameObject.SetActive(false);
+        camera2.gameObject.SetActive(true);
+
+        mainCanvas.SetActive(false);
+
+        Destroy(curNewObj);
+        curNewObj = null;
+    }
+
+    public void findObject(string str)
+    {
+        Debug.Log(str);
+    }
+
+    private void getBoxNames()
+    {
         string boxname = "";
 
         string fullPath = "Assets/Resources/map/Prefabs" + "/";
-
-
-
-
 
         boxList.ClearOptions();
 
@@ -79,7 +128,7 @@ public class MapCreat : MonoBehaviour
             DirectoryInfo direction = new DirectoryInfo(fullPath);
             FileInfo[] files = direction.GetFiles("*", SearchOption.AllDirectories);
 
-          
+
             for (int i = 0; i < files.Length; i++)
             {
                 if (files[i].Name.EndsWith(".meta"))
@@ -92,7 +141,7 @@ public class MapCreat : MonoBehaviour
                 if (boxname.Length > 0)
                     boxname += ";";
                 boxname += str;
-                
+
                 Dropdown.OptionData op = new Dropdown.OptionData();
                 op.text = str;
                 boxList.options.Add(op);
@@ -103,13 +152,26 @@ public class MapCreat : MonoBehaviour
 
         mapItemList = new GameObject[boxNames.Length];
 
-        for (int i = 0; i < boxNames.Length; i++) {
+        for (int i = 0; i < boxNames.Length; i++)
+        {
             mapItemList[i] = (GameObject)Resources.Load("map/Prefabs/" + boxNames[i]);
         }
-        
+
         boxList.onValueChanged.AddListener(onValueChanged);
         boxList.value = 1;
         boxList.value = 0;
+
+        initBoxList();
+    }
+
+    private void initBoxList(){
+        for (int i = 0; i < 558; i++) {
+            double num =i / 20;
+            GameObject obj = GameObject.Instantiate(mapItemList[i], new Vector3((i % 20)*3+5, -1000, (float)Math.Floor(num)*3), gameObject.transform.rotation);
+            obj.transform.SetParent(muenObj.transform);
+            mapProObject[obj.transform.position] = obj;
+        }
+       
     }
 
     private void onValueChanged(int arg0)
@@ -158,10 +220,12 @@ public class MapCreat : MonoBehaviour
         }
     }
 
-    private void creatBuildList() {
-        for (int i = 0; i < mapItemList.Length; i++) {
+    private void creatBuildList()
+    {
+        for (int i = 0; i < mapItemList.Length; i++)
+        {
             GameObject obj = GameObject.Instantiate(mapItemList[i], Vector3.zero, gameObject.transform.rotation);
-            obj.transform.position = new Vector3(i*2,-25,0);
+            obj.transform.position = new Vector3(i * 2, -25, 0);
         }
     }
     private void onNewBuild()
@@ -208,7 +272,7 @@ public class MapCreat : MonoBehaviour
     private void onLoadMap()
     {
         foreach (Vector3 list in mapObject.Keys)
-        { 
+        {
             Destroy(mapObject[list]);
             //mapObject.Remove(list);
             mapIndexObject.Remove(list);
@@ -235,17 +299,36 @@ public class MapCreat : MonoBehaviour
     {
         creatPanel.SetActive(false);
 
-
-
-
         for (int i = 0; i < int.Parse(widthTxt.text); i++)
         {
             for (int j = 0; j < int.Parse(heightTxt.text); j++)
             {
-                GameObject obj = GameObject.Instantiate(mapItemList[curIndex], new Vector3(i, 0, j), gameObject.transform.rotation);
+                int pox;
+                int poy;
+                if (creatMode == "map")
+                {
+                    pox = i;
+                    poy = 0;
+                }
+                else
+                {
+                    pox = i + 500;
+                    poy = -2000;
+                }
+
+                GameObject obj = GameObject.Instantiate(mapItemList[curIndex], new Vector3(pox, poy, j), gameObject.transform.rotation);
                 obj.transform.SetParent(map.transform);
-                mapObject[obj.transform.position] = obj;
-                mapIndexObject[obj.transform.position] = 0;
+
+                if (creatMode == "map")
+                {
+                    mapObject[obj.transform.position] = obj;
+                    mapIndexObject[obj.transform.position] = 0;
+                }
+                else
+                {
+                    groupMapObject[obj.transform.position] = obj;
+                    groupMapIndexObject[obj.transform.position] = 0;
+                }
             }
         }
 
@@ -253,19 +336,69 @@ public class MapCreat : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.I)) {
-            surface.transform.Translate(new Vector3(0,1,0));
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            surface.transform.Translate(new Vector3(0, 1, 0));
         }
         else if (Input.GetKeyDown(KeyCode.K))
         {
             surface.transform.Translate(new Vector3(0, -1, 0));
+        }
+        Camera curCamera;
+        Dictionary<Vector3, GameObject> curmapObject;
+        Dictionary<Vector3, int> curmapIndexObject;
+        if (creatMode == "map")
+        {
+            curCamera = mainCamera;
+            curmapObject = mapObject;
+            curmapIndexObject = mapIndexObject;
+        }
+        else if (creatMode == "grouplist") {
+            curCamera = camera2;
+            curmapObject = groupMapObject;
+            curmapIndexObject = groupMapIndexObject;
+
+            RaycastHit hitt = new RaycastHit();
+            Ray ray = curCamera.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray, out hitt, 500f, 1 << 0))
+            {
+                float _x = Mathf.Round(hitt.point.x);
+                float _y = Mathf.Round(hitt.point.y) - 1;
+                float _z = Mathf.Round(hitt.point.z);
+
+                if (mapProObject.ContainsKey(new Vector3(_x, _y, _z)))
+                {
+                    targetChangObj = mapProObject[new Vector3(_x, _y, _z)];
+
+                    Debug.Log(targetChangObj);
+                    if (Input.GetMouseButtonDown(0) && targetChangObj)
+                    {
+                        curNewObj = GameObject.Instantiate(targetChangObj, Vector3.zero, gameObject.transform.rotation);
+                        curNewObj.layer = 2;
+
+                        camera1.gameObject.SetActive(false);
+                        mainCamera.gameObject.SetActive(true);
+                        camera2.gameObject.SetActive(false);
+
+                        mainCanvas.SetActive(true);
+                        creatMode = "map";
+                        return;
+                    }
+                }
+            }
+        }
+        else
+        {
+            curCamera = camera1;
+            curmapObject = groupMapObject;
+            curmapIndexObject = groupMapIndexObject;
         }
 
 
         if (isDelete)
         {
             RaycastHit hitt = new RaycastHit();
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            Ray ray = curCamera.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out hitt, 500f, 1 << 0))
             {
                 float _x = Mathf.Round(hitt.point.x);
@@ -276,9 +409,9 @@ public class MapCreat : MonoBehaviour
                 {
                     targetChangObj.GetComponent<MeshRenderer>().enabled = true;
                 }
-                if (mapObject.ContainsKey(new Vector3(_x, _y, _z)))
+                if (curmapObject.ContainsKey(new Vector3(_x, _y, _z)))
                 {
-                    targetChangObj = mapObject[new Vector3(_x, _y, _z)];
+                    targetChangObj = curmapObject[new Vector3(_x, _y, _z)];
 
                     if (targetChangObj)
                     {
@@ -286,8 +419,8 @@ public class MapCreat : MonoBehaviour
                     }
                     if (Input.GetMouseButtonDown(0) && targetChangObj)
                     {
-                        mapObject.Remove(new Vector3(_x, _y, _z));
-                        mapIndexObject.Remove(new Vector3(_x, _y, _z));
+                        curmapObject.Remove(new Vector3(_x, _y, _z));
+                        curmapIndexObject.Remove(new Vector3(_x, _y, _z));
                         Destroy(targetChangObj);
                         targetChangObj = null;
                     }
@@ -297,7 +430,7 @@ public class MapCreat : MonoBehaviour
         else if (curNewObj)
         {
             RaycastHit hitt = new RaycastHit();
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            Ray ray = curCamera.ScreenPointToRay(Input.mousePosition);
 
             if (Physics.Raycast(ray, out hitt, 500f, 1 << 0))
             {
@@ -308,16 +441,17 @@ public class MapCreat : MonoBehaviour
                 float _z = Mathf.Round(hitt.point.z);
                 curNewObj.transform.position = new Vector3(_x, _y, _z);
 
-                if (Input.GetMouseButtonDown(0) && !mapObject.ContainsKey(curNewObj.transform.position))
+                if (Input.GetMouseButtonDown(0) && !curmapObject.ContainsKey(curNewObj.transform.position))
                 {
                     GameObject obj = Instantiate(curNewObj, curNewObj.transform.position, Quaternion.identity);
                     obj.layer = 0;
-                    mapObject[curNewObj.transform.position] = obj;
-                    mapIndexObject[curNewObj.transform.position] = curIndex;
+                    curmapObject[curNewObj.transform.position] = obj;
+                    curmapIndexObject[curNewObj.transform.position] = curIndex;
+                    obj.transform.SetParent(map.transform);
                 }
 
             }
-            
+
             if (Input.GetKeyDown(KeyCode.PageUp))
             {
                 curIndex--;
@@ -340,7 +474,7 @@ public class MapCreat : MonoBehaviour
         else if (curChangeObj)
         {
             RaycastHit hitt = new RaycastHit();
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            Ray ray = curCamera.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out hitt, 500f, 1 << 0))
             {
                 float _x = Mathf.Round(hitt.point.x);
@@ -354,17 +488,18 @@ public class MapCreat : MonoBehaviour
                 }
 
 
-                if (mapObject.ContainsKey(curChangeObj.transform.position))
+                if (curmapObject.ContainsKey(curChangeObj.transform.position))
                 {
-                    targetChangObj = mapObject[curChangeObj.transform.position];
+                    targetChangObj = curmapObject[curChangeObj.transform.position];
                     targetChangObj.GetComponent<MeshRenderer>().enabled = false;
                     if (Input.GetMouseButtonDown(0))
                     {
                         Destroy(targetChangObj);
                         GameObject obj = Instantiate(curChangeObj, curChangeObj.transform.position, Quaternion.identity);
                         obj.layer = 0;
-                        mapObject[curChangeObj.transform.position] = obj;
-                        mapIndexObject[curChangeObj.transform.position] = curIndex;
+                        obj.transform.SetParent(map.transform);
+                        curmapObject[curChangeObj.transform.position] = obj;
+                        curmapIndexObject[curChangeObj.transform.position] = curIndex;
                     }
                 }
             }
