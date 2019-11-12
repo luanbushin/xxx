@@ -13,6 +13,8 @@ public class MapCreat : MonoBehaviour
     public Button saveBtn;
     public Button loadBtn;
 
+
+    public Button savegroupBtn;
     public Button newgroupBtn;
     public Button grouplistBtn;
     public Button cancelBtn;
@@ -86,6 +88,7 @@ public class MapCreat : MonoBehaviour
         saveBtn.onClick.AddListener(onSaveMap);
         loadBtn.onClick.AddListener(onLoadMap);
 
+        savegroupBtn.onClick.AddListener(onSaveGroup);
         newgroupBtn.onClick.AddListener(onNewGroup);
         grouplistBtn.onClick.AddListener(onGroupList);
         cancelBtn.onClick.AddListener(onCanelBuild);
@@ -94,15 +97,28 @@ public class MapCreat : MonoBehaviour
         deleteBtn.onClick.AddListener(onDleleteBuild);
         //findTxt.transform.GetComponent<InputField>().onValueChange.AddListener(findObject);
         getBoxNames();
+        loadmapGroupList();
+    }
+
+    private void onSaveGroup() {
+        XMLTest test = new XMLTest();
+        List<CreatMapItem> itemList = new List<CreatMapItem>();
+        foreach (Vector3 list in groupMapIndexObject.Keys)
+        { 
+            CreatMapItem item = new CreatMapItem();
+            item.v3 = new Vector3(list.x - 500, list.y+2000,list.z);
+            item.typeindex = groupMapIndexObject[list];
+            itemList.Add(item);
+        }
+        mapGroupList.Add(itemList);
+        test.creatGroup(mapGroupList);
     }
 
     private void loadmapGroupList() {
         XMLTest xml = new XMLTest();
         //gameObject.SetActive(false);
         mapGroupList = xml.LoadGroup();
-
-        mapGroupList = new List<List<CreatMapItem>>();
-
+        initGroupList();
     }
 
     private void onNewGroup() {
@@ -231,6 +247,18 @@ public class MapCreat : MonoBehaviour
             mapProObject[obj.transform.position] = obj;
         }
        
+    }
+
+    private void initGroupList() {
+        for (int i = 0; i < mapGroupList.Count; i++) {
+            double num = i / 10;
+            List<CreatMapItem> list = mapGroupList[i];
+            for (int j = 0; j < list.Count; j++) {
+                GameObject obj = GameObject.Instantiate(mapItemList[list[j].typeindex], new Vector3((i % 10) * 20 + list[j].v3.x, -1000, -(float)Math.Floor(num) * 20+ list[j].v3.z-40), gameObject.transform.rotation);
+                obj.transform.SetParent(muenObj.transform);
+                mapProObject[obj.transform.position] = obj;
+            }
+        }
     }
 
     private void onValueChanged(int arg0)

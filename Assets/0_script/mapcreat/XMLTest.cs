@@ -271,7 +271,7 @@ public class XMLTest
         XmlDocument xml = CreateXML();
 
         //获取根节点
-        XmlNode root = xml.SelectSingleNode("Group");
+        XmlNode root = xml.SelectSingleNode("Map");
         //添加元素
         //XmlElement element = xml.CreateElement("width");
         //element.InnerText = width+"";
@@ -309,7 +309,7 @@ public class XMLTest
         xml.Load(XmlReader.Create((Application.dataPath + "/StreamingAssets/group.xml"), set));
 
         //得到objects节点下的所有子节点
-        XmlNodeList xmlNodeList = xml.SelectSingleNode("Group").ChildNodes;
+        XmlNodeList xmlNodeList = xml.SelectSingleNode("Map").ChildNodes;
 
         //遍历所有子节点
         foreach (XmlElement xl1 in xmlNodeList)
@@ -319,14 +319,14 @@ public class XMLTest
                 string[] itemlist = xl1.InnerXml.Split('!');
                 for (int i = 0; i < itemlist.Length - 1; i++)
                 {
-                    List<CreatMapItem> gList = new List<CreatMapItem>;
+                    List<CreatMapItem> gList = new List<CreatMapItem>();
                     string[] item1list = itemlist[i].Split('=');
                     for (int j = 0; j < item1list.Length - 1; j++)
                     {
                         CreatMapItem item = new CreatMapItem();
-                        string[] list = itemlist[j].Split(',');
-                        item.v3 = new Vector3(int.Parse(list[0]), int.Parse(list[1]);
-                        item.typeindex = int.Parse(list[2]);
+                        string[] list = item1list[j].Split(',');
+                        item.v3 = new Vector3(int.Parse(list[0]), int.Parse(list[1]), int.Parse(list[2]));
+                        item.typeindex = int.Parse(list[3]);
                         gList.Add(item);
                     }
 
