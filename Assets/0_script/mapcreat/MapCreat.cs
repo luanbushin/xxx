@@ -13,6 +13,7 @@ public class MapCreat : MonoBehaviour
     public Button saveBtn;
     public Button loadBtn;
 
+    public Button newgroupBtn;
     public Button grouplistBtn;
     public Button cancelBtn;
     public Button newBtn;
@@ -63,6 +64,8 @@ public class MapCreat : MonoBehaviour
     private string creatMode = "map";
 
 
+    private string fromtype;
+
 
     // Use this for initialization
     void Start()
@@ -79,6 +82,7 @@ public class MapCreat : MonoBehaviour
         saveBtn.onClick.AddListener(onSaveMap);
         loadBtn.onClick.AddListener(onLoadMap);
 
+        newgroupBtn.onClick.AddListener(onNewGroup);
         grouplistBtn.onClick.AddListener(onGroupList);
         cancelBtn.onClick.AddListener(onCanelBuild);
         newBtn.onClick.AddListener(onNewBuild);
@@ -86,6 +90,22 @@ public class MapCreat : MonoBehaviour
         deleteBtn.onClick.AddListener(onDleleteBuild);
         //findTxt.transform.GetComponent<InputField>().onValueChange.AddListener(findObject);
         getBoxNames();
+    }
+
+    private void onNewGroup() {
+        creatMode = "group";
+
+        camera1.gameObject.SetActive(true);
+        mainCamera.gameObject.SetActive(false);
+        camera2.gameObject.SetActive(false);
+
+        //mainCanvas.SetActive(false);
+
+        Destroy(curNewObj);
+        curNewObj = null;
+
+        groupMapObject = new Dictionary<Vector3, GameObject>();
+        groupMapIndexObject = new Dictionary<Vector3, int>();
     }
 
     private void onGroupList()
@@ -98,13 +118,15 @@ public class MapCreat : MonoBehaviour
         groupMapIndexObject = new Dictionary<Vector3, int>();
         creatPanel.SetActive(true);**/
 
+        fromtype = creatMode;
+
         creatMode = "grouplist";
 
         camera1.gameObject.SetActive(false);
         mainCamera.gameObject.SetActive(false);
         camera2.gameObject.SetActive(true);
 
-        mainCanvas.SetActive(false);
+        //mainCanvas.SetActive(false);
 
         Destroy(curNewObj);
         curNewObj = null;
@@ -375,13 +397,25 @@ public class MapCreat : MonoBehaviour
                     {
                         curNewObj = GameObject.Instantiate(targetChangObj, Vector3.zero, gameObject.transform.rotation);
                         curNewObj.layer = 2;
+                        Debug.Log(fromtype);
+                        if (fromtype == "map")
+                        {
+                            camera1.gameObject.SetActive(false);
+                            mainCamera.gameObject.SetActive(true);
+                            camera2.gameObject.SetActive(false);
 
-                        camera1.gameObject.SetActive(false);
-                        mainCamera.gameObject.SetActive(true);
-                        camera2.gameObject.SetActive(false);
+                            mainCanvas.SetActive(true);
+                            creatMode = "map";
+                        }
+                        else {
+                            camera1.gameObject.SetActive(true);
+                            mainCamera.gameObject.SetActive(false);
+                            camera2.gameObject.SetActive(false);
 
-                        mainCanvas.SetActive(true);
-                        creatMode = "map";
+                            mainCanvas.SetActive(true);
+                            creatMode = "group";
+                        }
+
                         return;
                     }
                 }
