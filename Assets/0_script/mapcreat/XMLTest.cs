@@ -7,6 +7,9 @@ using System.Collections.Generic;
 public class XMLTest 
 {
 
+
+
+
     public PassInfo loadPassInfo() {
         PassInfo info = new PassInfo();
         XmlDocument xml = new XmlDocument();
@@ -262,6 +265,79 @@ public class XMLTest
         SaveBoxXML(xml);
     }
 
+
+    public void creatGroup(List<List<CreatMapItem>> grouplist)
+    {
+        XmlDocument xml = CreateXML();
+
+        //获取根节点
+        XmlNode root = xml.SelectSingleNode("Group");
+        //添加元素
+        //XmlElement element = xml.CreateElement("width");
+        //element.InnerText = width+"";
+        //root.AppendChild(element);
+
+        //XmlElement element1 = xml.CreateElement("height");
+        //element1.InnerText = height + "";
+        //root.AppendChild(element1);
+        string itemStr = "";
+
+        foreach (List<CreatMapItem> list in grouplist)
+        {
+            foreach (CreatMapItem item in list) {
+                itemStr += item.v3.x + "," + item.v3.y + "," + item.v3.z + "," + item.typeindex + "=";
+            }
+            itemStr += "!";
+        }
+
+        XmlElement element2 = xml.CreateElement("item");
+        element2.InnerText = itemStr + "";
+        root.AppendChild(element2);
+
+        //UpdateNodeToXML();
+        SaveGroup(xml);
+    }
+
+
+    public List<List<CreatMapItem>> LoadGroup()
+    {
+        List<List<CreatMapItem>> grouplist = new List<List<CreatMapItem>>();
+        //创建xml文档
+        XmlDocument xml = new XmlDocument();
+        XmlReaderSettings set = new XmlReaderSettings();
+        set.IgnoreComments = true;//这个设置是忽略xml注释文档的影响。有时候注释会影响到xml的读取
+        xml.Load(XmlReader.Create((Application.dataPath + "/StreamingAssets/group.xml"), set));
+
+        //得到objects节点下的所有子节点
+        XmlNodeList xmlNodeList = xml.SelectSingleNode("Group").ChildNodes;
+
+        //遍历所有子节点
+        foreach (XmlElement xl1 in xmlNodeList)
+        {
+            if (xl1.Name == "item")
+            {
+                string[] itemlist = xl1.InnerXml.Split('!');
+                for (int i = 0; i < itemlist.Length - 1; i++)
+                {
+                    List<CreatMapItem> gList = new List<CreatMapItem>;
+                    string[] item1list = itemlist[i].Split('=');
+                    for (int j = 0; j < item1list.Length - 1; j++)
+                    {
+                        CreatMapItem item = new CreatMapItem();
+                        string[] list = itemlist[j].Split(',');
+                        item.v3 = new Vector3(int.Parse(list[0]), int.Parse(list[1]);
+                        item.typeindex = int.Parse(list[2]);
+                        gList.Add(item);
+                    }
+
+                    grouplist.Add(gList);
+
+                }
+            }
+        }
+        return grouplist;
+    }
+
     XmlDocument CreateXML()
     {
         //新建xml对象
@@ -273,6 +349,7 @@ public class XMLTest
         return xml;
     }
 
+    
     void AddNodeToXML(XmlDocument xml, string titleValue, string infoValue)
     {
         //获取根节点
@@ -355,5 +432,11 @@ public class XMLTest
         //存储xml文件
         xml.Save(Application.dataPath + "/StreamingAssets/box.XML");
         xml.Save(Application.persistentDataPath + "/box.xml");
+    }
+
+    void SaveGroup(XmlDocument xml) {
+        //存储xml文件
+        xml.Save(Application.dataPath + "/StreamingAssets/group.XML");
+        xml.Save(Application.persistentDataPath + "/group.xml");
     }
 }

@@ -40,6 +40,8 @@ public class MapCreat : MonoBehaviour
     private GameObject[] mapItemList;
     public Dropdown boxList;
 
+    private Dictionary<Vector3, GameObject> curGroup;
+    private Dictionary<Vector3, int> curIndexGroup;
     private GameObject curNewObj;
     private GameObject curChangeObj;
     private GameObject targetChangObj;
@@ -55,6 +57,8 @@ public class MapCreat : MonoBehaviour
     private Dictionary<Vector3, int> groupMapIndexObject;
 
     private Dictionary<Vector3, GameObject> mapProObject = new Dictionary<Vector3, GameObject>();
+
+    private List<List<CreatMapItem>> mapGroupList;
 
     public int curIndex = 0;
 
@@ -92,6 +96,15 @@ public class MapCreat : MonoBehaviour
         getBoxNames();
     }
 
+    private void loadmapGroupList() {
+        XMLTest xml = new XMLTest();
+        //gameObject.SetActive(false);
+        mapGroupList = xml.LoadGroup();
+
+        mapGroupList = new List<List<CreatMapItem>>();
+
+    }
+
     private void onNewGroup() {
         creatMode = "group";
 
@@ -106,6 +119,30 @@ public class MapCreat : MonoBehaviour
 
         groupMapObject = new Dictionary<Vector3, GameObject>();
         groupMapIndexObject = new Dictionary<Vector3, int>();
+    }
+
+    private void saveGroup(){
+        List<CreatMapItem> maplist = new List<CreatMapItem>();
+
+        foreach (Vector3 list in groupMapObject.Keys) {
+            CreatMapItem item = new CreatMapItem();
+            item.v3 = list;
+            item.typeindex = groupMapIndexObject[list];
+            maplist.Add(item);
+        }
+        mapGroupList.Add(maplist);
+    }
+
+    private void copyGroup(int startx,int starty)
+    {
+        foreach (Vector3 list in groupMapObject.Keys)
+        {
+            GameObject obj = Instantiate(groupMapObject[list], list, Quaternion.identity);
+            obj.layer = 0;
+            mapObject[list] = obj;
+            mapIndexObject[list] = curIndex;
+            obj.transform.SetParent(map.transform);
+        }
     }
 
     private void onGroupList()
