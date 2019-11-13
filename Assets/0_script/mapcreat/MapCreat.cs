@@ -420,49 +420,54 @@ public class MapCreat : MonoBehaviour
         }
 
     }
-    // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.I))
-        {
-            surface.transform.Translate(new Vector3(0, 1, 0));
-        }
-        else if (Input.GetKeyDown(KeyCode.K))
-        {
-            surface.transform.Translate(new Vector3(0, -1, 0));
-        }
-        Camera curCamera;
-        Dictionary<Vector3, GameObject> curmapObject;
-        Dictionary<Vector3, int> curmapIndexObject;
+
+    private CreatModeConf changeCreatMode() {
+        CreatModeConf modeconf = new CreatModeConf();
         if (creatMode == "map")
         {
-            curCamera = mainCamera;
-            curmapObject = mapObject;
-            curmapIndexObject = mapIndexObject;
+            modeconf.curCamera = mainCamera;
+            modeconf.curmapObject = mapObject;
+            modeconf.curmapIndexObject = mapIndexObject;
         }
-        else if (creatMode == "grouplist") {
-            curCamera = camera2;
-            curmapObject = groupMapObject;
-            curmapIndexObject = groupMapIndexObject;
+        else if (creatMode == "grouplist")
+        {
+            modeconf.curCamera = camera2;
+            modeconf.curmapObject = groupMapObject;
+            modeconf.curmapIndexObject = groupMapIndexObject;
+        }
+        else
+        {
+            modeconf.curCamera = camera1;
+            modeconf.curmapObject = groupMapObject;
+            modeconf.curmapIndexObject = groupMapIndexObject;
+        }
+        return modeconf;
+    }
 
-            RaycastHit hitt = new RaycastHit();
-            Ray ray = curCamera.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out hitt, 500f, 1 << 0))
+    private void chooseGroupOrBox(CreatModeConf modeconf) {
+        RaycastHit hitt = new RaycastHit();
+        Ray ray = modeconf.curCamera.ScreenPointToRay(Input.mousePosition);
+        if (Physics.Raycast(ray, out hitt, 500f, 1 << 0))
+        {
+            float _x = Mathf.Round(hitt.point.x);
+            float _y = Mathf.Round(hitt.point.y) - 1;
+            float _z = Mathf.Round(hitt.point.z);
+
+            if (mapProObject.ContainsKey(new Vector3(_x, _y, _z)))
             {
-                float _x = Mathf.Round(hitt.point.x);
-                float _y = Mathf.Round(hitt.point.y) - 1;
-                float _z = Mathf.Round(hitt.point.z);
+                targetChangObj = mapProObject[new Vector3(_x, _y, _z)];
 
-                if (mapProObject.ContainsKey(new Vector3(_x, _y, _z)))
+                if (Input.GetMouseButtonDown(0) && targetChangObj)
                 {
-                    targetChangObj = mapProObject[new Vector3(_x, _y, _z)];
+                    curNewObj = null;
+                    if (_z < 40)
+                    {
 
-                    Debug.Log(targetChangObj);
-                    if (Input.GetMouseButtonDown(0) && targetChangObj)
+                    }
+                    else
                     {
                         curNewObj = GameObject.Instantiate(targetChangObj, Vector3.zero, gameObject.transform.rotation);
                         curNewObj.layer = 2;
-                        Debug.Log(fromtype);
                         if (fromtype == "map")
                         {
                             camera1.gameObject.SetActive(false);
@@ -472,7 +477,8 @@ public class MapCreat : MonoBehaviour
                             mainCanvas.SetActive(true);
                             creatMode = "map";
                         }
-                        else {
+                        else
+                        {
                             camera1.gameObject.SetActive(true);
                             mainCamera.gameObject.SetActive(false);
                             camera2.gameObject.SetActive(false);
@@ -480,20 +486,12 @@ public class MapCreat : MonoBehaviour
                             mainCanvas.SetActive(true);
                             creatMode = "group";
                         }
-
-                        return;
                     }
                 }
             }
         }
-        else
-        {
-            curCamera = camera1;
-            curmapObject = groupMapObject;
-            curmapIndexObject = groupMapIndexObject;
-        }
-
-
+    }
+    private void creatBox(Camera curCamera, Dictionary<Vector3, GameObject> curmapObject, Dictionary<Vector3, int> curmapIndexObject) {
         if (isDelete)
         {
             RaycastHit hitt = new RaycastHit();
@@ -602,25 +600,55 @@ public class MapCreat : MonoBehaviour
                     }
                 }
             }
+        }
+    }
 
-            if (Input.GetKeyDown(KeyCode.PageUp))
-            {
-                curIndex--;
-                if (curIndex < 0)
-                    curIndex = 0;
-                Destroy(curChangeObj);
-                curChangeObj = GameObject.Instantiate(mapItemList[curIndex], Vector3.zero, gameObject.transform.rotation);
-                curChangeObj.layer = 2;
-            }
-            if (Input.GetKeyDown(KeyCode.PageDown))
-            {
-                curIndex++;
-                if (curIndex > mapItemList.Length - 1)
-                    curIndex = mapItemList.Length - 1;
-                Destroy(curChangeObj);
-                curChangeObj = GameObject.Instantiate(mapItemList[curIndex], Vector3.zero, gameObject.transform.rotation);
-                curChangeObj.layer = 2;
-            }
+
+    void Update()
+    {
+        //Camera curCamera;
+        //Dictionary<Vector3, GameObject> curmapObject;
+        //Dictionary<Vector3, int> curmapIndexObject;
+
+        CreatModeConf creatModeConf = changeCreatMode();
+        if (creatMode == "grouplist")
+        {
+            chooseGroupOrBox(creatModeConf);
+        }
+        else {
+            creatBox(creatModeConf.curCamera, creatModeConf.curmapObject, creatModeConf.curmapIndexObject);
+        }
+        
+        keyContorl();
+    }
+
+    private void keyContorl() {
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            surface.transform.Translate(new Vector3(0, 1, 0));
+        }
+        else if (Input.GetKeyDown(KeyCode.K))
+        {
+            surface.transform.Translate(new Vector3(0, -1, 0));
+        }
+
+        if (Input.GetKeyDown(KeyCode.PageUp))
+        {
+            curIndex--;
+            if (curIndex < 0)
+                curIndex = 0;
+            Destroy(curChangeObj);
+            curChangeObj = GameObject.Instantiate(mapItemList[curIndex], Vector3.zero, gameObject.transform.rotation);
+            curChangeObj.layer = 2;
+        }
+        if (Input.GetKeyDown(KeyCode.PageDown))
+        {
+            curIndex++;
+            if (curIndex > mapItemList.Length - 1)
+                curIndex = mapItemList.Length - 1;
+            Destroy(curChangeObj);
+            curChangeObj = GameObject.Instantiate(mapItemList[curIndex], Vector3.zero, gameObject.transform.rotation);
+            curChangeObj.layer = 2;
         }
     }
 }
