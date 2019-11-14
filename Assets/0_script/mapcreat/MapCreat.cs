@@ -556,7 +556,28 @@ public class MapCreat : MonoBehaviour
             }
         }
         else if (curGroupObj != null) {
+            RaycastHit hitt = new RaycastHit();
+            Ray ray = curCamera.ScreenPointToRay(Input.mousePosition);
 
+            if (Physics.Raycast(ray, out hitt, 500f, 1 << 0))
+            {
+                Debug.DrawLine(ray.origin, hitt.point);
+                float _x = Mathf.Round(hitt.point.x);
+                float _y = Mathf.Round(hitt.point.y);
+                // Debug.Log(_y+"--------------"+ hitt.point.y);
+                float _z = Mathf.Round(hitt.point.z);
+                curNewObj.transform.position = new Vector3(_x, _y, _z);
+
+                if (Input.GetMouseButtonDown(0) && !curmapObject.ContainsKey(curNewObj.transform.position))
+                {
+                    GameObject obj = Instantiate(curNewObj, curNewObj.transform.position, Quaternion.identity);
+                    obj.layer = 0;
+                    curmapObject[curNewObj.transform.position] = obj;
+                    curmapIndexObject[curNewObj.transform.position] = curIndex;
+                    obj.transform.SetParent(map.transform);
+                }
+
+            }
         }
         else if (curNewObj)
         {
