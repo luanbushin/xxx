@@ -42,8 +42,8 @@ public class MapCreat : MonoBehaviour
     private GameObject[] mapItemList;
     public Dropdown boxList;
 
-    private Dictionary<Vector3, GameObject> curGroup;
-    private Dictionary<Vector3, int> curIndexGroup;
+    private List<CreatMapItem> curGroup;
+    private List<GameObject> curGroupObj;
     private GameObject curNewObj;
     private GameObject curChangeObj;
     private GameObject targetChangObj;
@@ -132,6 +132,9 @@ public class MapCreat : MonoBehaviour
 
         Destroy(curNewObj);
         curNewObj = null;
+        onDisposeList(curGroupObj);
+        curGroupObj = null;
+        curGroup = null;
 
         groupMapObject = new Dictionary<Vector3, GameObject>();
         groupMapIndexObject = new Dictionary<Vector3, int>();
@@ -183,6 +186,9 @@ public class MapCreat : MonoBehaviour
 
         Destroy(curNewObj);
         curNewObj = null;
+        onDisposeList(curGroupObj);
+        curGroupObj = null;
+        curGroup = null;
     }
 
     public void findObject(string str)
@@ -444,6 +450,12 @@ public class MapCreat : MonoBehaviour
         return modeconf;
     }
 
+    private void onDisposeList(List<GameObject> list) {
+        for (int i = 0; i < list.Count; i++) {
+            Destroy(list[i]);
+        }
+    }
+
     private void chooseGroupOrBox(CreatModeConf modeconf) {
         RaycastHit hitt = new RaycastHit();
         Ray ray = modeconf.curCamera.ScreenPointToRay(Input.mousePosition);
@@ -459,33 +471,52 @@ public class MapCreat : MonoBehaviour
 
                 if (Input.GetMouseButtonDown(0) && targetChangObj)
                 {
+                    Destroy(curNewObj);
                     curNewObj = null;
+                    onDisposeList(curGroupObj);
+                    curGroupObj = null;
+                    curGroup = null;
                     if (_z < 40)
                     {
+                        int num = (int)Math.Floor((_z - 40) / 20)*10 + (int)Math.Floor(_x / 20);
+                           /*double num = i / 10;
+                           List<CreatMapItem> list = mapGroupList[i];
+                           for (int j = 0; j < list.Count; j++)
+                           {
+                               GameObject obj = GameObject.Instantiate(mapItemList[list[j].typeindex], new Vector3((i % 10) * 20 + list[j].v3.x, -1000, -(float)Math.Floor(num) * 20 + list[j].v3.z - 40), gameObject.transform.rotation);
+                               obj.transform.SetParent(muenObj.transform);
+                               mapProObject[obj.transform.position] = obj;
+                           }
+                           */
+                        curGroup = mapGroupList[num];
+                        curGroupObj = new List<GameObject>();
+                        for (int i = 0; i < curGroup.Count; i++) {
+                            GameObject obj = GameObject.Instantiate(mapItemList[curGroup[i].typeindex], curGroup[i].v3, gameObject.transform.rotation);
+                            curGroupObj.Add(obj);
+                        }
+                    }
+                }
+                else
+                {
+                    curNewObj = GameObject.Instantiate(targetChangObj, Vector3.zero, gameObject.transform.rotation);
+                    curNewObj.layer = 2;
+                    if (fromtype == "map")
+                    {
+                        camera1.gameObject.SetActive(false);
+                        mainCamera.gameObject.SetActive(true);
+                        camera2.gameObject.SetActive(false);
 
+                        mainCanvas.SetActive(true);
+                        creatMode = "map";
                     }
                     else
                     {
-                        curNewObj = GameObject.Instantiate(targetChangObj, Vector3.zero, gameObject.transform.rotation);
-                        curNewObj.layer = 2;
-                        if (fromtype == "map")
-                        {
-                            camera1.gameObject.SetActive(false);
-                            mainCamera.gameObject.SetActive(true);
-                            camera2.gameObject.SetActive(false);
+                        camera1.gameObject.SetActive(true);
+                        mainCamera.gameObject.SetActive(false);
+                        camera2.gameObject.SetActive(false);
 
-                            mainCanvas.SetActive(true);
-                            creatMode = "map";
-                        }
-                        else
-                        {
-                            camera1.gameObject.SetActive(true);
-                            mainCamera.gameObject.SetActive(false);
-                            camera2.gameObject.SetActive(false);
-
-                            mainCanvas.SetActive(true);
-                            creatMode = "group";
-                        }
+                        mainCanvas.SetActive(true);
+                        creatMode = "group";
                     }
                 }
             }
@@ -523,6 +554,9 @@ public class MapCreat : MonoBehaviour
                     }
                 }
             }
+        }
+        else if (curGroupObj != null) {
+
         }
         else if (curNewObj)
         {
