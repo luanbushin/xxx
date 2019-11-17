@@ -36,7 +36,7 @@ public class plyaer : MonoNotice
 
         anim.CrossFade("run", 0.08f);
 
-        gameObject.SetActive(false);
+        //gameObject.SetActive(false);
 
 
 

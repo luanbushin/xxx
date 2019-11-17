@@ -43,7 +43,7 @@ public class MapCreat : MonoBehaviour
     public Dropdown boxList;
 
     private List<CreatMapItem> curGroup;
-    private List<GameObject> curGroupObj;
+    private GameObject curGroupObj;
     private GameObject curNewObj;
     private GameObject curChangeObj;
     private GameObject targetChangObj;
@@ -59,6 +59,7 @@ public class MapCreat : MonoBehaviour
     private Dictionary<Vector3, int> groupMapIndexObject;
 
     private Dictionary<Vector3, GameObject> mapProObject = new Dictionary<Vector3, GameObject>();
+    private Dictionary<Vector3, int> mapProIndexObject = new Dictionary<Vector3, int>();
 
     private List<List<CreatMapItem>> mapGroupList;
 
@@ -132,7 +133,8 @@ public class MapCreat : MonoBehaviour
 
         Destroy(curNewObj);
         curNewObj = null;
-        onDisposeList(curGroupObj);
+        Destroy(curGroupObj);
+        //onDisposeList(curGroupObj);
         curGroupObj = null;
         curGroup = null;
 
@@ -186,7 +188,8 @@ public class MapCreat : MonoBehaviour
 
         Destroy(curNewObj);
         curNewObj = null;
-        onDisposeList(curGroupObj);
+        Destroy(curGroupObj);
+        //onDisposeList(curGroupObj);
         curGroupObj = null;
         curGroup = null;
     }
@@ -212,7 +215,7 @@ public class MapCreat : MonoBehaviour
 
             for (int i = 0; i < files.Length; i++)
             {
-                if (files[i].Name.EndsWith(".meta"))
+                if (files[i].Name.EndsWith(".meta")|| files[i].Name.EndsWith(".psd")|| files[i].Name.EndsWith(".FBX") || files[i].Name.EndsWith(".mat") || files[i].Name.EndsWith(".tga") || files[i].Name.EndsWith(".png"))
                 {
                     continue;
                 }
@@ -242,15 +245,16 @@ public class MapCreat : MonoBehaviour
         boxList.value = 1;
         boxList.value = 0;
 
-        initBoxList();
+        initBoxList(); 
     }
 
     private void initBoxList(){
-        for (int i = 0; i < 558; i++) {
+        for (int i = 0; i < mapItemList.Length; i++) {
             double num =i / 20;
             GameObject obj = GameObject.Instantiate(mapItemList[i], new Vector3((i % 20)*3+5, -1000, (float)Math.Floor(num)*3), gameObject.transform.rotation);
             obj.transform.SetParent(muenObj.transform);
             mapProObject[obj.transform.position] = obj;
+            mapProIndexObject[obj.transform.position] = i;
         }
        
     }
@@ -263,6 +267,7 @@ public class MapCreat : MonoBehaviour
                 GameObject obj = GameObject.Instantiate(mapItemList[list[j].typeindex], new Vector3((i % 10) * 20 + list[j].v3.x, -1000, -(float)Math.Floor(num) * 20+ list[j].v3.z-40), gameObject.transform.rotation);
                 obj.transform.SetParent(muenObj.transform);
                 mapProObject[obj.transform.position] = obj;
+                mapProIndexObject[obj.transform.position] = list[j].typeindex;
             }
         }
     }
@@ -456,6 +461,27 @@ public class MapCreat : MonoBehaviour
         }
     }
 
+    private void backProMode() {
+        if (fromtype == "map")
+        {
+            camera1.gameObject.SetActive(false);
+            mainCamera.gameObject.SetActive(true);
+            camera2.gameObject.SetActive(false);
+
+            mainCanvas.SetActive(true);
+            creatMode = "map";
+        }
+        else
+        {
+            camera1.gameObject.SetActive(true);
+            mainCamera.gameObject.SetActive(false);
+            camera2.gameObject.SetActive(false);
+
+            mainCanvas.SetActive(true);
+            creatMode = "group";
+        }
+    }
+
     private void chooseGroupOrBox(CreatModeConf modeconf) {
         RaycastHit hitt = new RaycastHit();
         Ray ray = modeconf.curCamera.ScreenPointToRay(Input.mousePosition);
@@ -464,60 +490,48 @@ public class MapCreat : MonoBehaviour
             float _x = Mathf.Round(hitt.point.x);
             float _y = Mathf.Round(hitt.point.y) - 1;
             float _z = Mathf.Round(hitt.point.z);
-
+            //Debug.Log(mapProObject.ContainsKey(new Vector3(_x, _y, _z)));
             if (mapProObject.ContainsKey(new Vector3(_x, _y, _z)))
             {
                 targetChangObj = mapProObject[new Vector3(_x, _y, _z)];
-
+      
                 if (Input.GetMouseButtonDown(0) && targetChangObj)
                 {
                     Destroy(curNewObj);
                     curNewObj = null;
-                    onDisposeList(curGroupObj);
+                    Destroy(curGroupObj);
+                    //onDisposeList(curGroupObj);
                     curGroupObj = null;
                     curGroup = null;
-                    if (_z < 40)
+                    if (_z < 0)
                     {
-                        int num = (int)Math.Floor((_z - 40) / 20)*10 + (int)Math.Floor(_x / 20);
-                           /*double num = i / 10;
-                           List<CreatMapItem> list = mapGroupList[i];
-                           for (int j = 0; j < list.Count; j++)
-                           {
-                               GameObject obj = GameObject.Instantiate(mapItemList[list[j].typeindex], new Vector3((i % 10) * 20 + list[j].v3.x, -1000, -(float)Math.Floor(num) * 20 + list[j].v3.z - 40), gameObject.transform.rotation);
-                               obj.transform.SetParent(muenObj.transform);
-                               mapProObject[obj.transform.position] = obj;
-                           }
-                           */
+                        int num = (int)Math.Floor((_z + 40) / 20)*10 + (int)Math.Floor(_x / 20);
+                        /*double num = i / 10;
+                        List<CreatMapItem> list = mapGroupList[i];
+                        for (int j = 0; j < list.Count; j++)
+                        {
+                            GameObject obj = GameObject.Instantiate(mapItemList[list[j].typeindex], new Vector3((i % 10) * 20 + list[j].v3.x, -1000, -(float)Math.Floor(num) * 20 + list[j].v3.z - 40), gameObject.transform.rotation);
+                            obj.transform.SetParent(muenObj.transform);
+                            mapProObject[obj.transform.position] = obj;
+                        }
+                        */
+                        Debug.Log(num);
                         curGroup = mapGroupList[num];
-                        curGroupObj = new List<GameObject>();
+                        curGroupObj = new GameObject();
+                        curGroupObj.layer = 2;
                         for (int i = 0; i < curGroup.Count; i++) {
                             GameObject obj = GameObject.Instantiate(mapItemList[curGroup[i].typeindex], curGroup[i].v3, gameObject.transform.rotation);
-                            curGroupObj.Add(obj);
+                            obj.transform.SetParent(curGroupObj.transform);
+                            obj.layer = 2;
                         }
-                    }
-                }
-                else
-                {
-                    curNewObj = GameObject.Instantiate(targetChangObj, Vector3.zero, gameObject.transform.rotation);
-                    curNewObj.layer = 2;
-                    if (fromtype == "map")
-                    {
-                        camera1.gameObject.SetActive(false);
-                        mainCamera.gameObject.SetActive(true);
-                        camera2.gameObject.SetActive(false);
-
-                        mainCanvas.SetActive(true);
-                        creatMode = "map";
                     }
                     else
                     {
-                        camera1.gameObject.SetActive(true);
-                        mainCamera.gameObject.SetActive(false);
-                        camera2.gameObject.SetActive(false);
-
-                        mainCanvas.SetActive(true);
-                        creatMode = "group";
+                        curIndex = mapProIndexObject[new Vector3(_x, _y, _z)];
+                        curNewObj = GameObject.Instantiate(targetChangObj, Vector3.zero, gameObject.transform.rotation);
+                        curNewObj.layer = 2;
                     }
+                    backProMode();
                 }
             }
         }
@@ -566,15 +580,20 @@ public class MapCreat : MonoBehaviour
                 float _y = Mathf.Round(hitt.point.y);
                 // Debug.Log(_y+"--------------"+ hitt.point.y);
                 float _z = Mathf.Round(hitt.point.z);
-                curNewObj.transform.position = new Vector3(_x, _y, _z);
+                curGroupObj.transform.position = new Vector3(_x, _y, _z);
 
-                if (Input.GetMouseButtonDown(0) && !curmapObject.ContainsKey(curNewObj.transform.position))
+                if (Input.GetMouseButtonDown(0))
                 {
-                    GameObject obj = Instantiate(curNewObj, curNewObj.transform.position, Quaternion.identity);
-                    obj.layer = 0;
-                    curmapObject[curNewObj.transform.position] = obj;
-                    curmapIndexObject[curNewObj.transform.position] = curIndex;
-                    obj.transform.SetParent(map.transform);
+                    for (int i = 0; i < curGroup.Count; i++)
+                    {
+                        Vector3 v3 = new Vector3(curGroup[i].v3.x + _x, curGroup[i].v3.y + _y, curGroup[i].v3.z + _z);
+                        GameObject obj = GameObject.Instantiate(mapItemList[curGroup[i].typeindex],v3, gameObject.transform.rotation);
+                        //obj.transform.SetParent(curGroupObj.transform);
+                        obj.layer = 0;
+                        curmapObject[v3] = obj;
+                        curmapIndexObject[v3] = curGroup[i].typeindex;
+                        obj.transform.SetParent(map.transform);
+                    }
                 }
 
             }
@@ -591,7 +610,10 @@ public class MapCreat : MonoBehaviour
                 float _y = Mathf.Round(hitt.point.y);
                 // Debug.Log(_y+"--------------"+ hitt.point.y);
                 float _z = Mathf.Round(hitt.point.z);
+
                 curNewObj.transform.position = new Vector3(_x, _y, _z);
+                Debug.Log(curNewObj.transform.position);
+                Debug.Log(curIndex);
 
                 if (Input.GetMouseButtonDown(0) && !curmapObject.ContainsKey(curNewObj.transform.position))
                 {

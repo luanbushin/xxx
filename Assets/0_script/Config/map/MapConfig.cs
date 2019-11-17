@@ -1,6 +1,7 @@
 ﻿
 using System.IO;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MapConfig
 {
@@ -10,7 +11,10 @@ public class MapConfig
     public string[] flowerNames;
     public GameObject[] flowersList;
 
-    public MapConfig() {
+    public Text debugtxt;
+
+    public MapConfig(Text txt) {
+        debugtxt = txt;
         getBoxNames();
     }
     private void getBoxNames()
@@ -18,14 +22,15 @@ public class MapConfig
         string boxname = "";
         string flower = "";
         string fullPath = Application.dataPath+"/Resources/map/Prefabs" + "/";
-
+        debugtxt.text = Directory.Exists(fullPath)+"";
+        int i;
         if (Directory.Exists(fullPath))
         {
             DirectoryInfo direction = new DirectoryInfo(fullPath);
             FileInfo[] files = direction.GetFiles("*", SearchOption.AllDirectories);
 
 
-            for (int i = 0; i < files.Length; i++)
+            for (i = 0; i < files.Length; i++)
             {
                 if (!files[i].Name.EndsWith(".prefab"))
                 {
@@ -54,11 +59,12 @@ public class MapConfig
         flowersList = new GameObject[flowerNames.Length];
 
 
-        for (int i = 0; i < boxNames.Length; i++)
+        for ( i = 0; i < boxNames.Length; i++)
         {
+            debugtxt.text = boxNames[i];
             mapItemList[i] = (GameObject)Resources.Load("map/Prefabs/" + boxNames[i]);
         }
-        for (int i = 0; i < flowerNames.Length; i++)
+        for ( i = 0; i < flowerNames.Length; i++)
         {
             flowersList[i] = (GameObject)Resources.Load("map/Prefabs/" + flowerNames[i]);
         }

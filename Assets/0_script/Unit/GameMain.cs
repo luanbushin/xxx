@@ -33,7 +33,7 @@ public class GameMain : MonoNotice{
     }
 
     public void initPlayerPostion(Vector3 v3) {
-        player.transform.position = v3;
+        //player.transform.position = new Vector3(10,10,5) ;
     }
 
     public void initPlayerForce(Vector3 v3) {
@@ -59,7 +59,7 @@ public class GameMain : MonoNotice{
 
         addListener(Notice.GAME_PLAYER_ATIVE, () =>
         {
-
+            Debug.Log("=====");
             player.SetActive(true);
         });
 
@@ -78,12 +78,17 @@ public class GameMain : MonoNotice{
 
         gameObject.GetComponent<MapManager>().initmap(xml.LoadXml());
         
-       gameObject.GetComponent<MonsterManager>().initMonsterPatrol(patrolObject);
-       ;
-        gameObject.GetComponent<PassMananger>().initBox(xml.LoadBoxXml());
-        gameObject.GetComponent<PassMananger>().initPassInfo(curPassInfo);
-        gameObject.GetComponent<TrapManager>().inittrap(curPassInfo.trapList);
+        //gameObject.GetComponent<MonsterManager>().initMonsterPatrol(patrolObject);
+        //gameObject.GetComponent<PassMananger>().initBox(xml.LoadBoxXml());
+        //gameObject.GetComponent<PassMananger>().initPassInfo(curPassInfo);
+        //gameObject.GetComponent<TrapManager>().inittrap(curPassInfo.trapList);
 
+
+        Invoke("activePlayer", 3f);
+    }
+
+    private void activePlayer() {
+        player.SetActive(true);
     }
 	
 	// Update is called once per frame

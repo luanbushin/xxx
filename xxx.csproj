@@ -110,6 +110,7 @@
     <Compile Include="Assets\0_script\Config\MonsterConfig.cs" />
     <Compile Include="Assets\0_script\Config\PathInfo.cs" />
     <Compile Include="Assets\0_script\Config\PlayerData.cs" />
+    <Compile Include="Assets\0_script\Config\creatmap\CreatMapItem.cs" />
     <Compile Include="Assets\0_script\Config\map\MapConfig.cs" />
     <Compile Include="Assets\0_script\Helper\ArrayTransfer.cs" />
     <Compile Include="Assets\0_script\Helper\Log.cs" />
@@ -145,11 +146,13 @@
     <Compile Include="Assets\0_script\Unit\GameMain.cs" />
     <Compile Include="Assets\0_script\Unit\plyaer.cs" />
     <Compile Include="Assets\0_script\mapcreat\CameraMove.cs" />
+    <Compile Include="Assets\0_script\mapcreat\CreatModeConf.cs" />
     <Compile Include="Assets\0_script\mapcreat\MapCreat.cs" />
     <Compile Include="Assets\0_script\mapcreat\XMLTest.cs" />
     <Compile Include="Assets\0_script\passcreat\MonsterItem.cs" />
     <Compile Include="Assets\0_script\passcreat\MonsterPresetItem.cs" />
     <Compile Include="Assets\0_script\passcreat\PassCreat.cs" />
+    <Compile Include="Assets\Resources\map\Demo\GetMapelement.cs" />
     <Compile Include="Assets\Resources\map\Standard Assets\Effects\ImageEffects\Scripts\Antialiasing.cs" />
     <Compile Include="Assets\Resources\map\Standard Assets\Effects\ImageEffects\Scripts\Bloom.cs" />
     <Compile Include="Assets\Resources\map\Standard Assets\Effects\ImageEffects\Scripts\BloomAndFlares.cs" />
@@ -274,6 +277,7 @@
     <None Include="Assets\StreamingAssets\box.XML" />
     <None Include="Assets\StreamingAssets\enemy - 副本.XML" />
     <None Include="Assets\StreamingAssets\enemy.XML" />
+    <None Include="Assets\StreamingAssets\group.XML" />
     <None Include="Assets\StreamingAssets\pass.XML" />
     <None Include="Assets\StreamingAssets\pass111.XML" />
     <None Include="Assets\StreamingAssets\passInfo.XML" />

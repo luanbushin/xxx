@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEditor;
 using Game.Noticfacation;
 using Game;
 using System.Collections.Generic;
