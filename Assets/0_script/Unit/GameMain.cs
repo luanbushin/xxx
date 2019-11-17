@@ -73,15 +73,15 @@ public class GameMain : MonoNotice{
 
         string fullPath = Application.dataPath + "/Resources/map/Prefabs" + "/";
 
-        DirectoryInfo direction = new DirectoryInfo(fullPath);
-        FileInfo[] files = direction.GetFiles("*", SearchOption.AllDirectories);
+        //DirectoryInfo direction = new DirectoryInfo(fullPath);
+       // FileInfo[] files = direction.GetFiles("*", SearchOption.AllDirectories);
 
         gameObject.GetComponent<MapManager>().initmap(xml.LoadXml());
         
-        //gameObject.GetComponent<MonsterManager>().initMonsterPatrol(patrolObject);
-        //gameObject.GetComponent<PassMananger>().initBox(xml.LoadBoxXml());
-        //gameObject.GetComponent<PassMananger>().initPassInfo(curPassInfo);
-        //gameObject.GetComponent<TrapManager>().inittrap(curPassInfo.trapList);
+        gameObject.GetComponent<MonsterManager>().initMonsterPatrol(patrolObject);
+        gameObject.GetComponent<PassMananger>().initBox(xml.LoadBoxXml());
+        gameObject.GetComponent<PassMananger>().initPassInfo(curPassInfo);
+        gameObject.GetComponent<TrapManager>().inittrap(curPassInfo.trapList);
 
 
         Invoke("activePlayer", 3f);

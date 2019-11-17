@@ -24,7 +24,7 @@ public class PassMananger : MonoBehaviour {
 
     public void initPassInfo(PassInfo info){
         int random = Random.Range(0, info.bornList.Count);
-        gameObject.GetComponent<GameMain>().player.transform.position = info.bornList[random];
+        //gameObject.GetComponent<GameMain>().player.transform.position = info.bornList[random];
     }
     public void initBox(Dictionary<Vector3, int> boxlist)
     {

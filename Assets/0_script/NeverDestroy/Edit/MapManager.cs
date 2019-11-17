@@ -17,9 +17,6 @@ public class MapManager : MonoNotice
     private string[] boxNames;
     public GameObject mapparent;
 
-    public Text debugTxt1;
-    public Text debugTxt2;
-
     public bool mazeMode = false;
     // Use this for initialization
 
@@ -34,14 +31,11 @@ public class MapManager : MonoNotice
 
 
     void Start() {
-        debugTxt2.text = "mapManager start";
-        mapConfig = new MapConfig(debugTxt1);
+        mapConfig = new MapConfig();
         boxNames = mapConfig.boxNames;
         mapItemList = mapConfig.mapItemList;
-        debugTxt2.text = boxNames.Length +"";
         addListener(Notice.MAZE_CREAT_COMPLETE, (maplist) =>
         {
-            debugTxt2.text = "mapManager MAZE_CREAT_COMPLETE";
             for (int i = 0; i < maplist.GetLength(0); i++)
             {
                 for (int j = 0; j < maplist.GetLength(1); j++)
@@ -132,8 +126,7 @@ public class MapManager : MonoNotice
 
     // Update is called once per frame
     void Update () {
-        debugTxt1.text = mapItemList.Length+"";
-        debugTxt2.text = boxNames.ToString() ;
-        Debug.Log(mapItemList.Length);
+        //debugTxt1.text = mapItemList.Length+"";
+        //debugTxt2.text = boxNames.ToString() ;
 	}
 }
