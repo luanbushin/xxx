@@ -23,11 +23,11 @@ public class EnemyAutoAi : MonoBehaviour
         loadModel();
 
 
-
+         
     }
 
     private void loadModel() {
-        model = Instantiate(MonsterManager.Instance.getWarriorMonster(),transform.position, Quaternion.identity) as GameObject;
+        model = Instantiate(MonsterManager.Instance.getWarriorMonster(""),transform.position, Quaternion.identity) as GameObject;
         model.transform.SetParent(transform);
         anim = model.GetComponent<Animation>();
         anim.CrossFade("Idle", 0.08f);
@@ -38,7 +38,7 @@ public class EnemyAutoAi : MonoBehaviour
     private void setTargetList() {
         targetList = new Vector3[4];
         targetList[0] = new Vector3(roomrect.x, 1, roomrect.y);
-        targetList[1] = new Vector3(roomrect.x + roomrect.width-1, 1, roomrect.y);
+        targetList[1] = new Vector3(roomrect.x + roomrect.width-1, 1, roomrect.y); 
         targetList[2] = new Vector3(roomrect.x + roomrect.width-1, 1, roomrect.y + roomrect.height-1);
         targetList[3] = new Vector3(roomrect.x, 1, roomrect.y + roomrect.height-1);
         curTargetIndex = 0;

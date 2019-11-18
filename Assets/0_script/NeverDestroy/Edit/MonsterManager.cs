@@ -58,10 +58,9 @@ public class MonsterManager : MonoNotice
         box.AddComponent<EnemyAutoAi>().roomrect = rect;
     }
 
-    public GameObject getWarriorMonster()
+    public GameObject getWarriorMonster(string str)
     {
-        int random = UnityEngine.Random.Range(1,3);
-        return (GameObject)Resources.Load("enemy/Warrior_0" + random);
+        return (GameObject)Resources.Load("enemy/"+str);
     }
 
     private IEnumerator loadCompleteInfo()
