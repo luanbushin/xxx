@@ -7,6 +7,8 @@ public class ShootCollisoon : MonoBehaviour {
 
 	// Use this for initialization
     public GameObject shouji;
+
+    public GameObject selfObj;
 	void Start () {
 
     }
@@ -18,6 +20,9 @@ public class ShootCollisoon : MonoBehaviour {
     private void OnTriggerEnter(Collider other)
     {
         GameObject targetObj = other.gameObject;
+        
+        if (selfObj == targetObj)
+            return;
 
 
         if (targetObj.tag == "boom")
@@ -55,8 +60,16 @@ public class ShootCollisoon : MonoBehaviour {
         else if (other.gameObject.tag == "trap")
         {
         }
+        else if (other.gameObject.tag == "Player")
+        {
+            Notice.WeaponCollision.broadcast("");
+            playHitEff();
+            finish();
+        }
+
         else if (targetObj != null && other.gameObject.tag != "Player")
         {
+            Destroy(targetObj);
             playHitEff();
             finish();
         }

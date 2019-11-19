@@ -48,7 +48,8 @@ public class GameMain : MonoNotice{
         addListener(Notice.WeaponCollision, (string s) =>
         {
             overPanel.SetActive(true);
-            Destroy(player);
+            player.SetActive(false);
+            //Destroy(player);
         });
 
         addListener(Notice.TrapCollision, (string s) =>

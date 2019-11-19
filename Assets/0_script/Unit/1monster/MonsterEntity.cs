@@ -1,18 +1,30 @@
 ﻿using UnityEngine;
-using UnityEditor;
 
 public class MonsterEntity : MonoBehaviour
 {
-    private Animation anim;
+    public Animation anim;
     private GameObject model;
+
+    public GameObject target;
     void Start()
     {
-
-
+        Debug.Log(GameMain.Instance.player);
 
 
     }
 
+    public int state;
+
+    public bool chackAttack()
+    {
+        if (Vector3.Distance(transform.position, target.transform.position) < 7)
+        {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
 
 
     public void loadModel(string str)

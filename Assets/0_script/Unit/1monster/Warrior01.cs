@@ -7,7 +7,7 @@ public class Warrior01 : MonsterEntity
     // Use this for initialization
     void Start()
     {
-        int random = UnityEngine.Random.Range(1, 3);
+        int random = UnityEngine.Random.Range(1, 4);
         loadModel("Warrior_0" + random);
     }
 

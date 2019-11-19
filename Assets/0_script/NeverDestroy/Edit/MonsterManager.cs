@@ -74,8 +74,16 @@ public class MonsterManager : MonoNotice
   
         foreach (Vector3 list in enemlist.Keys)
         {
-            GameObject obj = GameObject.Instantiate(enemyGameObject, list, gameObject.transform.rotation);
-            obj.GetComponent<EnemyAI>().initMonsterValue(MonsterPresetData.get(enemlist[list]));
+            GameObject obj = GameObject.Instantiate(enemyBox, list, gameObject.transform.rotation);
+            int random = UnityEngine.Random.Range(1, 1);
+            if (random == 1)
+            {
+                obj.AddComponent<Archer01>();
+            }
+            else { 
+                obj.AddComponent<Warrior01>();
+            }
+            // obj.GetComponent<EnemyAI>().initMonsterValue(MonsterPresetData.get(enemlist[list]));
 
             enemyObject[obj.transform.position] = obj;
             obj.transform.SetParent(enemyparent.transform);

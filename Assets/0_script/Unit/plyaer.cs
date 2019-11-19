@@ -50,12 +50,13 @@ public class plyaer : MonoNotice
             if (id == "L")
             {
                 GameObject obj = GameObject.Instantiate(shootObject, gameObject.transform.position, transform.Find("430").transform.rotation);
+                obj.GetComponent<ShootCollisoon>().selfObj = gameObject;
                 anim.CrossFade("skill_q", 0.08f);
                 obj.GetComponent<Rigidbody>().AddForce(obj.transform.forward * 1000);
             }
             if (id == "J")
             {
-                speeduptime = 100;
+                //speeduptime = 100;
             }
             if (id == "I")
             {
