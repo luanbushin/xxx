@@ -21,9 +21,7 @@ public class MapManager : MonoNotice
     // Use this for initialization
 
     public MapConfig mapConfig;
-
-
-
+    
     private void Awake()
     {
         Instance = this;

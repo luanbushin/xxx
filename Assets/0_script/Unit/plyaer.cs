@@ -13,7 +13,7 @@ public class plyaer : MonoNotice
     public int liftHP = 3;
     // Use this for initialization
     public GameObject CreateObject;
-    private int playerRotion = 0;
+    public int playerRotion = 0;
 
     public GameObject shootObject;
     public int speeduptime;
@@ -22,7 +22,7 @@ public class plyaer : MonoNotice
 
 
 
-    private Animation anim;                //Character Animation
+    public Animation anim;                //Character Animation
 
     
     private Dictionary<string, Vector3> forceVector = new Dictionary<string, Vector3>();
@@ -37,64 +37,6 @@ public class plyaer : MonoNotice
         anim.CrossFade("run", 0.08f);
 
         //gameObject.SetActive(false);
-
-
-
-
-        addListener(Notice.Click_Use_Skill, (id) =>
-        {
-            if (id == "Space")
-            {
-                GameObject.Instantiate(CreateObject, new Vector3(Mathf.Round(gameObject.transform.position.x), gameObject.transform.position.y - 0.3f, Mathf.Round(gameObject.transform.position.z)), gameObject.transform.rotation);
-            }
-            if (id == "L")
-            {
-                GameObject obj = GameObject.Instantiate(shootObject, gameObject.transform.position, transform.Find("430").transform.rotation);
-                obj.GetComponent<ShootCollisoon>().selfObj = gameObject;
-                anim.CrossFade("skill_q", 0.08f);
-                obj.GetComponent<Rigidbody>().AddForce(obj.transform.forward * 1000);
-            }
-            if (id == "J")
-            {
-                //speeduptime = 100;
-            }
-            if (id == "I")
-            {
-                GameObject obj = GameObject.Instantiate(fanwei, gameObject.transform.position, transform.rotation);
-                obj.transform.Translate(new Vector3(0, -0.8f, 0));
-            }
-            if (id == "K")
-            {
-                float num = Mathf.Cos(Mathf.PI / 4);
-                switch (playerRotion + "")
-                {
-                    case "0":
-                        StartCoroutine(CreateExplosions(Vector3.forward));
-                        break;
-                    case "45":
-                        StartCoroutine(CreateExplosions((Vector3.forward + Vector3.right) * num));
-                        break;
-                    case "90":
-                        StartCoroutine(CreateExplosions(Vector3.right));
-                        break;
-                    case "135":
-                        StartCoroutine(CreateExplosions((Vector3.back + Vector3.right) * num));
-                        break;
-                    case "180":
-                        StartCoroutine(CreateExplosions(Vector3.back));
-                        break;
-                    case "225":
-                        StartCoroutine(CreateExplosions((Vector3.back + Vector3.left) * num));
-                        break;
-                    case "270":
-                        StartCoroutine(CreateExplosions(Vector3.left));
-                        break;
-                    case "315":
-                        StartCoroutine(CreateExplosions((Vector3.forward + Vector3.left) * num));
-                        break;
-                }
-            }
-        });
 
     }
 
@@ -140,26 +82,7 @@ public class plyaer : MonoNotice
     //}
 
 
-    private IEnumerator CreateExplosions(Vector3 direction)
-    {
-        for (int i = 1; i < 4; i++)
-        {
-            RaycastHit hit;
 
-            Physics.Raycast(transform.position + new Vector3(0.0f, -0.1f, 0.0f), direction, out hit, 1, 1 << 0);
-
-            if (!hit.collider)
-            {
-                transform.Translate(direction);
-            }
-            else
-            {
-                break;
-            }
-        }
-
-        yield return new WaitForSeconds(.05f);
-    }
             // Update is called once per frame
     void Update () {
         bool w = false;
