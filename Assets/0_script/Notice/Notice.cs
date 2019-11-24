@@ -71,5 +71,6 @@ namespace Game.Noticfacation
         public static readonly NES TrapCtrl = new NES();
         public static readonly NEVS TrapCtrl_Vector = new NEVS();
         public static readonly NEGS MonsterBeATK = new NEGS();
+        public static readonly NEGS MonsterATK = new NEGS();
     }
 }

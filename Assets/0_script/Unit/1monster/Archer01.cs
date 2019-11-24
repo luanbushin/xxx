@@ -12,16 +12,11 @@ public class Archer01 :MonsterEntity
         target = GameMain.Instance.player;
 
         int random = UnityEngine.Random.Range(1, 3);
-        loadModel("Archer_0" + random);
+        loadModel("enemy/Archer_0" + random);
 
         shootObject = (GameObject)Resources.Load("Prefabs/ShootCollisoon 1");
 
         state = 0;
-    }
-
-    public void backadle() {
-        state = 0;
-        anim.CrossFade("Idle", 0.08f);
     }
 
     public void shoot() {
@@ -46,7 +41,7 @@ public class Archer01 :MonsterEntity
 
             shoot();
             state = 1;
-            Invoke("backadle", 2);
+            Invoke("backatk", 2);
         }
     }
 }

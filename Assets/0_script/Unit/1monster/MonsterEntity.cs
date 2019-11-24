@@ -3,7 +3,9 @@
 public class MonsterEntity : MonoBehaviour
 {
     public Animation anim;
-    private GameObject model;
+    public GameObject model;
+
+    public string animAction = "Idle";
 
     public GameObject target;
     void Start()
@@ -13,15 +15,33 @@ public class MonsterEntity : MonoBehaviour
 
     }
 
+    public void backatk()
+    {
+        state = 0;
+        anim.CrossFade(animAction, 0.08f);
+    }
+
+
     public int state;
 
     public bool chackAttack()
     {
-        if (Vector3.Distance(transform.position, target.transform.position) < 7)
+        if (Vector3.Distance(transform.position, target.transform.position) < 1.3f)
         {
             return true;
         }
         else {
+            return false;
+        }
+    }
+
+    public bool chackAttackRange() {
+        if (Vector3.Distance(transform.position, target.transform.position) < 7)
+        {
+            return true;
+        }
+        else
+        {
             return false;
         }
     }
@@ -32,7 +52,7 @@ public class MonsterEntity : MonoBehaviour
         model = Instantiate(MonsterManager.Instance.getWarriorMonster(str), transform.position, Quaternion.identity) as GameObject;
         model.transform.SetParent(transform);
         anim = model.GetComponent<Animation>();
-        anim.CrossFade("Idle", 0.08f);
+        //anim.CrossFade("Idle", 0.08f);
     }
 
     void Update()

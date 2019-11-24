@@ -19,6 +19,11 @@ public class MonsterItem : MonoBehaviour {
 
     }
 
+    public void setText(string str) {
+        Text text = btn.transform.Find("Text").GetComponent<Text>();
+        text.text = str;
+    }
+
     public void setData(MonsterPresetDataValueData data,Vector3 v3)
     {
         value = data;

@@ -1,0 +1,130 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!43 &4300000
+Mesh:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: 028_R_0_qilang01_4
+  serializedVersion: 8
+  m_SubMeshes:
+  - serializedVersion: 2
+    firstByte: 0
+    indexCount: 78
+    topology: 0
+    firstVertex: 0
+    vertexCount: 28
+    localAABB:
+      m_Center: {x: 0.008717477, y: 0, z: -0.000000059604645}
+      m_Extent: {x: 0.59128255, y: 0.1, z: 0.59562534}
+  m_Shapes:
+    vertices: []
+    shapes: []
+    channels: []
+    fullWeights: []
+  m_BindPose: []
+  m_BoneNameHashes: 
+  m_RootBoneNameHash: 0
+  m_MeshCompression: 0
+  m_IsReadable: 1
+  m_KeepVertices: 1
+  m_KeepIndices: 1
+  m_IndexBuffer: 000001000e00010002000f0002000300100003000400110004000500120005000600130006000700140007000800150008000900160009000a0017000a000b0018000b000c0019000c000d001a0001000f000e00020010000f000300110010000400120011000500130012000600140013000700150014000800160015000900170016000a00180017000b00190018000c001a0019000d001b001a00
+  m_Skin: []
+  m_VertexData:
+    m_CurrentChannels: 9
+    m_VertexCount: 28
+    m_Channels:
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 3
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 12
+      format: 0
+      dimension: 2
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    m_DataSize: 560
+    _typelessdata: cdcc4c3ecdcccc3d00000000000000000000803f6657353ecdcccc3dc359be3dd9899d3d0000803fe7ade83dcdcccc3d0f8c283ed9891d3e0000803fd37cc53ccdcccc3d884e4b3ec64e6c3e0000803f033f91bdcdcccc3dc77d3f3ed9899d3e0000803f834b19becdcccc3dbcce073e4fecc43e0000803f50d946becdcccc3d2f0c443dc64eec3e0000803f50d946becdcccc3d2c0c44bd9ed8093f0000803f834b19becdcccc3dbbce07bed9891d3f0000803f0a3f91bdcdcccc3dc77d3fbe143b313f0000803f8d7cc53ccdcccc3d8a4e4bbe4fec443f0000803fe3ade83dcdcccc3d108c28be8a9d583f0000803f6357353ecdcccc3dcf59bebdc64e6c3f0000803fcdcc4c3ecdcccc3df23016330000803f0000803f9a99193fcdccccbd0000000000000000000000008c01083fcdccccbd52c38e3ed9899d3d000000006d82ae3ecdccccbd17d2fc3ed9891d3e000000009f1d943dcdccccbde67a183fc64e6c3e0000000085de59becdccccbd559e0f3fd9899d3e0000000045f1e5becdccccbd1bb6cb3e4fecc43e00000000fc2215bfcdccccbd2409133ec64eec3e00000000fc2215bfcdccccbd210913be9ed8093f0000000045f1e5becdccccbd19b6cbbed9891d3f000000008fde59becdccccbd569e0fbf143b313f000000006a1d943dcdccccbde87a18bf4fec443f000000006b82ae3ecdccccbd19d2fcbe8a9d583f000000008a01083fcdccccbd5bc38ebec64e6c3f000000009a99193fcdccccbd6b49e1330000803f00000000
+  m_CompressedMesh:
+    m_Vertices:
+      m_NumItems: 0
+      m_Range: 0
+      m_Start: 0
+      m_Data: 
+      m_BitSize: 0
+    m_UV:
+      m_NumItems: 0
+      m_Range: 0
+      m_Start: 0
+      m_Data: 
+      m_BitSize: 0
+    m_Normals:
+      m_NumItems: 0
+      m_Range: 0
+      m_Start: 0
+      m_Data: 
+      m_BitSize: 0
+    m_Tangents:
+      m_NumItems: 0
+      m_Range: 0
+      m_Start: 0
+      m_Data: 
+      m_BitSize: 0
+    m_Weights:
+      m_NumItems: 0
+      m_Data: 
+      m_BitSize: 0
+    m_NormalSigns:
+      m_NumItems: 0
+      m_Data: 
+      m_BitSize: 0
+    m_TangentSigns:
+      m_NumItems: 0
+      m_Data: 
+      m_BitSize: 0
+    m_FloatColors:
+      m_NumItems: 0
+      m_Range: 0
+      m_Start: 0
+      m_Data: 
+      m_BitSize: 0
+    m_BoneIndices:
+      m_NumItems: 0
+      m_Data: 
+      m_BitSize: 0
+    m_Triangles:
+      m_NumItems: 0
+      m_Data: 
+      m_BitSize: 0
+    m_UVInfo: 0
+  m_LocalAABB:
+    m_Center: {x: 0.008717477, y: 0, z: -0.000000059604645}
+    m_Extent: {x: 0.59128255, y: 0.1, z: 0.59562534}
+  m_MeshUsageFlags: 0
+  m_BakedConvexCollisionMesh: 
+  m_BakedTriangleCollisionMesh: 
+  m_MeshOptimized: 0

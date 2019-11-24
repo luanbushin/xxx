@@ -63,6 +63,8 @@ public class MapCreat : MonoBehaviour
 
     private List<List<CreatMapItem>> mapGroupList;
 
+
+
     public int curIndex = 0;
 
     private string[] boxNames;
@@ -245,7 +247,8 @@ public class MapCreat : MonoBehaviour
         boxList.value = 1;
         boxList.value = 0;
 
-        initBoxList(); 
+        initBoxList();
+        
     }
 
     private void initBoxList(){
@@ -274,6 +277,9 @@ public class MapCreat : MonoBehaviour
 
     private void onValueChanged(int arg0)
     {
+
+
+
         curIndex = boxList.value;
         if (curNewObj)
         {

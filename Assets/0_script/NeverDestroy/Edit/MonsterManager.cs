@@ -40,6 +40,11 @@ public class MonsterManager : MonoNotice
             enemyObject[obj.transform.position] = obj;
         });
 
+        addListener(Notice.MonsterATK, (string s, GameObject g) =>
+        {
+            GameMain.Instance.overPanel.SetActive(true);
+            GameMain.Instance.player.SetActive(false);
+        });
 
         addListener(Notice.MonsterBeATK, (string s, GameObject g) =>
         {
@@ -60,8 +65,11 @@ public class MonsterManager : MonoNotice
 
     public GameObject getWarriorMonster(string str)
     {
-        return (GameObject)Resources.Load("enemy/"+str);
+        //return (GameObject)Resources.Load("enemy/"+str);.
+        return (GameObject)Resources.Load(str);
     }
+
+
 
     private IEnumerator loadCompleteInfo()
     {
@@ -75,14 +83,20 @@ public class MonsterManager : MonoNotice
         foreach (Vector3 list in enemlist.Keys)
         {
             GameObject obj = GameObject.Instantiate(enemyBox, list, gameObject.transform.rotation);
-            int random = UnityEngine.Random.Range(1, 1);
-            if (random == 1)
-            {
-                obj.AddComponent<Archer01>();
+            switch (enemlist[list]) {
+                case 1:
+                    obj.AddComponent<PigMonster>();
+                    break;
             }
-            else { 
-                obj.AddComponent<Warrior01>();
-            }
+            //Debug.Log(enemlist[list]);
+            //int random = UnityEngine.Random.Range(1, 1);
+            //if (random == 1)
+            //{
+            //    obj.AddComponent<Archer01>();
+            //}
+            //else { 
+            //    obj.AddComponent<Warrior01>();
+            //}
             // obj.GetComponent<EnemyAI>().initMonsterValue(MonsterPresetData.get(enemlist[list]));
 
             enemyObject[obj.transform.position] = obj;

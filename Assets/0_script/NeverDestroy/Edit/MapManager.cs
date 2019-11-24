@@ -117,6 +117,337 @@ public class MapManager : MonoNotice
     }
 
 
+    public Vector3 pathfinding(Vector3 fromv3,Vector3 tov3) {
+        if (isLineArrive(fromv3, tov3))
+        {
+            return tov3 - fromv3;
+        }
+        else {
+            /*return Vector3.zero;
+            List<List<Vector3>> allway = new List<List<Vector3>>();
+            List<Vector3> list = new List<Vector3>();
+            list.Add(fromv3);
+            findV3(allway,list, tov3);
+
+
+            Debug.Log(allway);*/
+            return Vector3.zero;
+        }
+    }
+
+    public void findV3(List<List<Vector3>> allway,List<Vector3> list, Vector3 target)
+    {
+        if (allway.Count > 0)
+            return;
+        Vector3 curV3 = list[list.Count - 1];
+
+        /*if (curV3.x > target.x)
+        {
+            if (othervox("r", curV3))
+            {
+                Vector3 nextV3 = new Vector3(curV3.x + 1, curV3.y, curV3.z);
+                list.Add(nextV3);
+                if (nextV3.x == target.x && nextV3.z == target.z)
+                {
+                    allway.Add(list);
+                }
+                else {
+                    findV3(allway,new List<Vector3>(list), target);
+                }
+              
+            }
+            if (othervox("l", curV3))
+            {
+                Vector3 nextV3 = new Vector3(curV3.x - 1, curV3.y, curV3.z);
+                list.Add(nextV3);
+                if (nextV3.x == target.x && nextV3.z == target.z)
+                {
+                    allway.Add(list);
+                }
+                else
+                {
+                    findV3(allway, new List<Vector3>(list), target);
+                }
+            }
+            if (curV3.z > target.z)
+            {
+                if (othervox("t", curV3))
+                {
+                    Vector3 nextV3 = new Vector3(curV3.x, curV3.y, curV3.z+1);
+                    list.Add(nextV3);
+                    if (nextV3.x == target.x && nextV3.z == target.z)
+                    {
+                        allway.Add(list);
+                    }
+                    else
+                    {
+                        findV3(allway, new List<Vector3>(list), target);
+                    }
+                }
+                if (othervox("d", curV3))
+                {
+                    Vector3 nextV3 = new Vector3(curV3.x, curV3.y, curV3.z - 1);
+                    list.Add(nextV3);
+                    if (nextV3.x == target.x && nextV3.z == target.z)
+                    {
+                        allway.Add(list);
+                    }
+                    else
+                    {
+                        findV3(allway, new List<Vector3>(list), target);
+                    }
+                }
+            }
+            else
+            {
+                if (othervox("d", curV3))
+                {
+                    Vector3 nextV3 = new Vector3(curV3.x, curV3.y, curV3.z - 1);
+                    list.Add(nextV3);
+                    if (nextV3.x == target.x && nextV3.z == target.z)
+                    {
+                        allway.Add(list);
+                    }
+                    else
+                    {
+                        findV3(allway, new List<Vector3>(list), target);
+                    }
+                }
+                if (othervox("t", curV3))
+                {
+                    Vector3 nextV3 = new Vector3(curV3.x, curV3.y, curV3.z + 1);
+                    list.Add(nextV3);
+                    if (nextV3.x == target.x && nextV3.z == target.z)
+                    {
+                        allway.Add(list);
+                    }
+                    else
+                    {
+                        findV3(allway, new List<Vector3>(list), target);
+                    }
+                }
+            }
+        }
+        else if (curV3.x == target.x)
+        {
+            if (curV3.z > target.z)
+            {
+                if (othervox("t", curV3))
+                {
+                    Vector3 nextV3 = new Vector3(curV3.x, curV3.y, curV3.z + 1);
+                    list.Add(nextV3);
+                    if (nextV3.x == target.x && nextV3.z == target.z)
+                    {
+                        allway.Add(list);
+                    }
+                    else
+                    {
+                        findV3(allway, new List<Vector3>(list), target);
+                    }
+                }
+                if (othervox("d", curV3))
+                {
+                    Vector3 nextV3 = new Vector3(curV3.x, curV3.y, curV3.z - 1);
+                    list.Add(nextV3);
+                    if (nextV3.x == target.x && nextV3.z == target.z)
+                    {
+                        allway.Add(list);
+                    }
+                    else
+                    {
+                        findV3(allway, new List<Vector3>(list), target);
+                    }
+                }
+            }
+            else
+            {
+                if (othervox("d", curV3))
+                {
+                    Vector3 nextV3 = new Vector3(curV3.x, curV3.y, curV3.z - 1);
+                    list.Add(nextV3);
+                    if (nextV3.x == target.x && nextV3.z == target.z)
+                    {
+                        allway.Add(list);
+                    }
+                    else
+                    {
+                        findV3(allway, new List<Vector3>(list), target);
+                    }
+                }
+                if (othervox("t", curV3))
+                {
+                    Vector3 nextV3 = new Vector3(curV3.x, curV3.y, curV3.z + 1);
+                    list.Add(nextV3);
+                    if (nextV3.x == target.x && nextV3.z == target.z)
+                    {
+                        allway.Add(list);
+                    }
+                    else
+                    {
+                        findV3(allway, new List<Vector3>(list), target);
+                    }
+                }
+            }
+            if (othervox("r", curV3))
+            {
+                Vector3 nextV3 = new Vector3(curV3.x + 1, curV3.y, curV3.z);
+                list.Add(nextV3);
+                if (nextV3.x == target.x && nextV3.z == target.z)
+                {
+                    allway.Add(list);
+                }
+                else
+                {
+                    findV3(allway, new List<Vector3>(list), target);
+                }
+
+            }
+            if (othervox("l", curV3))
+            {
+                Vector3 nextV3 = new Vector3(curV3.x - 1, curV3.y, curV3.z);
+                list.Add(nextV3);
+                if (nextV3.x == target.x && nextV3.z == target.z)
+                {
+                    allway.Add(list);
+                }
+                else
+                {
+                    findV3(allway, new List<Vector3>(list), target);
+                }
+            }
+        }
+        else
+        {
+            if (othervox("l", curV3))
+            {
+                Vector3 nextV3 = new Vector3(curV3.x - 1, curV3.y, curV3.z);
+                list.Add(nextV3);
+                if (nextV3.x == target.x && nextV3.z == target.z)
+                {
+                    allway.Add(list);
+                }
+                else
+                {
+                    findV3(allway, new List<Vector3>(list), target);
+                }
+            }
+            if (othervox("r", curV3))
+            {
+                Vector3 nextV3 = new Vector3(curV3.x + 1, curV3.y, curV3.z);
+                list.Add(nextV3);
+                if (nextV3.x == target.x && nextV3.z == target.z)
+                {
+                    allway.Add(list);
+                }
+                else
+                {
+                    findV3(allway, new List<Vector3>(list), target);
+                }
+            }
+            if (curV3.z > target.z)
+            {
+                if (othervox("d", curV3))
+                {
+                    Vector3 nextV3 = new Vector3(curV3.x, curV3.y, curV3.z - 1);
+                    list.Add(nextV3);
+                    if (nextV3.x == target.x && nextV3.z == target.z)
+                    {
+                        allway.Add(list);
+                    }
+                    else
+                    {
+                        findV3(allway, new List<Vector3>(list), target);
+                    }
+                }
+                if (othervox("t", curV3))
+                {
+                    Vector3 nextV3 = new Vector3(curV3.x, curV3.y, curV3.z + 1);
+                    list.Add(nextV3);
+                    if (nextV3.x == target.x && nextV3.z == target.z)
+                    {
+                        allway.Add(list);
+                    }
+                    else
+                    {
+                        findV3(allway, new List<Vector3>(list), target);
+                    }
+                }
+            }
+            else
+            {
+                if (othervox("t", curV3))
+                {
+                    Vector3 nextV3 = new Vector3(curV3.x, curV3.y, curV3.z + 1);
+                    list.Add(nextV3);
+                    if (nextV3.x == target.x && nextV3.z == target.z)
+                    {
+                        allway.Add(list);
+                    }
+                    else
+                    {
+                        findV3(allway, new List<Vector3>(list), target);
+                    }
+                }
+                if (othervox("d", curV3))
+                {
+                    Vector3 nextV3 = new Vector3(curV3.x, curV3.y, curV3.z - 1);
+                    list.Add(nextV3);
+                    if (nextV3.x == target.x && nextV3.z == target.z)
+                    {
+                        allway.Add(list);
+                    }
+                    else
+                    {
+                        findV3(allway, new List<Vector3>(list), target);
+                    }
+                }
+            }
+        }*/
+    }
+    public bool othervox(string dic, Vector3 v3) {
+        switch (dic) {
+            case "l":
+                if (mapObj.ContainsKey(new Vector3(v3.x - 1, v3.y, v3.z))) {
+                    return false;
+                }
+                break;
+            case "r":
+                if (mapObj.ContainsKey(new Vector3(v3.x + 1, v3.y, v3.z)))
+                {
+                    return false;
+                }
+                break;
+            case "t":
+                if (mapObj.ContainsKey(new Vector3(v3.x, v3.y, v3.z+1)))
+                {
+                    return false;
+                }
+                break;
+            case "d":
+                if (mapObj.ContainsKey(new Vector3(v3.x, v3.y, v3.z-1)))
+                {
+                    return false;
+                }
+                break;
+        }
+        return true;
+    }
+
+    public bool isLineArrive(Vector3 mv3, Vector3 target) {
+        RaycastHit hitt = new RaycastHit();
+        Vector3 v3 = target - mv3;
+        Physics.Raycast(mv3, v3.normalized, out hitt);
+        //Debug.Log(Physics.Raycast(mv3, v3.normalized, out hitt));
+        //Debug.Log(hitt.transform.tag == "Player");
+        
+        if (hitt.transform&&hitt.transform.position.x == target.x&& hitt.transform.position.z == target.z) {
+            return true;
+        }
+
+
+
+        return false;
+    }
 
 
 

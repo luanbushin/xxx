@@ -8,7 +8,7 @@ using Game.Config;
 
 public class plyaer : MonoNotice
 {
-    public int TranslateSpeed = 5;
+    public int TranslateSpeed = 4;
     public int BaseSpeed = 5;
     public int liftHP = 3;
     // Use this for initialization

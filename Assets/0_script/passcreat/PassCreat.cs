@@ -11,7 +11,10 @@ using Game;
 public class PassCreat : MonoNotice
 {
     public GameObject ListContent;
+    public GameObject scrollView;
+    public GameObject monsterAiPanel;
 
+    public GameObject chooseBtn;
 
     public Button loadBtn;
     public Button creatBtn;
@@ -127,11 +130,49 @@ public class PassCreat : MonoNotice
                     curPatrolList.Add(GameObject.Instantiate(placeGameObject, placeObject[curVetorIndex][i], gameObject.transform.rotation));
                 }
             }
+
+            scrollView.SetActive(true);
+            xuanxiang();
         });
 
         addListener(Notice.CREAT_Trap, initTrap);
 
         updataMonsterList();
+
+        //loadEnemy();
+    }
+
+    private void xuanxiang() {
+        GameObject obj = GameObject.Instantiate(chooseBtn, Vector3.zero, gameObject.transform.rotation);
+        obj.GetComponent<MonsterItem>().setText("如果");
+        obj.transform.SetParent(monsterAiPanel.transform);
+        obj.GetComponent<RectTransform>().anchoredPosition = new Vector2(0,0);
+        //btn.GetComponent<Text>().text = "如果";
+    }
+
+    public void loadEnemy() {
+        string fullPath = "Assets/Resources/Prefabs/Characters" + "/";
+        DirectoryInfo direction = new DirectoryInfo(fullPath);
+        FileInfo[] files = direction.GetFiles("*", SearchOption.AllDirectories);
+
+        string boxname = "";
+
+        for (int i = 0; i < files.Length; i++)
+        {
+            if (files[i].Name.EndsWith(".meta") || files[i].Name.EndsWith(".psd") || files[i].Name.EndsWith(".FBX") || files[i].Name.EndsWith(".mat") || files[i].Name.EndsWith(".tga") || files[i].Name.EndsWith(".png"))
+            {
+                continue;
+            }
+
+            string str = files[i].Name.Replace(".prefab", "");
+
+            if (boxname.Length > 0)
+                boxname += ";";
+            boxname += str;
+        }
+
+        Debug.Log(boxname);
+
     }
 
     private List<GameObject> curTrap;
@@ -289,6 +330,7 @@ public class PassCreat : MonoNotice
         //gameObject.SetActive(false);
         //mapIndexObject = xml.LoadXml();
 
+        enemyGameObject = (GameObject)Resources.Load("Prefabs/Characters/" + 10000);
 
         foreach (Vector3 list in xml.LoadEnemyXml(patrolObject).Keys)
         {
@@ -326,7 +368,10 @@ public class PassCreat : MonoNotice
             bornObject[obj.transform.position] = obj;
         }
 
+        scrollView.SetActive(false);
     }
+
+
 
     private void openMoensterPanel()
     {
