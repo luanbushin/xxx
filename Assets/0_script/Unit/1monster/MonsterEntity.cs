@@ -36,7 +36,7 @@ public class MonsterEntity : MonoBehaviour
     }
 
     public bool chackAttackRange() {
-        if (Vector3.Distance(transform.position, target.transform.position) < 7)
+        if (Vector3.Distance(transform.position, target.transform.position) < 6)
         {
             return true;
         }

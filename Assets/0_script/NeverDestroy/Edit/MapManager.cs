@@ -21,6 +21,8 @@ public class MapManager : MonoNotice
     // Use this for initialization
 
     public MapConfig mapConfig;
+
+    public Grid mygrid;
     
     private void Awake()
     {
@@ -75,9 +77,14 @@ public class MapManager : MonoNotice
         }
         else
         {
+            mygrid = new Grid();
             foreach (Vector3 list in mapIndexObj.Keys)
             {
                 GameObject obj = GameObject.Instantiate(mapItemList[mapIndexObj[list]], list, gameObject.transform.rotation);
+          
+                if (list.y == 1&& list.x<150&& list.z < 150) {
+                    mygrid.grid[(int)list.x, (int)list.z].mapindex = mapIndexObj[list];
+                }
                 obj.transform.SetParent(mapparent.transform);
                 mapObj[obj.transform.position] = obj;
             }
@@ -120,9 +127,28 @@ public class MapManager : MonoNotice
     public Vector3 pathfinding(Vector3 fromv3,Vector3 tov3) {
         if (isLineArrive(fromv3, tov3))
         {
-            return tov3 - fromv3;
+            return tov3;
         }
         else {
+
+            FindingPath(fromv3, tov3);
+
+            GameObject obj = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            obj.GetComponent<BoxCollider>().isTrigger = true;
+
+            for (int i = mygrid.path.Count - 1; i >=0 ; i--) {
+                obj.transform.position = mygrid.path[i]._worldPos;
+                if (mygrid.path[i]._worldPos.x == Mathf.Round(fromv3.x) && mygrid.path[i]._worldPos.z == Mathf.Round(fromv3.z))
+                    continue;
+                
+                if (isLineArrive(fromv3, mygrid.path[i]._worldPos))
+                {
+                    Destroy(obj);
+                    return mygrid.path[i]._worldPos;
+                }
+            }
+            Destroy(obj);
+
             /*return Vector3.zero;
             List<List<Vector3>> allway = new List<List<Vector3>>();
             List<Vector3> list = new List<Vector3>();
@@ -135,275 +161,89 @@ public class MapManager : MonoNotice
         }
     }
 
-    public void findV3(List<List<Vector3>> allway,List<Vector3> list, Vector3 target)
+    void FindingPath(Vector3 StarPos, Vector3 EndPos)
     {
-        if (allway.Count > 0)
-            return;
-        Vector3 curV3 = list[list.Count - 1];
+        Node startNode = mygrid.GetFromPos(StarPos);
+        Node endNode = mygrid.GetFromPos(EndPos);
+        List<Node> openSet = new List<Node>();
+        HashSet<Node> closeSet = new HashSet<Node>();
+        openSet.Add(startNode);
 
-        /*if (curV3.x > target.x)
+        while (openSet.Count > 0)
         {
-            if (othervox("r", curV3))
+            Node currentNode = openSet[0];
+
+            for (int i = 0; i < openSet.Count; i++)
             {
-                Vector3 nextV3 = new Vector3(curV3.x + 1, curV3.y, curV3.z);
-                list.Add(nextV3);
-                if (nextV3.x == target.x && nextV3.z == target.z)
+                if (openSet[i].fCost < currentNode.fCost || openSet[i].fCost == currentNode.fCost && openSet[i].hCost < currentNode.hCost)
                 {
-                    allway.Add(list);
-                }
-                else {
-                    findV3(allway,new List<Vector3>(list), target);
-                }
-              
-            }
-            if (othervox("l", curV3))
-            {
-                Vector3 nextV3 = new Vector3(curV3.x - 1, curV3.y, curV3.z);
-                list.Add(nextV3);
-                if (nextV3.x == target.x && nextV3.z == target.z)
-                {
-                    allway.Add(list);
-                }
-                else
-                {
-                    findV3(allway, new List<Vector3>(list), target);
+                    currentNode = openSet[i];
                 }
             }
-            if (curV3.z > target.z)
+
+            openSet.Remove(currentNode);
+            closeSet.Add(currentNode);
+
+            if (currentNode == endNode)
             {
-                if (othervox("t", curV3))
-                {
-                    Vector3 nextV3 = new Vector3(curV3.x, curV3.y, curV3.z+1);
-                    list.Add(nextV3);
-                    if (nextV3.x == target.x && nextV3.z == target.z)
-                    {
-                        allway.Add(list);
-                    }
-                    else
-                    {
-                        findV3(allway, new List<Vector3>(list), target);
-                    }
-                }
-                if (othervox("d", curV3))
-                {
-                    Vector3 nextV3 = new Vector3(curV3.x, curV3.y, curV3.z - 1);
-                    list.Add(nextV3);
-                    if (nextV3.x == target.x && nextV3.z == target.z)
-                    {
-                        allway.Add(list);
-                    }
-                    else
-                    {
-                        findV3(allway, new List<Vector3>(list), target);
-                    }
-                }
+                GeneratePath(startNode, endNode);
+                return;
             }
-            else
+            //判断周围最优节点
+            foreach (var item in mygrid.GetNeibourhood(currentNode))
             {
-                if (othervox("d", curV3))
+                if (item.mapindex != 0 || closeSet.Contains(item))
+                    continue;
+                int newCost = currentNode.gCost + GetDistanceNodes(currentNode, item);
+                if (newCost < item.gCost || !openSet.Contains(item))
                 {
-                    Vector3 nextV3 = new Vector3(curV3.x, curV3.y, curV3.z - 1);
-                    list.Add(nextV3);
-                    if (nextV3.x == target.x && nextV3.z == target.z)
+                    item.gCost = newCost;
+                    item.hCost = GetDistanceNodes(item, endNode);
+                    item.parent = currentNode;
+                    if (!openSet.Contains(item))
                     {
-                        allway.Add(list);
-                    }
-                    else
-                    {
-                        findV3(allway, new List<Vector3>(list), target);
+                        openSet.Add(item);
                     }
                 }
-                if (othervox("t", curV3))
-                {
-                    Vector3 nextV3 = new Vector3(curV3.x, curV3.y, curV3.z + 1);
-                    list.Add(nextV3);
-                    if (nextV3.x == target.x && nextV3.z == target.z)
-                    {
-                        allway.Add(list);
-                    }
-                    else
-                    {
-                        findV3(allway, new List<Vector3>(list), target);
-                    }
-                }
+
             }
         }
-        else if (curV3.x == target.x)
-        {
-            if (curV3.z > target.z)
-            {
-                if (othervox("t", curV3))
-                {
-                    Vector3 nextV3 = new Vector3(curV3.x, curV3.y, curV3.z + 1);
-                    list.Add(nextV3);
-                    if (nextV3.x == target.x && nextV3.z == target.z)
-                    {
-                        allway.Add(list);
-                    }
-                    else
-                    {
-                        findV3(allway, new List<Vector3>(list), target);
-                    }
-                }
-                if (othervox("d", curV3))
-                {
-                    Vector3 nextV3 = new Vector3(curV3.x, curV3.y, curV3.z - 1);
-                    list.Add(nextV3);
-                    if (nextV3.x == target.x && nextV3.z == target.z)
-                    {
-                        allway.Add(list);
-                    }
-                    else
-                    {
-                        findV3(allway, new List<Vector3>(list), target);
-                    }
-                }
-            }
-            else
-            {
-                if (othervox("d", curV3))
-                {
-                    Vector3 nextV3 = new Vector3(curV3.x, curV3.y, curV3.z - 1);
-                    list.Add(nextV3);
-                    if (nextV3.x == target.x && nextV3.z == target.z)
-                    {
-                        allway.Add(list);
-                    }
-                    else
-                    {
-                        findV3(allway, new List<Vector3>(list), target);
-                    }
-                }
-                if (othervox("t", curV3))
-                {
-                    Vector3 nextV3 = new Vector3(curV3.x, curV3.y, curV3.z + 1);
-                    list.Add(nextV3);
-                    if (nextV3.x == target.x && nextV3.z == target.z)
-                    {
-                        allway.Add(list);
-                    }
-                    else
-                    {
-                        findV3(allway, new List<Vector3>(list), target);
-                    }
-                }
-            }
-            if (othervox("r", curV3))
-            {
-                Vector3 nextV3 = new Vector3(curV3.x + 1, curV3.y, curV3.z);
-                list.Add(nextV3);
-                if (nextV3.x == target.x && nextV3.z == target.z)
-                {
-                    allway.Add(list);
-                }
-                else
-                {
-                    findV3(allway, new List<Vector3>(list), target);
-                }
+    }
 
-            }
-            if (othervox("l", curV3))
-            {
-                Vector3 nextV3 = new Vector3(curV3.x - 1, curV3.y, curV3.z);
-                list.Add(nextV3);
-                if (nextV3.x == target.x && nextV3.z == target.z)
-                {
-                    allway.Add(list);
-                }
-                else
-                {
-                    findV3(allway, new List<Vector3>(list), target);
-                }
-            }
+    private void GeneratePath(Node startNode, Node endNode)
+    {
+        List<Node> path = new List<Node>();
+        Node temp = endNode;
+        while (temp != startNode)
+        {
+            path.Add(temp);
+            temp = temp.parent;
+        }
+        //列表反转
+        path.Reverse();
+        mygrid.path = path;
+
+    }
+
+    int GetDistanceNodes(Node a, Node b)
+    {
+        //估算权值,对角线算法 看在X轴还是Y轴格子数多  可计算斜移动
+        int cntX = Mathf.Abs(a._gridX - b._gridX);
+        int cntY = Mathf.Abs(a._gridY - b._gridY);
+        if (cntX > cntY)
+        {
+            return 14 * cntY + 10 * (cntX - cntY);
         }
         else
         {
-            if (othervox("l", curV3))
-            {
-                Vector3 nextV3 = new Vector3(curV3.x - 1, curV3.y, curV3.z);
-                list.Add(nextV3);
-                if (nextV3.x == target.x && nextV3.z == target.z)
-                {
-                    allway.Add(list);
-                }
-                else
-                {
-                    findV3(allway, new List<Vector3>(list), target);
-                }
-            }
-            if (othervox("r", curV3))
-            {
-                Vector3 nextV3 = new Vector3(curV3.x + 1, curV3.y, curV3.z);
-                list.Add(nextV3);
-                if (nextV3.x == target.x && nextV3.z == target.z)
-                {
-                    allway.Add(list);
-                }
-                else
-                {
-                    findV3(allway, new List<Vector3>(list), target);
-                }
-            }
-            if (curV3.z > target.z)
-            {
-                if (othervox("d", curV3))
-                {
-                    Vector3 nextV3 = new Vector3(curV3.x, curV3.y, curV3.z - 1);
-                    list.Add(nextV3);
-                    if (nextV3.x == target.x && nextV3.z == target.z)
-                    {
-                        allway.Add(list);
-                    }
-                    else
-                    {
-                        findV3(allway, new List<Vector3>(list), target);
-                    }
-                }
-                if (othervox("t", curV3))
-                {
-                    Vector3 nextV3 = new Vector3(curV3.x, curV3.y, curV3.z + 1);
-                    list.Add(nextV3);
-                    if (nextV3.x == target.x && nextV3.z == target.z)
-                    {
-                        allway.Add(list);
-                    }
-                    else
-                    {
-                        findV3(allway, new List<Vector3>(list), target);
-                    }
-                }
-            }
-            else
-            {
-                if (othervox("t", curV3))
-                {
-                    Vector3 nextV3 = new Vector3(curV3.x, curV3.y, curV3.z + 1);
-                    list.Add(nextV3);
-                    if (nextV3.x == target.x && nextV3.z == target.z)
-                    {
-                        allway.Add(list);
-                    }
-                    else
-                    {
-                        findV3(allway, new List<Vector3>(list), target);
-                    }
-                }
-                if (othervox("d", curV3))
-                {
-                    Vector3 nextV3 = new Vector3(curV3.x, curV3.y, curV3.z - 1);
-                    list.Add(nextV3);
-                    if (nextV3.x == target.x && nextV3.z == target.z)
-                    {
-                        allway.Add(list);
-                    }
-                    else
-                    {
-                        findV3(allway, new List<Vector3>(list), target);
-                    }
-                }
-            }
-        }*/
+            return 14 * cntX + 10 * (cntY - cntX);
+        }
+
+        //曼哈顿算法
+        //return Mathf.Abs(a._gridX - b._gridX) * 10 + Mathf.Abs(a._gridY - b._gridY) * 10;
     }
+
+    
     public bool othervox(string dic, Vector3 v3) {
         switch (dic) {
             case "l":
@@ -437,9 +277,10 @@ public class MapManager : MonoNotice
         RaycastHit hitt = new RaycastHit();
         Vector3 v3 = target - mv3;
         Physics.Raycast(mv3, v3.normalized, out hitt);
+        
         //Debug.Log(Physics.Raycast(mv3, v3.normalized, out hitt));
         //Debug.Log(hitt.transform.tag == "Player");
-        
+
         if (hitt.transform&&hitt.transform.position.x == target.x&& hitt.transform.position.z == target.z) {
             return true;
         }

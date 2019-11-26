@@ -34,7 +34,7 @@ public class PigMonster: MonsterEntity
         base.backatk();
     }
 
-    public void atkesc()
+    public void atkesc() 
     {
         collision.SetActive(false);
     }
@@ -63,8 +63,8 @@ public class PigMonster: MonsterEntity
                 Vector3 v3 = MapManager.Instance.pathfinding(new Vector3(transform.position.x, 1.5f, transform.position.z), new Vector3(target.transform.position.x, 1.5f, target.transform.position.z));
 
                 //transform.Translate(Vector3.right * Time.deltaTime * 1);
-                Vector3 preDir = new Vector3(transform.position.x, 0, transform.position.z) - new Vector3(target.transform.position.x, 0, target.transform.position.z);
-
+                //Vector3 preDir = new Vector3(transform.position.x, 0, transform.position.z) - new Vector3(target.transform.position.x, 0, target.transform.position.z);
+                Vector3 preDir = new Vector3(transform.position.x, 0, transform.position.z) - new Vector3(v3.x, 0, v3.z);
                 //Vector3 v3 = new Vector3(target.transform.position.x - transform.position.x, 0, target.transform.position.z - transform.position.z);
                 //Vector3 mv3 = new Vector3(transform.position.x, 1.5f, transform.position.z);
                 //Vector3 tv3 = new Vector3(target.transform.position.x, 1.5f, target.transform.position.z);
@@ -74,9 +74,11 @@ public class PigMonster: MonsterEntity
                 //Debug.Log(hitt.transform.tag == "Player");
 
                 //Debug.DrawLine(mv3, tv3);
-                    
-                transform.position += v3.normalized * 1 * Time.deltaTime;
+                Vector3 moveV3 = v3 - new Vector3(transform.position.x, 1.5f, transform.position.z);
+
+                transform.position += moveV3.normalized * 3 * Time.deltaTime;
                 preDir = preDir.normalized;
+
                 transform.rotation = Quaternion.FromToRotation(Vector3.back, preDir);
 
                
