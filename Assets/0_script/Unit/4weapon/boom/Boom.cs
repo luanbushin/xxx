@@ -66,6 +66,11 @@ public class Boom : MonoBehaviour {
                     Instantiate(leftcollsion, transform.position + (i * direction) + new Vector3(0, difference, 0), leftcollsion.transform.rotation);
                     Destroy(hit.collider.gameObject);
                 }
+                else if (hit.collider.gameObject.GetComponent<MonsterEntity>())
+                {
+                    Instantiate(leftcollsion, transform.position + (i * direction) + new Vector3(0, difference, 0), leftcollsion.transform.rotation);
+                    Destroy(hit.collider.gameObject);
+                }
                 else if (hit.collider.gameObject.tag == "diaoluo")
                 {
                     Instantiate(leftcollsion, transform.position + (i * direction) + new Vector3(0, difference, 0), leftcollsion.transform.rotation);

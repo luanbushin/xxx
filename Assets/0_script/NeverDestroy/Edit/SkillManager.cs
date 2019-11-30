@@ -24,11 +24,8 @@ public class SkillManager : MonoNotice
             {
                 //Debug.Log(1111111);
                 //useSkillByData();
-                GameObject obj = GameObject.Instantiate(player.shootObject, player.transform.position, player.transform.Find("430").transform.rotation);
-                obj.GetComponent<ShootCollisoon>().selfObj = player.gameObject;
-                player.anim.CrossFade("atk", 0.08f);
-                obj.GetComponent<Rigidbody>().AddForce(obj.transform.forward * 1000);
-                player.setPlaterState(1, 0.5f, "idle");
+                player.anim.CrossFade("die", 0.08f);
+                player.setPlaterState(1, 5f, "idle");
             }
             if (id == "J")
             {
@@ -64,16 +61,22 @@ public class SkillManager : MonoNotice
             }
             if (id == "L")
             {
-
+                GameObject obj = GameObject.Instantiate(player.shootObject, player.transform.position, player.transform.Find("430").transform.rotation);
+                obj.GetComponent<ShootCollisoon>().selfObj = player.gameObject;
+                player.anim.CrossFade("atk", 0.08f);
+                obj.GetComponent<Rigidbody>().AddForce(obj.transform.forward * 1000);
+                player.setPlaterState(1, 0.5f, "idle");
+            }
+            if (id == "K")
+            {
+                SkillData data = new SkillData();
+                data.id = 10001;
+                useSkillByData(data);
             }
             if (id == "I")
             {
                 GameObject obj = GameObject.Instantiate(player.fanwei, player.transform.position, transform.rotation);
                 obj.transform.Translate(new Vector3(0, -0.8f, 0));
-            }
-            if (id == "K")
-            {
-      
             }
         });
     }
@@ -81,7 +84,7 @@ public class SkillManager : MonoNotice
     public void useSkillByData(SkillData data) {
         switch (data.id) {
             case 10001:
-                Vector3 v3 = new Vector3(Mathf.Round(gameObject.transform.position.x), gameObject.transform.position.y - 0.3f, Mathf.Round(gameObject.transform.position.z));
+                Vector3 v3 = new Vector3(Mathf.Round(player.transform.position.x), player.transform.position.y - 0.3f, Mathf.Round(player.transform.position.z));
                 skill10001(v3);
                 break;
             case 10002:
