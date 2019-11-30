@@ -83,9 +83,71 @@ public class MonsterManager : MonoNotice
         foreach (Vector3 list in enemlist.Keys)
         {
             GameObject obj = GameObject.Instantiate(enemyBox, list, gameObject.transform.rotation);
-            switch (enemlist[list]) {
+            //(enemlist[list]
+            switch (6) {
                 case 1:
+                    //小猪
                     obj.AddComponent<PigMonster>();
+                    break;
+                case 2:
+                    //大猪
+                    obj.AddComponent<Pig2>();
+                    break;
+                case 3:
+                    //牛头
+                    obj.AddComponent<CattleMan>();
+                    break;
+                case 4:
+                    //龙
+                    obj.AddComponent<Dragon>();
+                    break;
+                case 5:
+                    //小龙
+                    obj.AddComponent<Dragon01>();
+                    break;
+                case 6:
+                    //大螃蟹
+                    obj.AddComponent<CrabBig>();
+                    break;
+                case 7:
+                    //小螃蟹
+                    obj.AddComponent<CrabLil>();
+                    break;
+                case 8:
+                    //幽灵
+                    obj.AddComponent<Ghost>();
+                    break;
+                case 9:
+                    //小蜘蛛
+                    obj.AddComponent<LitSpider>();
+                    break;
+                case 10:
+                    //蛇
+                    obj.AddComponent<SnakeMan>();
+                    break;
+                case 11:
+                    //蜘蛛人
+                    obj.AddComponent<CattleMan>();
+                    break;
+                case 12:
+                    //战士
+                    obj.AddComponent<Warrior01>();
+                    break;
+                case 13:
+                    //小野人
+                    obj.AddComponent<WildMan1>();
+                    break;
+                case 14:
+                    //大野人
+                    obj.AddComponent<WildMan2>();
+                    break;
+                case 15:
+                    //狼人
+                    obj.AddComponent<WolfMan>();
+                    break;
+                case 16:
+                    //弓箭手
+                    obj.AddComponent<Archer01>();
                     break;
             }
             //Debug.Log(enemlist[list]);

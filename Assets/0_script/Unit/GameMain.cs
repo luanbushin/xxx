@@ -22,6 +22,9 @@ public class GameMain : MonoNotice{
     {
         Application.targetFrameRate = 30;//此处限定60帧
         Instance = this;
+
+
+        CollisionCreator creator = new CollisionCreator();
     } 
     void Start () {
         overPanel.SetActive(false);

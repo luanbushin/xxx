@@ -24,6 +24,9 @@ public class plyaer : MonoNotice
 
     public Animation anim;                //Character Animation
 
+
+    public int curState = 0;
+
     
     private Dictionary<string, Vector3> forceVector = new Dictionary<string, Vector3>();
 
@@ -48,6 +51,18 @@ public class plyaer : MonoNotice
         forceVector.Remove(id);
     }
 
+
+    public void setPlaterState(int state,float time,string str) {
+        curState = state;
+
+        Invoke("backToState", time);
+    }
+
+    public void backToState() {
+        Debug.Log("dddd");
+        curState = 0;
+        anim.CrossFade("idle", 0.08f);
+    }
 
     //public void boomState() {
     //    if (target) {
@@ -130,72 +145,7 @@ public class plyaer : MonoNotice
         float num = Mathf.Cos(Mathf.PI / 4);
 
 
-        if (w)
-        {
-            if (a)
-            {
-                //GetComponent<Rigidbody>().velocity = Vector3.forward * Time.deltaTime * TranslateSpeed * num;
-                transform.Translate(Vector3.forward * Time.deltaTime * TranslateSpeed * num);
-                playerRotion = 315;
-                //transform.Find("430").transform.rotation = Quaternion.Euler(new Vector3(0, 315, 0));
-            }
-            else if (d)
-            {
-                transform.Translate(Vector3.forward * Time.deltaTime * TranslateSpeed * num);
-                playerRotion = 45;
-                //transform.Find("430").transform.rotation = Quaternion.Euler(new Vector3(0, 45, 0));
-            }
-            else
-            {
-                transform.Translate(Vector3.forward * Time.deltaTime * TranslateSpeed);
-                playerRotion = 0;
-               // transform.Find("430").transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
-            }
-        }
-        else if (s) {
-            if (a)
-            {
-                transform.Translate(Vector3.forward * Time.deltaTime * (-TranslateSpeed) * num);
-                playerRotion = 225;
-                //transform.Find("430").transform.rotation = Quaternion.Euler(new Vector3(0, 225, 0));
-            }
-            else if (d)
-            {
-                transform.Translate(Vector3.forward * Time.deltaTime * (-TranslateSpeed) * num);
-                playerRotion = 135;
-                //transform.Find("430").transform.rotation = Quaternion.Euler(new Vector3(0, 135, 0));
-            }
-            else
-            {
-                transform.Translate(Vector3.forward * Time.deltaTime * (-TranslateSpeed));
-                playerRotion = 180;
-                //transform.Find("430").transform.rotation = Quaternion.Euler(new Vector3(0, 180, 0));
-            }
-        }
-
-        if (a) {
-            if (w || s) {
-                transform.Translate(Vector3.right * Time.deltaTime * (-TranslateSpeed)* num);
-            }
-            else {
-                playerRotion = 270;
-                //transform.Find("430").transform.rotation = Quaternion.Euler(new Vector3(0, 270, 0));
-                transform.Translate(Vector3.right * Time.deltaTime * (-TranslateSpeed));
-            }
-        }
-        else if (d)
-        {
-            if (w || s)
-            {
-                transform.Translate(Vector3.right * Time.deltaTime * TranslateSpeed * num);
-            }
-            else
-            {
-                playerRotion = 90;
-                //transform.Find("430").transform.rotation = Quaternion.Euler(new Vector3(0, 90, 0));
-                transform.Translate(Vector3.right * Time.deltaTime * TranslateSpeed);
-            }
-        }
+        
         
         foreach (Vector3 v3 in forceVector.Values)
         { 
@@ -203,15 +153,91 @@ public class plyaer : MonoNotice
         }
 
 
-        if (a || d || w || s)
-        {
-            transform.Find("430").transform.rotation = Quaternion.Euler(new Vector3(0, playerRotion, 0));
-            anim.CrossFade("run", 0.08f);
+        if (curState == 0) {
+
+            if (w)
+            {
+                if (a)
+                {
+                    //GetComponent<Rigidbody>().velocity = Vector3.forward * Time.deltaTime * TranslateSpeed * num;
+                    transform.Translate(Vector3.forward * Time.deltaTime * TranslateSpeed * num);
+                    playerRotion = 315;
+                    //transform.Find("430").transform.rotation = Quaternion.Euler(new Vector3(0, 315, 0));
+                }
+                else if (d)
+                {
+                    transform.Translate(Vector3.forward * Time.deltaTime * TranslateSpeed * num);
+                    playerRotion = 45;
+                    //transform.Find("430").transform.rotation = Quaternion.Euler(new Vector3(0, 45, 0));
+                }
+                else
+                {
+                    transform.Translate(Vector3.forward * Time.deltaTime * TranslateSpeed);
+                    playerRotion = 0;
+                    // transform.Find("430").transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
+                }
+            }
+            else if (s)
+            {
+                if (a)
+                {
+                    transform.Translate(Vector3.forward * Time.deltaTime * (-TranslateSpeed) * num);
+                    playerRotion = 225;
+                    //transform.Find("430").transform.rotation = Quaternion.Euler(new Vector3(0, 225, 0));
+                }
+                else if (d)
+                {
+                    transform.Translate(Vector3.forward * Time.deltaTime * (-TranslateSpeed) * num);
+                    playerRotion = 135;
+                    //transform.Find("430").transform.rotation = Quaternion.Euler(new Vector3(0, 135, 0));
+                }
+                else
+                {
+                    transform.Translate(Vector3.forward * Time.deltaTime * (-TranslateSpeed));
+                    playerRotion = 180;
+                    //transform.Find("430").transform.rotation = Quaternion.Euler(new Vector3(0, 180, 0));
+                }
+            }
+
+            if (a)
+            {
+                if (w || s)
+                {
+                    transform.Translate(Vector3.right * Time.deltaTime * (-TranslateSpeed) * num);
+                }
+                else
+                {
+                    playerRotion = 270;
+                    //transform.Find("430").transform.rotation = Quaternion.Euler(new Vector3(0, 270, 0));
+                    transform.Translate(Vector3.right * Time.deltaTime * (-TranslateSpeed));
+                }
+            }
+            else if (d)
+            {
+                if (w || s)
+                {
+                    transform.Translate(Vector3.right * Time.deltaTime * TranslateSpeed * num);
+                }
+                else
+                {
+                    playerRotion = 90;
+                    //transform.Find("430").transform.rotation = Quaternion.Euler(new Vector3(0, 90, 0));
+                    transform.Translate(Vector3.right * Time.deltaTime * TranslateSpeed);
+                }
+            }
+
+
+            if (a || d || w || s)
+            {
+                transform.Find("430").transform.rotation = Quaternion.Euler(new Vector3(0, playerRotion, 0));
+                anim.CrossFade("run", 0.08f);
+            }
+            else
+            {
+                anim.CrossFade("idle", 0.08f);
+            }
         }
-        else
-        {
-            anim.CrossFade("idle", 0.08f);
-        }
+
 
 
 

@@ -17,29 +17,22 @@ public class SkillManager : MonoNotice
     // Use this for initialization
     void Start()
     {
+        player = GameMain.Instance.player.GetComponent<plyaer>();
         addListener(Notice.Click_Use_Skill, (id) =>
         {
             if (id == "Space")
             {
-            }
-            if (id == "L")
-            {
-                GameObject obj = GameObject.Instantiate(player.shootObject, gameObject.transform.position, transform.Find("430").transform.rotation);
-                obj.GetComponent<ShootCollisoon>().selfObj = gameObject;
-                player.anim.CrossFade("skill_q", 0.08f);
+                //Debug.Log(1111111);
+                //useSkillByData();
+                GameObject obj = GameObject.Instantiate(player.shootObject, player.transform.position, player.transform.Find("430").transform.rotation);
+                obj.GetComponent<ShootCollisoon>().selfObj = player.gameObject;
+                player.anim.CrossFade("atk", 0.08f);
                 obj.GetComponent<Rigidbody>().AddForce(obj.transform.forward * 1000);
+                player.setPlaterState(1, 0.5f, "idle");
             }
             if (id == "J")
             {
                 //speeduptime = 100;
-            }
-            if (id == "I")
-            {
-                GameObject obj = GameObject.Instantiate(player.fanwei, gameObject.transform.position, transform.rotation);
-                obj.transform.Translate(new Vector3(0, -0.8f, 0));
-            }
-            if (id == "K")
-            {
                 float num = Mathf.Cos(Mathf.PI / 4);
                 switch (player.playerRotion + "")
                 {
@@ -68,6 +61,19 @@ public class SkillManager : MonoNotice
                         StartCoroutine(CreateExplosions((Vector3.forward + Vector3.left) * num));
                         break;
                 }
+            }
+            if (id == "L")
+            {
+
+            }
+            if (id == "I")
+            {
+                GameObject obj = GameObject.Instantiate(player.fanwei, player.transform.position, transform.rotation);
+                obj.transform.Translate(new Vector3(0, -0.8f, 0));
+            }
+            if (id == "K")
+            {
+      
             }
         });
     }
@@ -116,11 +122,11 @@ public class SkillManager : MonoNotice
         {
             RaycastHit hit;
 
-            Physics.Raycast(transform.position + new Vector3(0.0f, -0.1f, 0.0f), direction, out hit, 1, 1 << 0);
+            Physics.Raycast(player.transform.position + new Vector3(0.0f, -0.1f, 0.0f), direction, out hit, 1, 1 << 0);
 
             if (!hit.collider)
             {
-                transform.Translate(direction);
+                player.transform.Translate(direction);
             }
             else
             {

@@ -19,14 +19,16 @@ public class PigMonster: MonsterEntity
 
         model.transform.localScale = new Vector3(0.8f, 0.8f, 0.8f);
 
-        collision = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        /**collision = GameObject.CreatePrimitive(PrimitiveType.Cube);
         collision.transform.localScale = new Vector3(0.8f,0.5f,0.8f);
         collision.transform.position = transform.position + new Vector3(0, 0.5f, 0.4f);
         collision.transform.SetParent(transform);
         collision.SetActive(false);
         collision.GetComponent<BoxCollider>().isTrigger = true;
         collision.AddComponent<CollisionLogic>();
-        collision.GetComponent<MeshRenderer>().enabled = false;;
+        collision.GetComponent<MeshRenderer>().enabled = false;*/
+
+        collision = CollisionCreator.Instance.creatCube(transform, new Vector3(0.8f, 0.5f, 0.8f), new Vector3(0, 0.5f, 0.4f));
     }
 
     public void backatk()
@@ -87,7 +89,5 @@ public class PigMonster: MonsterEntity
             }
         }
     }
-
-
 }
 
