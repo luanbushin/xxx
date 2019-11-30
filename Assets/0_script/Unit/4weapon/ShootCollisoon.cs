@@ -69,7 +69,14 @@ public class ShootCollisoon : MonoBehaviour {
 
         else if (targetObj != null && other.gameObject.tag != "Player")
         {
-            Destroy(targetObj);
+            if (other.gameObject.GetComponent<MonsterEntity>())
+            {
+                //Destroy(other.gameObject.GetComponent<EnemyAI>().enemyview);
+                //Destroy(targetObj);
+                Notice.MonsterBeATK.broadcast("", targetObj);
+            }
+            //Debug.Log(targetObj);
+            //Destroy(targetObj);
             playHitEff();
             finish();
         }
@@ -78,8 +85,11 @@ public class ShootCollisoon : MonoBehaviour {
     }
 
     private void playHitEff() {
-        GameObject obj = GameObject.Instantiate(shouji, gameObject.transform.position, gameObject.transform.rotation);
-        Destroy(obj, .5f);
+        if (shouji)
+        {
+            GameObject obj = GameObject.Instantiate(shouji, gameObject.transform.position, gameObject.transform.rotation);
+            Destroy(obj, .5f);
+        }
     }
 
     // Update is called once per frame

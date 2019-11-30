@@ -49,6 +49,7 @@ public class PigMonster: MonsterEntity
 
     void Update()
     {
+        //Debug.Log(monsterValue.dps);
         if(state == 0)
         {
             if (chackAttack())

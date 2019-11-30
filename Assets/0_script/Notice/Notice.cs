@@ -7,8 +7,10 @@ using NEII = Game.Noticfacation.NEvt_2<int, int>;
 using NES = Game.Noticfacation.NEvt_1<string>;
 using NEL = Game.Noticfacation.NEvt_1<long>;
 using NEV3 = Game.Noticfacation.NEvt_1<UnityEngine.Vector3>;
+using NEV3S = Game.Noticfacation.NEvt_2<UnityEngine.Vector3,string>;
 using NEBS = Game.Noticfacation.NEvt_2<bool, string>;
 using NEGS = Game.Noticfacation.NEvt_2<string, UnityEngine.GameObject>;
+using NEGGS = Game.Noticfacation.NEvt_3<string, UnityEngine.GameObject,UnityEngine.GameObject>;
 using NEVS = Game.Noticfacation.NEvt_2<string, System.Collections.Generic.List<UnityEngine.Vector3>>;
 
 
@@ -71,6 +73,10 @@ namespace Game.Noticfacation
         public static readonly NES TrapCtrl = new NES();
         public static readonly NEVS TrapCtrl_Vector = new NEVS();
         public static readonly NEGS MonsterBeATK = new NEGS();
-        public static readonly NEGS MonsterATK = new NEGS();
+        public static readonly NEGGS MonsterATK = new NEGGS();
+
+        /*道具*/
+        public static readonly NEV3S CreatProp = new NEV3S();
+        public static readonly NEGGS GetProp = new NEGGS();
     }
 }

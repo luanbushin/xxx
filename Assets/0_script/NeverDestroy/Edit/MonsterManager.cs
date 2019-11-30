@@ -40,20 +40,30 @@ public class MonsterManager : MonoNotice
             enemyObject[obj.transform.position] = obj;
         });
 
-        addListener(Notice.MonsterATK, (string s, GameObject g) =>
+        addListener(Notice.MonsterATK, (string s, GameObject g, GameObject monster) =>
         {
-            GameMain.Instance.overPanel.SetActive(true);
-            GameMain.Instance.player.SetActive(false);
+            int dps = monster.GetComponent<MonsterEntity>().monsterValue.dps;
+            //Debug.Log(monster);
+            GameMain.Instance.player.GetComponent<plyaer>().initHp(-dps);
+            //GameMain.Instance.overPanel.SetActive(true);
+            //GameMain.Instance.player.SetActive(false);
         });
 
         addListener(Notice.MonsterBeATK, (string s, GameObject g) =>
         {
-            Destroy(g.GetComponent<EnemyAI>().enemyview);
-            Destroy(g);
+            g.GetComponent<MonsterEntity>().curHp -= 1;
+            if (g.GetComponent<MonsterEntity>().curHp <= 0) {
+                Destroy(g);
 
-            if (g.transform.parent.gameObject != enemyparent) {
-                TrapManager.Instance.deleteMonster(g.transform.parent.gameObject);
+                Notice.CreatProp.broadcast(g.transform.position,"");
             }
+            //Debug.Log(g);
+            //Destroy(g.GetComponent<EnemyAI>().enemyview);
+            //Destroy(g);
+
+            //if (g.transform.parent.gameObject != enemyparent) {
+            //    TrapManager.Instance.deleteMonster(g.transform.parent.gameObject);
+            //}
         });
 
     }
@@ -83,8 +93,9 @@ public class MonsterManager : MonoNotice
         foreach (Vector3 list in enemlist.Keys)
         {
             GameObject obj = GameObject.Instantiate(enemyBox, list, gameObject.transform.rotation);
+           
             //(enemlist[list]
-            switch (6) {
+            switch (1) {
                 case 1:
                     //小猪
                     obj.AddComponent<PigMonster>();
@@ -150,6 +161,8 @@ public class MonsterManager : MonoNotice
                     obj.AddComponent<Archer01>();
                     break;
             }
+            obj.GetComponent<MonsterEntity>().curHp = MonsterPresetData.get(enemlist[list]).hp;
+            obj.GetComponent<MonsterEntity>().monsterValue = MonsterPresetData.get(enemlist[list]);
             //Debug.Log(enemlist[list]);
             //int random = UnityEngine.Random.Range(1, 1);
             //if (random == 1)

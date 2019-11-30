@@ -5,6 +5,7 @@ using System.IO;
 using UnityEngine;
 using Game.Noticfacation;
 using Game.Config;
+using UnityEngine.UI;
 
 public class plyaer : MonoNotice
 {
@@ -19,6 +20,11 @@ public class plyaer : MonoNotice
     public int speeduptime;
 
     public GameObject fanwei;
+
+    public int curhp = 100;
+    public int maxhp = 100;
+    public Text hptxt;
+    public Image hpbar;
 
 
 
@@ -43,6 +49,12 @@ public class plyaer : MonoNotice
 
     }
 
+    public void initHp(int num) {
+        curhp += num;
+        hptxt.text = curhp + "/" + maxhp;
+        hpbar.GetComponent<RectTransform>().sizeDelta = new Vector2(356* curhp / maxhp, 14);
+    }
+
     public void pushForceVector(string id,Vector3 v3) {
         forceVector[id] = v3;
     }
@@ -59,7 +71,6 @@ public class plyaer : MonoNotice
     }
 
     public void backToState() {
-        Debug.Log("dddd");
         curState = 0;
         anim.CrossFade("idle", 0.08f);
     }

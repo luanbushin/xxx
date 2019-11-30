@@ -15,8 +15,7 @@ public class CollisionLogic : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log(other.gameObject.tag);
         if (other.gameObject.tag == "Player")
-            Notice.MonsterATK.broadcast("", other.gameObject);
+            Notice.MonsterATK.broadcast("", other.gameObject,this.transform.parent.gameObject);
     }
 }

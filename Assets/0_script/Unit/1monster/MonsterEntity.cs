@@ -1,9 +1,13 @@
-﻿using UnityEngine;
+﻿using Game.Config;
+using UnityEngine;
 
 public class MonsterEntity : MonoBehaviour
 {
     public Animation anim;
     public GameObject model;
+
+    public MonsterPresetDataValueData monsterValue;
+    public int curHp;
 
     public string animAction = "Idle";
 
