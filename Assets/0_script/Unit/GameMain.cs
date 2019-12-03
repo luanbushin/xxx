@@ -48,10 +48,13 @@ public class GameMain : MonoNotice{
         {
             gameObject.GetComponent<MonsterManager>().initMonster(xml.LoadEnemyXml(patrolObject));
         });
-        addListener(Notice.WeaponCollision, (string s) =>
+        addListener(Notice.WeaponCollision, (string s,GameObject monster) =>
         {
-            overPanel.SetActive(true);
-            player.SetActive(false);
+            int dps = monster.GetComponent<MonsterEntity>().monsterValue.dps;
+            //Debug.Log(monster);
+            GameMain.Instance.player.GetComponent<plyaer>().initHp(-dps);
+            //overPanel.SetActive(true);
+            //player.SetActive(false);
             //Destroy(player);
         });
 

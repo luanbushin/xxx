@@ -36,7 +36,7 @@ public class plyaer : MonoNotice
     
     private Dictionary<string, Vector3> forceVector = new Dictionary<string, Vector3>();
 
-
+    public GameObject collision;
     void Start()
     {
 
@@ -44,6 +44,8 @@ public class plyaer : MonoNotice
         anim = transform.Find("430").gameObject.GetComponent<Animation>();
 
         anim.CrossFade("run", 0.08f);
+
+        collision = CollisionCreator.Instance.creatCube(transform.Find("430").transform, new Vector3(0.8f, 0.8f, 0.8f), new Vector3(0, 0.5f, 0.4f));
 
         //gameObject.SetActive(false);
 
@@ -66,13 +68,14 @@ public class plyaer : MonoNotice
 
     public void setPlaterState(int state,float time,string str) {
         curState = state;
-
         Invoke("backToState", time);
     }
 
     public void backToState() {
         curState = 0;
         anim.CrossFade("idle", 0.08f);
+
+        collision.SetActive(false);
     }
 
     //public void boomState() {
@@ -162,8 +165,7 @@ public class plyaer : MonoNotice
         { 
            GetComponent<Rigidbody>().AddForce(v3); 
         }
-
-
+        
         if (curState == 0) {
 
             if (w)

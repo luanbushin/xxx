@@ -16,7 +16,7 @@ public class BoomCollision : MonoBehaviour
         {
             //other.gameObject.GetComponent<plyaer>().OverPanel.SetActive(true);
             //Destroy(other.gameObject);
-            Notice.WeaponCollision.broadcast("");
+            Notice.WeaponCollision.broadcast("", other.gameObject);
         }
         else if (other.gameObject.tag == "pohuai")
         {

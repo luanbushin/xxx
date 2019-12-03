@@ -24,8 +24,12 @@ public class SkillManager : MonoNotice
             {
                 //Debug.Log(1111111);
                 //useSkillByData();
-                player.anim.CrossFade("die", 0.08f);
-                player.setPlaterState(1, 5f, "idle");
+                player.anim.CrossFade("skill_q", 0.08f);
+                player.setPlaterState(1, 0.3f, "idle");
+
+                SkillData data = new SkillData();
+                data.id = 10002;
+                useSkillByData(data, player.gameObject);
             }
             if (id == "J")
             {
@@ -71,7 +75,7 @@ public class SkillManager : MonoNotice
             {
                 SkillData data = new SkillData();
                 data.id = 10001;
-                useSkillByData(data);
+                useSkillByData(data,player.gameObject);
             }
             if (id == "I")
             {
@@ -81,14 +85,17 @@ public class SkillManager : MonoNotice
         });
     }
 
-    public void useSkillByData(SkillData data) {
+    public void useSkillByData(SkillData data,GameObject target) {
         switch (data.id) {
             case 10001:
-                Vector3 v3 = new Vector3(Mathf.Round(player.transform.position.x), player.transform.position.y - 0.3f, Mathf.Round(player.transform.position.z));
+                Vector3 v3 = new Vector3(Mathf.Round(target.transform.position.x), target.transform.position.y - 0.3f, Mathf.Round(target.transform.position.z));
                 skill10001(v3);
                 break;
             case 10002:
-
+                target.GetComponent<plyaer>().collision.SetActive(true);
+                Quaternion quaternion = target.transform.Find("430").transform.rotation;
+                var eff = Instantiate(getEff("Prefabs/Particles/063_W_4"), target.transform.position,quaternion) as GameObject;
+                Destroy(eff,1);
                 break;
             case 10003:
 
@@ -118,6 +125,11 @@ public class SkillManager : MonoNotice
     }
 
 
+    public GameObject getEff(string str)
+    {
+        //return (GameObject)Resources.Load("enemy/"+str);.
+        return (GameObject)Resources.Load(str);
+    }
 
     private IEnumerator CreateExplosions(Vector3 direction)
     {

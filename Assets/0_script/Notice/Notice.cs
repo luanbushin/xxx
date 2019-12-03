@@ -68,7 +68,7 @@ namespace Game.Noticfacation
 
         /**战斗*/
         public static readonly NEGS EnemyCreat = new NEGS();
-        public static readonly NES WeaponCollision = new NES();
+        public static readonly NEGS WeaponCollision = new NEGS();
         public static readonly NES TrapCollision = new NES();
         public static readonly NES TrapCtrl = new NES();
         public static readonly NEVS TrapCtrl_Vector = new NEVS();

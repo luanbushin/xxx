@@ -55,14 +55,14 @@ public class ShootCollisoon : MonoBehaviour {
             Destroy(targetObj);
             finish();
         } else if (gameObject.tag == "trap" && other.gameObject.tag == "Player") {
-            Notice.WeaponCollision.broadcast("");
+            Notice.WeaponCollision.broadcast("", other.gameObject);
         }
         else if (other.gameObject.tag == "trap")
         {
         }
         else if (other.gameObject.tag == "Player")
         {
-            Notice.WeaponCollision.broadcast("");
+            Notice.WeaponCollision.broadcast("", this.transform.parent.gameObject);
             playHitEff();
             finish();
         }

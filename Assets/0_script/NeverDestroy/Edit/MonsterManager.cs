@@ -89,13 +89,16 @@ public class MonsterManager : MonoNotice
     }
 
     public void initMonster(Dictionary<Vector3, int> enemlist) {
-  
+
         foreach (Vector3 list in enemlist.Keys)
         {
             GameObject obj = GameObject.Instantiate(enemyBox, list, gameObject.transform.rotation);
-           
+
             //(enemlist[list]
-            switch (1) {
+            int num = UnityEngine.Random.Range(1, 3);
+
+            int[] listrandom = new int[] { 1, 2, 16};
+            switch (listrandom[num]) {
                 case 1:
                     //小猪
                     obj.AddComponent<PigMonster>();

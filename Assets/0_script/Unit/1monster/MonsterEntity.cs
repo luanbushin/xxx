@@ -10,6 +10,7 @@ public class MonsterEntity : MonoBehaviour
     public int curHp;
 
     public string animAction = "Idle";
+    public float attackRang = 1.3f;
 
     public GameObject target;
     void Start()

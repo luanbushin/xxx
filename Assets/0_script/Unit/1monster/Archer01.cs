@@ -28,12 +28,13 @@ public class Archer01 :MonsterEntity
         GameObject obj = GameObject.Instantiate(shootObject, gameObject.transform.position + new Vector3(0, 0.5f, 0), transform.rotation);
         obj.GetComponent<ShootCollisoon>().selfObj = gameObject;
         obj.GetComponent<Rigidbody>().AddForce(obj.transform.forward * 1000);
+        obj.transform.SetParent(transform);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (state == 0 && chackAttack()) {
+        if (state == 0 && chackAttackRange()) {
             Vector3 preDir = new Vector3(transform.position.x, 0, transform.position.z) - new Vector3(target.transform.position.x, 0, target.transform.position.z);
             preDir = preDir.normalized;
             transform.rotation = Quaternion.FromToRotation(Vector3.back, preDir);
