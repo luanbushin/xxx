@@ -25,19 +25,21 @@ public class BoomCollision : MonoBehaviour
             Destroy(other.gameObject);
         }
         else if (other.gameObject.tag == "diaoluo") {
-            Vector3 v3 = other.gameObject.transform.position;
+            /**Vector3 v3 = other.gameObject.transform.position;
             Assets.instance.loadPrefab(
             "prop/cube",
             (GameObject object_, string name) =>
             {
                 object_.transform.position = v3;
             });
-            Destroy(other.gameObject);
+            Destroy(other.gameObject);*/
         }
     }
     void Start()
     {
-       Invoke("finish", .5f);
+        GameObject entity = CollisionCreator.Instance.loadModel("Prefabs/Particles/052_Q_0=1", transform.position);
+        entity.transform.SetParent(transform);
+        Invoke("finish", .5f);
     }
 
     private void finish() {

@@ -332,11 +332,11 @@ public class PassCreat : MonoNotice
 
         enemyGameObject = (GameObject)Resources.Load("Prefabs/Characters/" + 10000);
 
-        foreach (Vector3 list in xml.LoadEnemyXml(patrolObject).Keys)
+        foreach (Vector3 list in xml.LoadEnemyXml111(patrolObject).Keys)
         {
             GameObject obj = GameObject.Instantiate(enemyGameObject, list, gameObject.transform.rotation);
             enemyObject[obj.transform.position] = obj;
-            enemyIDObject[obj.transform.position] = xml.LoadEnemyXml(patrolObject)[list];
+            enemyIDObject[obj.transform.position] = xml.LoadEnemyXml111(patrolObject)[list];
             obj.transform.SetParent(enemyparent.transform);
         }
 

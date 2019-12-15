@@ -23,6 +23,7 @@ public class MapManager : MonoNotice
     public MapConfig mapConfig;
 
     public Grid mygrid;
+   
     
     private void Awake()
     {
@@ -31,9 +32,12 @@ public class MapManager : MonoNotice
 
 
     void Start() {
+
         mapConfig = new MapConfig();
         boxNames = mapConfig.boxNames;
         mapItemList = mapConfig.mapItemList;
+
+
         addListener(Notice.MAZE_CREAT_COMPLETE, (maplist) =>
         {
             for (int i = 0; i < maplist.GetLength(0); i++)
@@ -78,10 +82,12 @@ public class MapManager : MonoNotice
         else
         {
             mygrid = new Grid();
+
             foreach (Vector3 list in mapIndexObj.Keys)
             {
                 GameObject obj = GameObject.Instantiate(mapItemList[mapIndexObj[list]], list, gameObject.transform.rotation);
-          
+
+
                 if (list.y == 1&& list.x<150&& list.z < 150) {
                     mygrid.grid[(int)list.x, (int)list.z].mapindex = mapIndexObj[list];
                 }

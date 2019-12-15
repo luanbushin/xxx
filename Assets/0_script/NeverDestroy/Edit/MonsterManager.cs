@@ -65,7 +65,6 @@ public class MonsterManager : MonoNotice
             //    TrapManager.Instance.deleteMonster(g.transform.parent.gameObject);
             //}
         });
-
     }
 
     public void creatEnemy(Rect rect) {

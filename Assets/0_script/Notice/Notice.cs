@@ -3,6 +3,7 @@ using NEF = Game.Noticfacation.NEvt_1<float>;
 using NEI = Game.Noticfacation.NEvt_1<int>;
 using NELIST = Game.Noticfacation.NEvt_1<int[,]>;
 using NEFF = Game.Noticfacation.NEvt_2<float, float>;
+using NEFFF = Game.Noticfacation.NEvt_3<float, float, float>;
 using NEII = Game.Noticfacation.NEvt_2<int, int>;
 using NES = Game.Noticfacation.NEvt_1<string>;
 using NEL = Game.Noticfacation.NEvt_1<long>;
@@ -19,6 +20,9 @@ namespace Game.Noticfacation
 {
     public class Notice
     {
+        public static readonly NE MAP_COMPLETE_COMPLETE = new NE();
+
+
         public static readonly NE GAME_INIT_COMPLETE = new NE();
         public static readonly NE GAME_PLAYER_ATIVE = new NE();
         public static readonly NELIST MAZE_CREAT_COMPLETE = new NELIST();
@@ -28,7 +32,7 @@ namespace Game.Noticfacation
         public static readonly NEF UPDATE_LATER = new NEF();
         public static readonly NE ON_PER_SECOND = new NE();
 
-        public static readonly NEFF CTRL_MOVE = new NEFF();
+        public static readonly NEFFF CTRL_MOVE = new NEFFF();
         public static readonly NE CTRL_STOP_MOVE = new NE();
         public static readonly NE CTRL_ATTACK_START = new NE();
         public static readonly NE CTRL_ATTACK_END = new NE();

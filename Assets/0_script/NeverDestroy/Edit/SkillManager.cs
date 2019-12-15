@@ -2,6 +2,7 @@
 using System.Collections;
 using Game;
 using Game.Noticfacation;
+using System;
 
 public class SkillManager : MonoNotice
 {
@@ -22,20 +23,29 @@ public class SkillManager : MonoNotice
         {
             if (id == "Space")
             {
+                GameObject obj = GameObject.Instantiate(player.shootObject, player.transform.position, player.transform.Find("430").transform.rotation);
+                obj.GetComponent<ShootCollisoon>().selfObj = player.gameObject;
+                player.anim.CrossFade("atk", 0.08f);
+                obj.GetComponent<Rigidbody>().AddForce(obj.transform.forward * 1000);
+                player.setPlaterState(1, 0.5f, "idle");
                 //Debug.Log(1111111);
                 //useSkillByData();
-                player.anim.CrossFade("skill_q", 0.08f);
-                player.setPlaterState(1, 0.3f, "idle");
+                /**player.anim.CrossFade("dance", 0.08f);
+                player.setPlaterState(1, 5.3f, "idle");
 
                 SkillData data = new SkillData();
                 data.id = 10002;
-                useSkillByData(data, player.gameObject);
+                useSkillByData(data, player.gameObject);*/
             }
             if (id == "J")
             {
                 //speeduptime = 100;
-                float num = Mathf.Cos(Mathf.PI / 4);
-                switch (player.playerRotion + "")
+                float angle = player.selfrotation;
+
+                Vector3 v3 = new Vector3((float)Math.Sin(angle * Math.PI / 180), 0, (float)Math.Cos(angle * Math.PI / 180));
+                StartCoroutine(CreateExplosions(v3));
+                //float num = Mathf.Cos(Mathf.PI / 4);
+                /**switch (player.playerRotion + "")
                 {
                     case "0":
                         StartCoroutine(CreateExplosions(Vector3.forward));
@@ -61,26 +71,31 @@ public class SkillManager : MonoNotice
                     case "315":
                         StartCoroutine(CreateExplosions((Vector3.forward + Vector3.left) * num));
                         break;
-                }
+                }*/
             }
             if (id == "L")
             {
-                GameObject obj = GameObject.Instantiate(player.shootObject, player.transform.position, player.transform.Find("430").transform.rotation);
+                /**GameObject obj = GameObject.Instantiate(player.shootObject, player.transform.position, player.transform.Find("430").transform.rotation);
                 obj.GetComponent<ShootCollisoon>().selfObj = player.gameObject;
                 player.anim.CrossFade("atk", 0.08f);
                 obj.GetComponent<Rigidbody>().AddForce(obj.transform.forward * 1000);
-                player.setPlaterState(1, 0.5f, "idle");
+                player.setPlaterState(1, 0.5f, "idle");*/
+                SkillData data = new SkillData();
+                data.id = 10001;
+                useSkillByData(data, player.gameObject);
             }
             if (id == "K")
             {
-                SkillData data = new SkillData();
-                data.id = 10001;
-                useSkillByData(data,player.gameObject);
+                Vector3 v3 = new Vector3(Mathf.Round(player.transform.position.x), player.transform.position.y - 0.8f, Mathf.Round(player.transform.position.z)); ;
+                GameObject obj = GameObject.Instantiate(getEff("map/Prefabs/Box_E1"), v3, transform.rotation);
+
             }
             if (id == "I")
             {
-                GameObject obj = GameObject.Instantiate(player.fanwei, player.transform.position, transform.rotation);
+                GameObject obj = GameObject.Instantiate(player.fanwei, player.transform.position+new Vector3(0,0.2f,0), transform.rotation);
                 obj.transform.Translate(new Vector3(0, -0.8f, 0));
+                obj.transform.SetParent(player.transform);
+                Destroy(obj, 3);
             }
         });
     }
@@ -149,6 +164,10 @@ public class SkillManager : MonoNotice
             }
         }
 
+
+        Vector3 v3 = player.transform.position;
+        GameObject obj = GameObject.Instantiate(getEff("Prefabs/Particles/015_Q_5"), v3 - new Vector3(0,0.5f,0), transform.rotation);
+        Destroy(obj, 3);
         yield return new WaitForSeconds(.05f);
     }
 

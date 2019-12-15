@@ -3,8 +3,9 @@ using System.Collections;
 using System.IO;
 using System.Xml;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
-public class XMLTest 
+public class XMLTest
 {
 
 
@@ -41,17 +42,35 @@ public class XMLTest
 
         return info;
     }
-    public Dictionary<Vector3, int> LoadEnemyXml(Dictionary<Vector3, Dictionary<Vector3, PatrolData>> patrplData)
+    public IEnumerator LoadEnemyXml(Dictionary<Vector3, int> mapIndexObj,Dictionary<Vector3, Dictionary<Vector3, PatrolData>> patrplData)
     {
-        Dictionary<Vector3, int> mapIndexObj = new Dictionary<Vector3, int>();
         //创建xml文档
-        XmlDocument xml = new XmlDocument();
+        /**XmlDocument xml = new XmlDocument();
         XmlReaderSettings set = new XmlReaderSettings();
         set.IgnoreComments = true;//这个设置是忽略xml注释文档的影响。有时候注释会影响到xml的读取
-        xml.Load(XmlReader.Create((Application.dataPath + "/StreamingAssets/enemy.xml"), set));
+        xml.Load(XmlReader.Create((Application.dataPath + "/StreamingAssets/enemy.xml"), set));*/
+        
+        string localPath;
+        if (Application.platform == RuntimePlatform.Android)
+        {
+            localPath = UnityEngine.Application.streamingAssetsPath + "/enemy.xml"; 
+        }
+        else
+        {
+            localPath = "file://" + UnityEngine.Application.streamingAssetsPath + "/enemy.xml";
+        }
+        //txt.text = localPath;
+        WWW www = new WWW(localPath);
 
-        //得到objects节点下的所有子节点
-        XmlNodeList xmlNodeList = xml.SelectSingleNode("Map").ChildNodes;
+        while (!www.isDone)
+        {
+            yield return www;
+        }
+
+        XmlDocument xmlDoc = new XmlDocument();
+        xmlDoc.LoadXml(www.text);
+        XmlNodeList xmlNodeList = xmlDoc.SelectSingleNode("Map").ChildNodes;
+        
 
         //遍历所有子节点
         foreach (XmlElement xl1 in xmlNodeList)
@@ -87,8 +106,63 @@ public class XMLTest
                 }
             }
         }
+        
+        Game.Noticfacation.Notice.EnemyComplete.broadcast();
+    }
+
+    public Dictionary<Vector3, int> LoadEnemyXml111( Dictionary<Vector3, Dictionary<Vector3, PatrolData>> patrplData)
+    {
+        Dictionary<Vector3, int> mapIndexObj = new Dictionary<Vector3, int>();
+        //创建xml文档
+        XmlDocument xml = new XmlDocument();
+        XmlReaderSettings set = new XmlReaderSettings();
+        set.IgnoreComments = true;//这个设置是忽略xml注释文档的影响。有时候注释会影响到xml的读取
+        xml.Load(XmlReader.Create((Application.dataPath + "/StreamingAssets/enemy.xml"), set));
+
+        XmlNodeList xmlNodeList = xml.SelectSingleNode("Map").ChildNodes;
+
+
+        //遍历所有子节点
+        foreach (XmlElement xl1 in xmlNodeList)
+        {
+            if (xl1.Name == "enemy")
+            {
+                string[] itemlist = xl1.InnerXml.Split('=');
+                for (int i = 0; i < itemlist.Length - 1; i++)
+                {
+                    string[] list = itemlist[i].Split(',');
+                    mapIndexObj[new Vector3(int.Parse(list[0]), int.Parse(list[1]), int.Parse(list[2]))] = int.Parse(list[3]);
+
+                    if (list[4] != "null")
+                    {
+                        patrplData[new Vector3(int.Parse(list[0]), int.Parse(list[1]), int.Parse(list[2]))] = new Dictionary<Vector3, PatrolData>();
+                        Dictionary<Vector3, PatrolData> patrollist = patrplData[new Vector3(int.Parse(list[0]), int.Parse(list[1]), int.Parse(list[2]))];
+                        string[] alist = list[4].Split('a');
+                        for (int j = 0; j < alist.Length - 1; j++)
+                        {
+                            string[] blist = alist[j].Split('b');
+                            Vector3 v3 = new Vector3(int.Parse(blist[0]), int.Parse(blist[1]), int.Parse(blist[2]));
+                            if (blist[3] == "null")
+                            {
+                                patrollist[v3] = null;
+                            }
+                            else
+                            {
+                                patrollist[v3] = new PatrolData();
+                                string[] clist = blist[3].Split('c');
+                                patrollist[v3].stayTime = int.Parse(clist[0]);
+                                patrollist[v3].agentmin = int.Parse(clist[1]);
+                                patrollist[v3].agentmax = int.Parse(clist[2]);
+                                patrollist[v3].loop = int.Parse(clist[3]);
+                            }
+                        }
+                    }
+                }
+            }
+        }
         return mapIndexObj;
     }
+
 
     public Dictionary<Vector3, int> LoadBoxXml()
     {
@@ -118,7 +192,63 @@ public class XMLTest
         return mapIndexObj;
     }
 
-    public Dictionary<Vector3, int> LoadXml()
+    public IEnumerator LoadXmland(Dictionary<Vector3, int> mapIndexObj,Text txt = null)
+    {
+        //Dictionary<Vector3, int> mapIndexObj = new Dictionary<Vector3, int>();
+        //创建xml文档
+        // XmlDocument xml = new XmlDocument();
+        //XmlReaderSettings set = new XmlReaderSettings();
+        //set.IgnoreComments = true;//这个设置是忽略xml注释文档的影响。有时候注释会影响到xml的读取
+        //xml.Load(XmlReader.Create((Application.dataPath + "/StreamingAssets/pass.xml"), set));
+        txt.text = "======================================";
+
+        string localPath;
+        if (Application.platform == RuntimePlatform.Android)
+        {
+            localPath = UnityEngine.Application.streamingAssetsPath + "/pass.xml"; //在Android中实例化WWW不能在路径前面加"file://"
+        }
+        else
+        {
+            localPath = "file://" + UnityEngine.Application.streamingAssetsPath + "/pass.xml";//在Windows中实例化WWW必须要在路径前面加"file://"
+        }
+        //txt.text = localPath;
+        WWW www = new WWW(localPath);
+        while (!www.isDone)
+        {
+            yield return www;
+        }
+
+        //txt.text = www.ToString();
+        //txt.text = www.text + "===================";
+
+        XmlDocument xmlDoc = new XmlDocument();
+
+        xmlDoc.LoadXml(www.text);
+        //xmlDoc.LoadXml(www.text);
+        XmlNodeList xmlNodeList = xmlDoc.SelectSingleNode("Map").ChildNodes;
+        //XmlNodeList xmlNodeList = xml.SelectSingleNode("Map").ChildNodes;
+
+
+        //遍历所有子节点
+        foreach (XmlElement xl1 in xmlNodeList)
+        {
+            if (xl1.Name == "item")
+            {
+                string[] itemlist = xl1.InnerXml.Split('=');
+                for (int i = 0; i < itemlist.Length - 1; i++)
+                {
+                    string[] list = itemlist[i].Split(',');
+                    mapIndexObj[new Vector3(int.Parse(list[0]), int.Parse(list[1]), int.Parse(list[2]))] = int.Parse(list[3]);
+                }
+            }
+        }
+
+        Game.Noticfacation.Notice.MAP_COMPLETE_COMPLETE.broadcast();
+        //得到objects节点下的所有子节点
+
+    }
+
+    public Dictionary<Vector3, int> LoadXml(Text txt = null)
     {
         Dictionary<Vector3, int> mapIndexObj = new Dictionary<Vector3, int>(); 
           //创建xml文档
@@ -127,9 +257,12 @@ public class XMLTest
         set.IgnoreComments = true;//这个设置是忽略xml注释文档的影响。有时候注释会影响到xml的读取
         xml.Load(XmlReader.Create((Application.dataPath + "/StreamingAssets/pass.xml"), set));
 
+
         //得到objects节点下的所有子节点
         XmlNodeList xmlNodeList = xml.SelectSingleNode("Map").ChildNodes;
-       
+        if (txt)
+            txt.text = xmlNodeList.Count + "";
+
         //遍历所有子节点
         foreach (XmlElement xl1 in xmlNodeList)
         {

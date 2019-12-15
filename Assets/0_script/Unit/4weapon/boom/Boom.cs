@@ -11,6 +11,8 @@ public class Boom : MonoBehaviour {
 
 
     void Start() {
+        GameObject entity = CollisionCreator.Instance.loadModel("Prefabs/Characters/521",transform.position-new Vector3(0,0.4f,0));
+        entity.transform.SetParent(transform);
         Invoke("detonateBoom",3f);
     }
 

@@ -26,9 +26,12 @@ public class plyaer : MonoNotice
     public Text hptxt;
     public Image hpbar;
 
+    public float selfrotation;
+
 
 
     public Animation anim;                //Character Animation
+    public bool ismove;
 
 
     public int curState = 0;
@@ -249,9 +252,20 @@ public class plyaer : MonoNotice
             {
                 anim.CrossFade("idle", 0.08f);
             }
+
+            if (ismove)
+            {
+                anim.CrossFade("run", 0.08f);
+            }
+            else
+            {
+                anim.CrossFade("idle", 0.08f);
+            }
+
+            ismove = false;
         }
 
-
+   
 
 
         if (transform.position.y < -10)

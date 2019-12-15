@@ -18,6 +18,8 @@ public class GameMain : MonoNotice{
 
     private PassInfo curPassInfo;
 
+    private Dictionary<Vector3, int> enemyList = null;
+
     void Awake()
     {
         Application.targetFrameRate = 30;//此处限定60帧
@@ -32,7 +34,9 @@ public class GameMain : MonoNotice{
 
         initBaseLogic();
 
-        gamestrat();
+
+        StartCoroutine(gamestrat());
+        //gamestrat();
     }
 
     public void initPlayerPostion(Vector3 v3) {
@@ -46,7 +50,12 @@ public class GameMain : MonoNotice{
     private void initBaseLogic() {
         addListener(Notice.EnemyComplete,() =>
         {
-            gameObject.GetComponent<MonsterManager>().initMonster(xml.LoadEnemyXml(patrolObject));
+            if (enemyList == null) { 
+                enemyList = new Dictionary<Vector3, int>();
+                StartCoroutine(xml.LoadEnemyXml(enemyList, patrolObject));
+            } else {
+                gameObject.GetComponent<MonsterManager>().initMonster(enemyList);
+            }
         });
         addListener(Notice.WeaponCollision, (string s,GameObject monster) =>
         {
@@ -66,29 +75,37 @@ public class GameMain : MonoNotice{
 
         addListener(Notice.GAME_PLAYER_ATIVE, () =>
         {
-            Debug.Log("=====");
             player.SetActive(true);
         });
 
+        addListener(Notice.MAP_COMPLETE_COMPLETE, () =>
+        {
+            gameObject.GetComponent<MapManager>().initmap(mapIndexObj);
+        });
     }
 
     public XMLTest xml = new XMLTest();
-    private void gamestrat() {
+    private Dictionary<Vector3, int> mapIndexObj;
+    private IEnumerator gamestrat() {
          
         //gameObject.SetActive(false);
-        curPassInfo = xml.loadPassInfo();
+        //curPassInfo = xml.loadPassInfo();
 
         string fullPath = Application.dataPath + "/Resources/map/Prefabs" + "/";
 
         //DirectoryInfo direction = new DirectoryInfo(fullPath);
-       // FileInfo[] files = direction.GetFiles("*", SearchOption.AllDirectories);
+        // FileInfo[] files = direction.GetFiles("*", SearchOption.AllDirectories);
+        debugTxt.text = fullPath;
+        mapIndexObj = new Dictionary<Vector3, int>();
+        StartCoroutine(xml.LoadXmland(mapIndexObj,debugTxt));
+        yield return 5;
 
-        gameObject.GetComponent<MapManager>().initmap(xml.LoadXml());
-        
-        gameObject.GetComponent<MonsterManager>().initMonsterPatrol(patrolObject);
-        gameObject.GetComponent<PassMananger>().initBox(xml.LoadBoxXml());
-        gameObject.GetComponent<PassMananger>().initPassInfo(curPassInfo);
-        gameObject.GetComponent<TrapManager>().inittrap(curPassInfo.trapList);
+
+
+        //gameObject.GetComponent<MonsterManager>().initMonsterPatrol(patrolObject);
+        //gameObject.GetComponent<PassMananger>().initBox(xml.LoadBoxXml());
+        //gameObject.GetComponent<PassMananger>().initPassInfo(curPassInfo);
+        //gameObject.GetComponent<TrapManager>().inittrap(curPassInfo.trapList);
 
 
         Invoke("activePlayer", 3f);

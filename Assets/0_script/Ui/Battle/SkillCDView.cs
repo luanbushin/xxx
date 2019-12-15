@@ -3,14 +3,17 @@ using System.Collections;
 using UnityEngine.UI;
 using Game.UI.Extension;
 using Game.Noticfacation;
+using UnityEngine.EventSystems;
 
 namespace Game.UI.Battle
 {
-    public class SkillCDView : MonoBehaviour
+    public class SkillCDView : MonoBehaviour, IPointerDownHandler
     {
         public KeyCode slot;
         public CircleImage mask;
         public Text count;
+        private RectTransform rt;
+        private Vector2 touch_start;
 
         public float maxCd = 2;
 
@@ -21,6 +24,7 @@ namespace Game.UI.Battle
         void Start()
         {
             setShow(false);
+            rt = GetComponent<RectTransform>();
         }
         
         void setShow(bool is_show)
@@ -31,7 +35,15 @@ namespace Game.UI.Battle
             count.gameObject.SetActive(is_show);
         }
 
-        
+        public void OnPointerDown(PointerEventData eventData)
+        {
+            if (time <= 0)
+            {
+                Notice.Click_Use_Skill.broadcast(slot.ToString());
+                time = maxCd;
+            }
+        }
+
         void Update()
         {
             // var host = Character.host;

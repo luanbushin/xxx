@@ -18,7 +18,7 @@ public class PropManager : MonoNotice
         addListener(Notice.CreatProp, (Vector3 v3,string s) =>
         {
             GameObject obj = GameObject.Instantiate(propObj, v3, propObj.transform.rotation);
-            obj.GetComponent<PropObject>().initPropData("");
+            obj.AddComponent<PropObject>().initPropData("");
             //obj.transform.SetParent(gameo.transform);
             //obj.GetComponent<EnemyAI>().initMonsterValue(MonsterPresetData.get(1));
             //enemyObject[obj.transform.position] = obj;

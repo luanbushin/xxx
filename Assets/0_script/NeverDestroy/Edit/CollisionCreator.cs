@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 
-public class CollisionCreator
+public class CollisionCreator: MonoBehaviour
 {
     public static CollisionCreator Instance;
 
@@ -24,5 +24,18 @@ public class CollisionCreator
         collision.GetComponent<MeshRenderer>().enabled = false;
 
         return collision;
+    }
+
+    public GameObject getResources(string str)
+    {
+        return (GameObject)Resources.Load(str);
+    }
+
+    public GameObject loadModel(string str,Vector3 v3)
+    {
+        GameObject model = Instantiate(getResources(str), v3, Quaternion.identity) as GameObject;
+
+
+        return model;
     }
 }
