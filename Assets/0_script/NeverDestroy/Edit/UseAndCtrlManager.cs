@@ -4,9 +4,9 @@ using Game;
 using Game.Noticfacation;
 using System;
 
-public class SkillManager : MonoNotice
+public class UseAndCtrlManager : MonoNotice
 {
-    public static SkillManager Instance;
+    public static UseAndCtrlManager Instance;
 
     public plyaer player;
 
@@ -21,6 +21,9 @@ public class SkillManager : MonoNotice
         player = GameMain.Instance.player.GetComponent<plyaer>();
         addListener(Notice.Click_Use_Skill, (id) =>
         {
+            if (id == "M") {
+                Debug.Log("=");
+            }
             if (id == "Space")
             {
                 GameObject obj = GameObject.Instantiate(player.shootObject, player.transform.position, player.transform.Find("430").transform.rotation);
