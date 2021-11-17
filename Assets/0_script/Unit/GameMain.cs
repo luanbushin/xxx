@@ -6,6 +6,7 @@ using Game;
 using UnityEngine.UI;
 
 using System.IO;
+using Game.Config;
 
 public class GameMain : MonoNotice{
     public static GameMain Instance;
@@ -29,6 +30,15 @@ public class GameMain : MonoNotice{
         CollisionCreator creator = new CollisionCreator();
     } 
     void Start () {
+        DataAll.addStart(PropData.start);
+        DataAll.addStart(MonsterPresetData.start);
+
+        DataAll.start(() =>
+        {
+            StartCoroutine(loadCompleteInfo());
+        });
+
+
         overPanel.SetActive(false);
 
 
@@ -37,6 +47,13 @@ public class GameMain : MonoNotice{
 
         StartCoroutine(gamestrat());
         //gamestrat();
+    }
+
+    private IEnumerator loadCompleteInfo()
+    {
+        //var data = MonsterPresetData.get(1);
+        Notice.EnemyComplete.broadcast();
+        yield return 1;
     }
 
     public void initPlayerPostion(Vector3 v3) {
@@ -55,6 +72,7 @@ public class GameMain : MonoNotice{
                 StartCoroutine(xml.LoadEnemyXml(enemyList, patrolObject));
             } else {
                 gameObject.GetComponent<MonsterManager>().initMonster(enemyList);
+                gameObject.GetComponent<PropManager>().initProp();
             }
         });
         addListener(Notice.WeaponCollision, (string s,GameObject monster) =>

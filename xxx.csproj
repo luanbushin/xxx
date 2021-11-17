@@ -16,7 +16,7 @@
     <CompilerResponseFile></CompilerResponseFile>
     <UnityProjectGenerator>VSTU</UnityProjectGenerator>
     <UnityProjectType>Game:1</UnityProjectType>
-    <UnityBuildTarget>StandaloneWindows:5</UnityBuildTarget>
+    <UnityBuildTarget>Android:13</UnityBuildTarget>
     <UnityVersion>5.6.6f2</UnityVersion>
     <RootNamespace></RootNamespace>
     <LangVersion>4</LangVersion>
@@ -28,7 +28,7 @@
     <IntermediateOutputPath>Temp\UnityVS_obj\Debug\</IntermediateOutputPath>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DefineConstants>DEBUG;TRACE;UNITY_5_3_OR_NEWER;UNITY_5_4_OR_NEWER;UNITY_5_5_OR_NEWER;UNITY_5_6_OR_NEWER;UNITY_5_6_6;UNITY_5_6;UNITY_5;UNITY_ANALYTICS;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_DUCK_TYPING;ENABLE_GENERICS;ENABLE_PVR_GI;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_RUNTIME_NAVMESH_BUILDING;ENABLE_SPRITERENDERER_FLIPPING;ENABLE_SPRITES;ENABLE_TERRAIN;ENABLE_RAKNET;ENABLE_UNET;ENABLE_LZMA;ENABLE_UNITYEVENTS;ENABLE_WEBCAM;ENABLE_WWW;ENABLE_CLOUD_SERVICES_COLLAB;ENABLE_CLOUD_SERVICES_ADS;ENABLE_CLOUD_HUB;ENABLE_CLOUD_PROJECT_ID;ENABLE_CLOUD_SERVICES_UNET;ENABLE_CLOUD_SERVICES_BUILD;ENABLE_CLOUD_LICENSE;ENABLE_EDITOR_METRICS;ENABLE_EDITOR_METRICS_CACHING;ENABLE_NATIVE_ARRAY;INCLUDE_DYNAMIC_GI;INCLUDE_GI;PLATFORM_SUPPORTS_MONO;RENDER_SOFTWARE_CURSOR;INCLUDE_PUBNUB;ENABLE_PLAYMODE_TESTS_RUNNER;ENABLE_SCRIPTING_NEW_CSHARP_COMPILER;ENABLE_VIDEO;UNITY_STANDALONE_WIN;UNITY_STANDALONE;ENABLE_SUBSTANCE;ENABLE_RUNTIME_GI;ENABLE_MOVIES;ENABLE_NETWORK;ENABLE_CRUNCH_TEXTURE_COMPRESSION;ENABLE_UNITYWEBREQUEST;ENABLE_CLOUD_SERVICES;ENABLE_CLOUD_SERVICES_ANALYTICS;ENABLE_CLOUD_SERVICES_PURCHASING;ENABLE_CLOUD_SERVICES_CRASH_REPORTING;ENABLE_EVENT_QUEUE;ENABLE_CLUSTERINPUT;ENABLE_VR;ENABLE_WEBSOCKET_HOST;ENABLE_MONO;NET_2_0_SUBSET;ENABLE_PROFILER;DEBUG;TRACE;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_64;UNITY_EDITOR_WIN;ENABLE_NATIVE_ARRAY_CHECKS;UNITY_TEAM_LICENSE;ENABLE_VSTU;CROSS_PLATFORM_INPUT</DefineConstants>
+    <DefineConstants>DEBUG;TRACE;UNITY_5_3_OR_NEWER;UNITY_5_4_OR_NEWER;UNITY_5_5_OR_NEWER;UNITY_5_6_OR_NEWER;UNITY_5_6_6;UNITY_5_6;UNITY_5;UNITY_ANALYTICS;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_GENERICS;ENABLE_PVR_GI;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_RUNTIME_NAVMESH_BUILDING;ENABLE_SPRITERENDERER_FLIPPING;ENABLE_SPRITES;ENABLE_TERRAIN;ENABLE_RAKNET;ENABLE_UNET;ENABLE_LZMA;ENABLE_UNITYEVENTS;ENABLE_WEBCAM;ENABLE_WWW;ENABLE_CLOUD_SERVICES_COLLAB;ENABLE_CLOUD_SERVICES_ADS;ENABLE_CLOUD_HUB;ENABLE_CLOUD_PROJECT_ID;ENABLE_CLOUD_SERVICES_UNET;ENABLE_CLOUD_SERVICES_BUILD;ENABLE_CLOUD_LICENSE;ENABLE_EDITOR_METRICS;ENABLE_EDITOR_METRICS_CACHING;ENABLE_NATIVE_ARRAY;INCLUDE_DYNAMIC_GI;INCLUDE_GI;PLATFORM_SUPPORTS_MONO;INCLUDE_PUBNUB;ENABLE_PLAYMODE_TESTS_RUNNER;ENABLE_SCRIPTING_NEW_CSHARP_COMPILER;ENABLE_VIDEO;UNITY_ANDROID;ENABLE_SUBSTANCE;UNITY_ANDROID_API;ENABLE_EGL;ENABLE_NETWORK;ENABLE_RUNTIME_GI;ENABLE_CRUNCH_TEXTURE_COMPRESSION;ENABLE_UNITYWEBREQUEST;ENABLE_CLOUD_SERVICES;ENABLE_CLOUD_SERVICES_ANALYTICS;ENABLE_CLOUD_SERVICES_PURCHASING;ENABLE_CLOUD_SERVICES_CRASH_REPORTING;PLATFORM_SUPPORTS_ADS_ID;UNITY_CAN_SHOW_SPLASH_SCREEN;ENABLE_VR;ENABLE_UNITYADS_RUNTIME;UNITY_UNITYADS_API;ENABLE_MONO;NET_2_0_SUBSET;ENABLE_PROFILER;DEBUG;TRACE;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_64;UNITY_EDITOR_WIN;ENABLE_NATIVE_ARRAY_CHECKS;UNITY_TEAM_LICENSE;ENABLE_VSTU;CROSS_PLATFORM_INPUT;MOBILE_INPUT;UNITY_HAS_GOOGLEVR</DefineConstants>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -38,7 +38,7 @@
     <IntermediateOutputPath>Temp\UnityVS_obj\Release\</IntermediateOutputPath>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DefineConstants>TRACE;UNITY_5_3_OR_NEWER;UNITY_5_4_OR_NEWER;UNITY_5_5_OR_NEWER;UNITY_5_6_OR_NEWER;UNITY_5_6_6;UNITY_5_6;UNITY_5;UNITY_ANALYTICS;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_DUCK_TYPING;ENABLE_GENERICS;ENABLE_PVR_GI;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_RUNTIME_NAVMESH_BUILDING;ENABLE_SPRITERENDERER_FLIPPING;ENABLE_SPRITES;ENABLE_TERRAIN;ENABLE_RAKNET;ENABLE_UNET;ENABLE_LZMA;ENABLE_UNITYEVENTS;ENABLE_WEBCAM;ENABLE_WWW;ENABLE_CLOUD_SERVICES_COLLAB;ENABLE_CLOUD_SERVICES_ADS;ENABLE_CLOUD_HUB;ENABLE_CLOUD_PROJECT_ID;ENABLE_CLOUD_SERVICES_UNET;ENABLE_CLOUD_SERVICES_BUILD;ENABLE_CLOUD_LICENSE;ENABLE_EDITOR_METRICS;ENABLE_EDITOR_METRICS_CACHING;ENABLE_NATIVE_ARRAY;INCLUDE_DYNAMIC_GI;INCLUDE_GI;PLATFORM_SUPPORTS_MONO;RENDER_SOFTWARE_CURSOR;INCLUDE_PUBNUB;ENABLE_PLAYMODE_TESTS_RUNNER;ENABLE_SCRIPTING_NEW_CSHARP_COMPILER;ENABLE_VIDEO;UNITY_STANDALONE_WIN;UNITY_STANDALONE;ENABLE_SUBSTANCE;ENABLE_RUNTIME_GI;ENABLE_MOVIES;ENABLE_NETWORK;ENABLE_CRUNCH_TEXTURE_COMPRESSION;ENABLE_UNITYWEBREQUEST;ENABLE_CLOUD_SERVICES;ENABLE_CLOUD_SERVICES_ANALYTICS;ENABLE_CLOUD_SERVICES_PURCHASING;ENABLE_CLOUD_SERVICES_CRASH_REPORTING;ENABLE_EVENT_QUEUE;ENABLE_CLUSTERINPUT;ENABLE_VR;ENABLE_WEBSOCKET_HOST;ENABLE_MONO;NET_2_0_SUBSET;ENABLE_PROFILER;DEBUG;TRACE;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_64;UNITY_EDITOR_WIN;ENABLE_NATIVE_ARRAY_CHECKS;UNITY_TEAM_LICENSE;ENABLE_VSTU;CROSS_PLATFORM_INPUT</DefineConstants>
+    <DefineConstants>TRACE;UNITY_5_3_OR_NEWER;UNITY_5_4_OR_NEWER;UNITY_5_5_OR_NEWER;UNITY_5_6_OR_NEWER;UNITY_5_6_6;UNITY_5_6;UNITY_5;UNITY_ANALYTICS;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_GENERICS;ENABLE_PVR_GI;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_RUNTIME_NAVMESH_BUILDING;ENABLE_SPRITERENDERER_FLIPPING;ENABLE_SPRITES;ENABLE_TERRAIN;ENABLE_RAKNET;ENABLE_UNET;ENABLE_LZMA;ENABLE_UNITYEVENTS;ENABLE_WEBCAM;ENABLE_WWW;ENABLE_CLOUD_SERVICES_COLLAB;ENABLE_CLOUD_SERVICES_ADS;ENABLE_CLOUD_HUB;ENABLE_CLOUD_PROJECT_ID;ENABLE_CLOUD_SERVICES_UNET;ENABLE_CLOUD_SERVICES_BUILD;ENABLE_CLOUD_LICENSE;ENABLE_EDITOR_METRICS;ENABLE_EDITOR_METRICS_CACHING;ENABLE_NATIVE_ARRAY;INCLUDE_DYNAMIC_GI;INCLUDE_GI;PLATFORM_SUPPORTS_MONO;INCLUDE_PUBNUB;ENABLE_PLAYMODE_TESTS_RUNNER;ENABLE_SCRIPTING_NEW_CSHARP_COMPILER;ENABLE_VIDEO;UNITY_ANDROID;ENABLE_SUBSTANCE;UNITY_ANDROID_API;ENABLE_EGL;ENABLE_NETWORK;ENABLE_RUNTIME_GI;ENABLE_CRUNCH_TEXTURE_COMPRESSION;ENABLE_UNITYWEBREQUEST;ENABLE_CLOUD_SERVICES;ENABLE_CLOUD_SERVICES_ANALYTICS;ENABLE_CLOUD_SERVICES_PURCHASING;ENABLE_CLOUD_SERVICES_CRASH_REPORTING;PLATFORM_SUPPORTS_ADS_ID;UNITY_CAN_SHOW_SPLASH_SCREEN;ENABLE_VR;ENABLE_UNITYADS_RUNTIME;UNITY_UNITYADS_API;ENABLE_MONO;NET_2_0_SUBSET;ENABLE_PROFILER;DEBUG;TRACE;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_64;UNITY_EDITOR_WIN;ENABLE_NATIVE_ARRAY_CHECKS;UNITY_TEAM_LICENSE;ENABLE_VSTU;CROSS_PLATFORM_INPUT;MOBILE_INPUT;UNITY_HAS_GOOGLEVR</DefineConstants>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
@@ -79,12 +79,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="xxx.Plugins.csproj">
-      <Project>{1C6909AB-AE4C-29E6-F1D1-3E4CCAF7D1DA}</Project>
-      <Name>xxx.Plugins</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
+    <Compile Include="Assets\0_script\AiLogic\view.cs" />
     <Compile Include="Assets\0_script\Camera\CamFollow1.cs" />
     <Compile Include="Assets\0_script\Camera\CameraControl.cs" />
     <Compile Include="Assets\0_script\Collector\Error.cs" />
@@ -103,6 +98,8 @@
     <Compile Include="Assets\0_script\Config\5weapon\BoomData.cs" />
     <Compile Include="Assets\0_script\Config\6ai\PatrolData.cs" />
     <Compile Include="Assets\0_script\Config\7cube\MaterialVo.cs" />
+    <Compile Include="Assets\0_script\Config\8prop\PropDataValueData.cs" />
+    <Compile Include="Assets\0_script\Config\9skill\SkillData.cs" />
     <Compile Include="Assets\0_script\Config\Base\CsvData1.cs" />
     <Compile Include="Assets\0_script\Config\Base\CsvData2.cs" />
     <Compile Include="Assets\0_script\Config\Base\DataAll.cs" />
@@ -114,11 +111,16 @@
     <Compile Include="Assets\0_script\Config\map\MapConfig.cs" />
     <Compile Include="Assets\0_script\Helper\ArrayTransfer.cs" />
     <Compile Include="Assets\0_script\Helper\Log.cs" />
+    <Compile Include="Assets\0_script\NeverDestroy\Edit\CollisionCreator.cs" />
     <Compile Include="Assets\0_script\NeverDestroy\Edit\MapGenerate.cs" />
     <Compile Include="Assets\0_script\NeverDestroy\Edit\MapManager.cs" />
     <Compile Include="Assets\0_script\NeverDestroy\Edit\MonsterManager.cs" />
     <Compile Include="Assets\0_script\NeverDestroy\Edit\PassMananger.cs" />
+    <Compile Include="Assets\0_script\NeverDestroy\Edit\PlayerManager.cs" />
+    <Compile Include="Assets\0_script\NeverDestroy\Edit\PropManager.cs" />
+    <Compile Include="Assets\0_script\NeverDestroy\Edit\SkillManager.cs" />
     <Compile Include="Assets\0_script\NeverDestroy\Edit\TrapManager.cs" />
+    <Compile Include="Assets\0_script\NeverDestroy\Edit\UseAndCtrlManager.cs" />
     <Compile Include="Assets\0_script\NeverDestroy\InGame\Assets.cs" />
     <Compile Include="Assets\0_script\NeverDestroy\InGame\Csv.cs" />
     <Compile Include="Assets\0_script\NeverDestroy\InGame\MonoSingleton.cs" />
@@ -126,13 +128,36 @@
     <Compile Include="Assets\0_script\Notice\NEvt.cs" />
     <Compile Include="Assets\0_script\Notice\Notice.cs" />
     <Compile Include="Assets\0_script\Shared\LocalData.cs" />
+    <Compile Include="Assets\0_script\Ui\Battle\MoveControl.cs" />
     <Compile Include="Assets\0_script\Ui\Battle\SkillCDView.cs" />
+    <Compile Include="Assets\0_script\Ui\back\BackItem.cs" />
+    <Compile Include="Assets\0_script\Ui\back\BackPanel.cs" />
+    <Compile Include="Assets\0_script\Ui\common\ButtomControl.cs" />
     <Compile Include="Assets\0_script\Ui\common\Extension\BaseImage.cs" />
     <Compile Include="Assets\0_script\Ui\common\Extension\CircleImage.cs" />
     <Compile Include="Assets\0_script\Ui\common\Extension\SetPropertyUtility.cs" />
     <Compile Include="Assets\0_script\Unit\0common\yuan.cs" />
-    <Compile Include="Assets\0_script\Unit\1ai\EnemyAI.cs" />
-    <Compile Include="Assets\0_script\Unit\1ai\EnemyAutoAi.cs" />
+    <Compile Include="Assets\0_script\Unit\1monster\1ai\EnemyAI.cs" />
+    <Compile Include="Assets\0_script\Unit\1monster\1ai\EnemyAutoAi.cs" />
+    <Compile Include="Assets\0_script\Unit\1monster\1ai\Grid.cs" />
+    <Compile Include="Assets\0_script\Unit\1monster\1ai\Node.cs" />
+    <Compile Include="Assets\0_script\Unit\1monster\Archer01.cs" />
+    <Compile Include="Assets\0_script\Unit\1monster\CattleMan.cs" />
+    <Compile Include="Assets\0_script\Unit\1monster\CrabBig.cs" />
+    <Compile Include="Assets\0_script\Unit\1monster\CrabLil.cs" />
+    <Compile Include="Assets\0_script\Unit\1monster\Dragon.cs" />
+    <Compile Include="Assets\0_script\Unit\1monster\Dragon01.cs" />
+    <Compile Include="Assets\0_script\Unit\1monster\Ghost.cs" />
+    <Compile Include="Assets\0_script\Unit\1monster\LitSpider.cs" />
+    <Compile Include="Assets\0_script\Unit\1monster\MonsterEntity.cs" />
+    <Compile Include="Assets\0_script\Unit\1monster\Pig2.cs" />
+    <Compile Include="Assets\0_script\Unit\1monster\PigMonster.cs" />
+    <Compile Include="Assets\0_script\Unit\1monster\SnakeMan.cs" />
+    <Compile Include="Assets\0_script\Unit\1monster\SpiderMan.cs" />
+    <Compile Include="Assets\0_script\Unit\1monster\Warrior01.cs" />
+    <Compile Include="Assets\0_script\Unit\1monster\WildMan1.cs" />
+    <Compile Include="Assets\0_script\Unit\1monster\WildMan2.cs" />
+    <Compile Include="Assets\0_script\Unit\1monster\WolfMan.cs" />
     <Compile Include="Assets\0_script\Unit\2skill\effect\CanYing.cs" />
     <Compile Include="Assets\0_script\Unit\2skill\effect\FadeInOut.cs" />
     <Compile Include="Assets\0_script\Unit\2skill\effect\GhostItem.cs" />
@@ -143,7 +168,9 @@
     <Compile Include="Assets\0_script\Unit\4weapon\ShootCollisoon.cs" />
     <Compile Include="Assets\0_script\Unit\4weapon\boom\Boom.cs" />
     <Compile Include="Assets\0_script\Unit\4weapon\boom\BoomCollision.cs" />
+    <Compile Include="Assets\0_script\Unit\CollisionLogic.cs" />
     <Compile Include="Assets\0_script\Unit\GameMain.cs" />
+    <Compile Include="Assets\0_script\Unit\PropObject.cs" />
     <Compile Include="Assets\0_script\Unit\plyaer.cs" />
     <Compile Include="Assets\0_script\mapcreat\CameraMove.cs" />
     <Compile Include="Assets\0_script\mapcreat\CreatModeConf.cs" />
@@ -193,6 +220,7 @@
     <Compile Include="Assets\Resources\map\Standard Assets\Effects\ImageEffects\Scripts\Vortex.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\1_shader\Character.shader" />
     <None Include="Assets\1_shader\Xray.shader" />
     <None Include="Assets\Resources\enemy\11kAnimatedFantasyHeroes\Documentation.txt" />
     <None Include="Assets\Resources\map\Standard Assets\Effects\GlassRefraction\Shaders\GlassStainedBumpDistort.shader" />
@@ -271,14 +299,10 @@
     <None Include="Assets\Resources\map\Standard Assets\Effects\ToonShading\Shaders\ToonBasicOutline.shader" />
     <None Include="Assets\Resources\map\Standard Assets\Effects\ToonShading\Shaders\ToonLit.shader" />
     <None Include="Assets\Resources\map\Standard Assets\Effects\ToonShading\Shaders\ToonLitOutline.shader" />
-    <None Include="Assets\Standard Assets\Characters\ThirdPersonCharacter\ThirdPersonCharacterGuidelines.txt" />
-    <None Include="Assets\Standard Assets\CrossPlatformInput\CrossPlatformInputGuidelines.txt" />
-    <None Include="Assets\Standard Assets\Fonts\OpenSans\License!.txt" />
     <None Include="Assets\StreamingAssets\box.XML" />
-    <None Include="Assets\StreamingAssets\enemy - 副本.XML" />
-    <None Include="Assets\StreamingAssets\enemy.XML" />
+    <None Include="Assets\StreamingAssets\enemy.xml" />
     <None Include="Assets\StreamingAssets\group.XML" />
-    <None Include="Assets\StreamingAssets\pass.XML" />
+    <None Include="Assets\StreamingAssets\pass.xml" />
     <None Include="Assets\StreamingAssets\pass111.XML" />
     <None Include="Assets\StreamingAssets\passInfo.XML" />
   </ItemGroup>

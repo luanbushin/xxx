@@ -25,12 +25,8 @@ public class MonsterManager : MonoNotice
     }
 
     void Start () {
-        DataAll.addStart(MonsterPresetData.start);
 
-        DataAll.start(() =>
-        {
-            StartCoroutine(loadCompleteInfo());
-        });
+  
 
         addListener(Notice.EnemyCreat, (string s,GameObject gameo) =>
         {
@@ -80,12 +76,7 @@ public class MonsterManager : MonoNotice
 
 
 
-    private IEnumerator loadCompleteInfo()
-    {
-        //var data = MonsterPresetData.get(1);
-        Notice.EnemyComplete.broadcast();
-        yield return 1;
-    }
+
 
     public void initMonster(Dictionary<Vector3, int> enemlist) {
 

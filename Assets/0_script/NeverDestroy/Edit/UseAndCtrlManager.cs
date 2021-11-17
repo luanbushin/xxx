@@ -21,6 +21,11 @@ public class UseAndCtrlManager : MonoNotice
         player = GameMain.Instance.player.GetComponent<plyaer>();
         addListener(Notice.Click_Use_Skill, (id) =>
         {
+            if (id == "E")
+            {
+                Debug.Log(id);
+                PlayerManager.Instance.backPanel.SetActive(true);
+            }
             if (id == "M") {
                 Debug.Log("=");
             }

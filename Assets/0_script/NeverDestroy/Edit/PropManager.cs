@@ -2,6 +2,7 @@
 using System.Collections;
 using Game;
 using Game.Noticfacation;
+using Game.Config;
 
 public class PropManager : MonoNotice
 {
@@ -15,6 +16,7 @@ public class PropManager : MonoNotice
     }
     void Start()
     {
+
         addListener(Notice.CreatProp, (Vector3 v3,string s) =>
         {
             GameObject obj = GameObject.Instantiate(propObj, v3, propObj.transform.rotation);
@@ -29,6 +31,12 @@ public class PropManager : MonoNotice
         });
     }
 
+    public void initProp() {
+
+        Debug.Log(PropData.get(1).image);
+    }
+
+
     public GameObject getPropModel(string str)
     {
         //return (GameObject)Resources.Load("enemy/"+str);.
@@ -39,6 +47,5 @@ public class PropManager : MonoNotice
     // Update is called once per frame
     void Update()
     {
-
     }
 }

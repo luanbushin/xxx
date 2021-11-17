@@ -6,12 +6,17 @@ using System;
 
 public class PlayerManager : MonoNotice
 {
+    public static PlayerManager Instance;
+
     public GameObject player;
+    public GameObject backPanel;
 
     public int TranslateSpeed = 4;
     // Use this for initialization
     void Start()
     {
+        Instance = this;
+        backPanel.SetActive(false);
         addListener(Notice.CTRL_MOVE, (float dx, float dz, float angle) =>
         {
             onControlMove(dx, dz, angle);

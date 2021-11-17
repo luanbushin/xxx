@@ -68,6 +68,7 @@ namespace Game.Noticfacation
         public static readonly NES Click_Use_Skill = new NES();
 
         public static readonly NE EnemyComplete = new NE();
+        public static readonly NE ItemLoadComplete = new NE();
 
 
         /**战斗*/
